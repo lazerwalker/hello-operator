@@ -1,4 +1,4 @@
-int LOW_PIN = 10;
+int LOW_PIN = 9;
 int HIGH_PIN = 13;
 int NUMBER_OF_PINS = HIGH_PIN - LOW_PIN + 1;
 
