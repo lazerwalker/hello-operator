@@ -2,12 +2,12 @@ _ = require "underscore"
 
 PhonePin = 9
 
-pinMapping = {
-  10: "Alice",
-  11: "Bob",
-  12: "Charlie",
-  13: "Daniel"
-}
+people = [
+  {pin: 10, name: "Alice"},
+  {pin: 11, name: "Bob"},
+  {pin: 12, name: "Charlie"},
+  {pin: 13, name: "Daniel"}
+]
 
 # Game
 calls = []
@@ -19,8 +19,8 @@ pickUpPhone = (caller) ->
 
   call.pickedUp = true
 
-  console.log "Picked up #{call.sender}"
-  console.log "\"Hey, it's #{call.sender}. Can I talk to #{call.recipient}?\""
+  console.log "Picked up #{call.sender.name}"
+  console.log "\"Hey, it's #{call.sender.name}. Can I talk to #{call.recipient.name}?\""
 
 match = (callers) ->
   first = callers[0]
@@ -37,15 +37,15 @@ match = (callers) ->
   addNewCall()
 
 addNewCall = ->
-  [first, second] = _.sample(Object.keys(pinMapping), 2)
+  [first, second] = _.sample(people, 2)
 
   instruction = {
-    sender: pinMapping[first],
-    recipient: pinMapping[second]
+    sender: first,
+    recipient: second
   }
 
   calls.push(instruction)
-  console.log "#{instruction.sender} is calling!"
+  console.log "#{instruction.sender.name} is calling!"
 
 addNewCall()
 
@@ -53,17 +53,16 @@ addNewCall()
 serialport = require "serialport"
 SerialPort = serialport.SerialPort
 serial = new SerialPort "/dev/tty.usbserial-A5025WB7",
-  parser: serialport.parsers.readline '\n'
+  parser: serialport.parsers.readline "\r\n"
 
 serial.on "open", =>
   serial.on "data", (data) =>
     event = JSON.parse(data)
-
     if event.type is "on"
       if PhonePin in event.values
-        other = _.without(event.values, PhonePin)[0]
-        otherName = pinMapping[other]
-        pickUpPhone(otherName)
+        otherPin = _.without(event.values, PhonePin)[0]
+        other = _(people).findWhere pin: otherPin
+        pickUpPhone(other)
       else
-        event.values = event.values.map (v) -> pinMapping[v]
+        event.values = event.values.map (pin) -> _(people).findWhere pin: pin
         match(event.values)
