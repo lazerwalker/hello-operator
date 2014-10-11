@@ -53,7 +53,7 @@ addNewCall()
 serialport = require "serialport"
 SerialPort = serialport.SerialPort
 serial = new SerialPort "/dev/tty.usbserial-A5025WB7",
-  parser: serialport.parsers.readline '\r'
+  parser: serialport.parsers.readline '\n'
 
 serial.on "open", =>
   serial.on "data", (data) =>
