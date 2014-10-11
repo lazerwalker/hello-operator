@@ -1,4 +1,5 @@
 _ = require "underscore"
+exec = require('child_process').exec
 
 PhonePin = 2
 
@@ -26,6 +27,7 @@ pickUpPhone = (caller) ->
   call.pickedUp = true
 
   console.log "Picked up #{call.sender.name}"
+  exec "afplay audio/a1.aiff"
   console.log "\"Hey, it's #{call.sender.name}. Can I talk to #{call.recipient.name}?\""
 
 match = (callers) ->
