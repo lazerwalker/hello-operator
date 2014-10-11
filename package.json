@@ -1,0 +1,6 @@
+{
+  "name": "switchboard",
+  "dependencies": {
+    "serialport": "~1.4.6"
+  }
+}
