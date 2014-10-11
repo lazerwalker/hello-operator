@@ -15,6 +15,9 @@ calls = []
 pickUpPhone = (caller) ->
   call = _(calls).findWhere {sender: caller}
   return unless call
+  return if call.pickedUp
+
+  call.pickedUp = true
 
   console.log "Picked up #{call.sender}"
   console.log "\"Hey, it's #{call.sender}. Can I talk to #{call.recipient}?\""
