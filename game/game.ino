@@ -7,11 +7,11 @@ int STATE_UNUSED = -1;
 int state[20];
 
 String onJSON(int a, int b) {
-  return "{\"on\": [" + String(a) + "," + String(b) + "]}";
+  return "{\"type\": \"on\", \"values\": [" + String(a) + "," + String(b) + "]}";
 }
 
 String offJSON(int a, int b) {
-  return "{\"off\": [" + String(a) + "," + String(b) + "]}";
+  return "{\"type\": \"off\", \"values\": [" + String(a) + "," + String(b) + "]}";
 }
 
 void setup() {
