@@ -33,21 +33,30 @@ match = (callers) ->
 
   console.log "Yay!"
 
+  first.busy = false
+  second.busy = false
+
   calls = _(calls).without(call)
   addNewCall()
 
 addNewCall = ->
-  [first, second] = _.sample(people, 2)
+  [first, second] = _(people).chain()
+    .reject((p) -> p.busy)
+    .sample(2)
+    .value()
+
+  return unless first and second
 
   instruction = {
     sender: first,
     recipient: second
   }
 
+  first.busy = true
+  second.busy = true
+
   calls.push(instruction)
   console.log "#{instruction.sender.name} is calling!"
-
-addNewCall()
 
 # Serial port
 serialport = require "serialport"
@@ -66,3 +75,6 @@ serial.on "open", =>
       else
         event.values = event.values.map (pin) -> _(people).findWhere pin: pin
         match(event.values)
+
+# Start it up!
+addNewCall()
