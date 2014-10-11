@@ -41,7 +41,7 @@ void loop() {
         state[i] = j;
         
       } else if (val == HIGH) {
-        if (state[j] != STATE_UNUSED && state[i] != STATE_UNUSED) {
+        if (state[j] == i && state[i] == j) {
           Serial.println(offJSON(i, j));
           state[i] = STATE_UNUSED;
           state[j] = STATE_UNUSED;
