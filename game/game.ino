@@ -1,6 +1,5 @@
-int LOW_PIN = 9;
+int LOW_PIN = 2;
 int HIGH_PIN = 13;
-int NUMBER_OF_PINS = HIGH_PIN - LOW_PIN + 1;
 
 int STATE_UNUSED = -1;
 

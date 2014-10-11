@@ -1,12 +1,18 @@
 _ = require "underscore"
 
-PhonePin = 9
+PhonePin = 2
 
 people = [
-  {pin: 10, name: "Alice"},
-  {pin: 11, name: "Bob"},
-  {pin: 12, name: "Charlie"},
-  {pin: 13, name: "Daniel"}
+  {pin: 3, name: "1A"},
+  {pin: 4, name: "1B"},
+  {pin: 5, name: "1C"},
+  {pin: 6, name: "1D"},
+  {pin: 7, name: "1E"},
+  {pin: 8, name: "2A"},
+  {pin: 9, name: "2B"},
+  {pin: 10, name: "2C"},
+  {pin: 11, name: "2D"},
+  {pin: 12, name: "2E"},
 ]
 
 # Game
