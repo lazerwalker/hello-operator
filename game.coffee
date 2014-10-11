@@ -3,6 +3,9 @@ exec = require('child_process').exec
 
 PhonePin = 2
 
+INPUT_RATE = 9600
+OUTPUT_RATE = 19200
+
 people = [
   {pin: 3, name: "1A"},
   {pin: 4, name: "1B"},
@@ -24,6 +27,7 @@ pickUpPhone = (caller) ->
   return unless call
   return if call.pickedUp
 
+  ledOff(call.sender)
   call.pickedUp = true
 
   console.log "Picked up #{call.sender.name}"
@@ -53,6 +57,8 @@ addNewCall = ->
     .sample(2)
     .value()
 
+  first = people[0]
+
   return unless first and second
 
   instruction = {
@@ -66,14 +72,21 @@ addNewCall = ->
   calls.push(instruction)
   console.log "#{instruction.sender.name} is calling!"
 
+  ledOn(instruction.sender)
+
 # Serial port
 serialport = require "serialport"
 SerialPort = serialport.SerialPort
-serial = new SerialPort "/dev/tty.usbserial-A5025WB7",
-  parser: serialport.parsers.readline "\r\n"
 
-serial.on "open", =>
-  serial.on "data", (data) =>
+input = new SerialPort "/dev/tty.usbserial-A5025WB7",
+  parser: serialport.parsers.readline "\r\n"
+  baudrate: INPUT_RATE
+output = new SerialPort "/dev/tty.usbserial-A5025WB7",
+  parser: serialport.parsers.readline "\r\n"
+  baudrate: OUTPUT_RATE
+
+input.on "open", =>
+  input.on "data", (data) =>
     event = JSON.parse(data)
     if event.type is "on"
       if PhonePin in event.values
@@ -85,4 +98,14 @@ serial.on "open", =>
         match(event.values)
 
 # Start it up!
-addNewCall()
+output.on "open", ->
+  output.on "data", (data) ->
+    if data is "ready"
+      addNewCall()
+
+ledOn = (person) ->
+  output.write "#{person.pin}"
+
+ledOff = (person) ->
+  output.write "-#{person.pin}"
+
