@@ -69,8 +69,6 @@ addNewCall = ->
     .sample(2)
     .value()
 
-  first = people[0]
-
   return unless first and second
 
   instruction = {
