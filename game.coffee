@@ -53,7 +53,7 @@ match = (callers) ->
   call = _(calls).findWhere {sender: first, recipient: second}
   unless call
     call = _(calls).findWhere {sender: second, recipient: first}
-  return unless call
+  return unless call and call.pickedUp
 
   console.log "Yay!"
 
