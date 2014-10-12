@@ -1,5 +1,5 @@
 int LOW_PIN = 2;
-int HIGH_PIN = 13;
+int HIGH_PIN = 12;
 
 int STATE_UNUSED = -1;
 
