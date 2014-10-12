@@ -4,7 +4,9 @@ exec = require('child_process').exec
 PhonePin = 2
 
 INPUT_RATE = 9600
-OUTPUT_RATE = 19200
+INPUT_PORT= "/dev/tty.usbserial-A5025WB7"
+OUTPUT_RATE = 9600
+OUTPUT_PORT = "/dev/tty.usbmodem1411"
 
 people = [
   {pin: 3, name: "1A"},
@@ -21,6 +23,12 @@ people = [
 
 # Game
 calls = []
+
+ledOn = (person) ->
+  output.write "#{person.pin}"
+
+ledOff = (person) ->
+  output.write "-#{person.pin}"
 
 pickUpPhone = (caller) ->
   call = _(calls).findWhere {sender: caller}
@@ -78,10 +86,11 @@ addNewCall = ->
 serialport = require "serialport"
 SerialPort = serialport.SerialPort
 
-input = new SerialPort "/dev/tty.usbserial-A5025WB7",
+input = new SerialPort INPUT_PORT,
   parser: serialport.parsers.readline "\r\n"
   baudrate: INPUT_RATE
-output = new SerialPort "/dev/tty.usbserial-A5025WB7",
+
+output = new SerialPort OUTPUT_PORT,
   parser: serialport.parsers.readline "\r\n"
   baudrate: OUTPUT_RATE
 
@@ -102,10 +111,3 @@ output.on "open", ->
   output.on "data", (data) ->
     if data is "ready"
       addNewCall()
-
-ledOn = (person) ->
-  output.write "#{person.pin}"
-
-ledOff = (person) ->
-  output.write "-#{person.pin}"
-
