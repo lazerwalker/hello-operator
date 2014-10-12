@@ -8,6 +8,8 @@ INPUT_PORT= "/dev/tty.usbserial-A5025WB7"
 OUTPUT_RATE = 9600
 OUTPUT_PORT = "/dev/tty.usbmodem1411"
 
+USE_OUTPUT = false
+
 people = [
   {pin: 3, name: "1A"},
   {pin: 4, name: "1B"},
@@ -25,9 +27,11 @@ people = [
 calls = []
 
 ledOn = (person) ->
+  return unless USE_OUTPUT
   output.write "#{person.pin}"
 
 ledOff = (person) ->
+  return unless USE_OUTPUT
   output.write "-#{person.pin}"
 
 pickUpPhone = (caller) ->
@@ -90,9 +94,10 @@ input = new SerialPort INPUT_PORT,
   parser: serialport.parsers.readline "\r\n"
   baudrate: INPUT_RATE
 
-output = new SerialPort OUTPUT_PORT,
-  parser: serialport.parsers.readline "\r\n"
-  baudrate: OUTPUT_RATE
+if USE_OUTPUT
+  output = new SerialPort OUTPUT_PORT,
+    parser: serialport.parsers.readline "\r\n"
+    baudrate: OUTPUT_RATE
 
 input.on "open", =>
   input.on "data", (data) =>
@@ -107,7 +112,10 @@ input.on "open", =>
         match(event.values)
 
 # Start it up!
-output.on "open", ->
-  output.on "data", (data) ->
-    if data is "ready"
-      addNewCall()
+if USE_OUTPUT
+  output.on "open", ->
+    output.on "data", (data) ->
+      if data is "ready"
+        addNewCall()
+else
+  addNewCall()
