@@ -1,15 +1,6 @@
 _ = require "underscore"
 exec = require('child_process').exec
 
-PhonePin = 2
-
-INPUT_RATE = 9600
-INPUT_PORT= "/dev/tty.usbserial-A5025WB7"
-OUTPUT_RATE = 9600
-OUTPUT_PORT = "/dev/tty.usbmodem1411"
-
-USE_OUTPUT = false
-
 people = [
   {pin: 3, name: "1A"},
   {pin: 4, name: "1B"},
@@ -84,36 +75,6 @@ addNewCall = ->
 
   ledOn(instruction.sender)
 
-# Serial port
-serialport = require "serialport"
-SerialPort = serialport.SerialPort
 
-input = new SerialPort INPUT_PORT,
-  parser: serialport.parsers.readline "\r\n"
-  baudrate: INPUT_RATE
-
-if USE_OUTPUT
-  output = new SerialPort OUTPUT_PORT,
-    parser: serialport.parsers.readline "\r\n"
-    baudrate: OUTPUT_RATE
-
-input.on "open", =>
-  input.on "data", (data) =>
-    event = JSON.parse(data)
-    if event.type is "on"
-      if PhonePin in event.values
-        otherPin = _.without(event.values, PhonePin)[0]
-        other = _(people).findWhere pin: otherPin
-        pickUpPhone(other)
-      else
-        event.values = event.values.map (pin) -> _(people).findWhere pin: pin
-        match(event.values)
-
-# Start it up!
-if USE_OUTPUT
-  output.on "open", ->
-    output.on "data", (data) ->
-      if data is "ready"
-        addNewCall()
 else
   addNewCall()
