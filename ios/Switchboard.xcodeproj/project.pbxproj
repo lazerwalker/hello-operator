@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1FCDDE66EE19C4CE7B23BEBE /* Pods_Switchboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D075227E005B0FC4D23601A /* Pods_Switchboard.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C6545D3F1B8B8D8B00E845D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6545D3E1B8B8D8B00E845D3 /* AppDelegate.swift */; };
 		C6545D411B8B8D8B00E845D3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6545D401B8B8D8B00E845D3 /* ViewController.swift */; };
 		C6545D441B8B8D8B00E845D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6545D421B8B8D8B00E845D3 /* Main.storyboard */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8D075227E005B0FC4D23601A /* Pods_Switchboard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Switchboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6545D3B1B8B8D8B00E845D3 /* Switchboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Switchboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6545D3E1B8B8D8B00E845D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C6545D401B8B8D8B00E845D3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +24,8 @@
 		C6545D451B8B8D8B00E845D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C6545D481B8B8D8B00E845D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C6545D4A1B8B8D8B00E845D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EC4EE3346726C2F3F572BE37 /* Pods-Switchboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Switchboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Switchboard/Pods-Switchboard.debug.xcconfig"; sourceTree = "<group>"; };
+		FAF36A90086F01E2FCE736FD /* Pods-Switchboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Switchboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Switchboard/Pods-Switchboard.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FCDDE66EE19C4CE7B23BEBE /* Pods_Switchboard.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		32DA4A32A62095C777BD39D3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8D075227E005B0FC4D23601A /* Pods_Switchboard.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C6545D321B8B8D8B00E845D3 = {
 			isa = PBXGroup;
 			children = (
 				C6545D3D1B8B8D8B00E845D3 /* Switchboard */,
 				C6545D3C1B8B8D8B00E845D3 /* Products */,
+				D23A55149DE60BA1420F436A /* Pods */,
+				32DA4A32A62095C777BD39D3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +79,15 @@
 			path = Switchboard;
 			sourceTree = "<group>";
 		};
+		D23A55149DE60BA1420F436A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EC4EE3346726C2F3F572BE37 /* Pods-Switchboard.debug.xcconfig */,
+				FAF36A90086F01E2FCE736FD /* Pods-Switchboard.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C6545D4D1B8B8D8B00E845D3 /* Build configuration list for PBXNativeTarget "Switchboard" */;
 			buildPhases = (
+				042B1135649C885446EF20FA /* Check Pods Manifest.lock */,
 				C6545D371B8B8D8B00E845D3 /* Sources */,
 				C6545D381B8B8D8B00E845D3 /* Frameworks */,
 				C6545D391B8B8D8B00E845D3 /* Resources */,
+				33A81E9947E34FD3A1C1D809 /* Embed Pods Frameworks */,
+				3895EC7BB2E8326CF4B22AA9 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -128,6 +155,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		042B1135649C885446EF20FA /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		33A81E9947E34FD3A1C1D809 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Switchboard/Pods-Switchboard-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3895EC7BB2E8326CF4B22AA9 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Switchboard/Pods-Switchboard-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C6545D371B8B8D8B00E845D3 /* Sources */ = {
@@ -246,6 +321,7 @@
 		};
 		C6545D4E1B8B8D8B00E845D3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EC4EE3346726C2F3F572BE37 /* Pods-Switchboard.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Switchboard/Info.plist;
@@ -257,6 +333,7 @@
 		};
 		C6545D4F1B8B8D8B00E845D3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FAF36A90086F01E2FCE736FD /* Pods-Switchboard.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Switchboard/Info.plist;
@@ -285,6 +362,7 @@
 				C6545D4F1B8B8D8B00E845D3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
