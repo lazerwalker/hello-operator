@@ -88,6 +88,19 @@
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                    <connections>
+                        <outlet property="operatorView" destination="d5q-Jy-EaG" id="3W0-ko-GWe"/>
+                        <outletCollection property="callers" destination="qjx-2g-Omr" collectionClass="NSMutableArray" id="0ME-h4-twZ"/>
+                        <outletCollection property="callers" destination="wr4-Ae-WDO" collectionClass="NSMutableArray" id="Hxz-v0-4ZU"/>
+                        <outletCollection property="callers" destination="3Lr-L2-mDu" collectionClass="NSMutableArray" id="HKi-oQ-de1"/>
+                        <outletCollection property="callers" destination="Fqa-st-LJz" collectionClass="NSMutableArray" id="NYW-CC-a9l"/>
+                        <outletCollection property="callers" destination="bdH-OZ-BlD" collectionClass="NSMutableArray" id="9DT-Tm-UvV"/>
+                        <outletCollection property="callers" destination="BVi-Dw-hfq" collectionClass="NSMutableArray" id="GBg-Xc-2Ds"/>
+                        <outletCollection property="callers" destination="W0p-u3-vMg" collectionClass="NSMutableArray" id="BFS-SK-BVK"/>
+                        <outletCollection property="callers" destination="Htb-P1-sm8" collectionClass="NSMutableArray" id="CAG-f7-wdS"/>
+                        <outletCollection property="callers" destination="n5G-ol-4Ax" collectionClass="NSMutableArray" id="g89-oF-Vkm"/>
+                        <outletCollection property="callers" destination="DbS-3k-vmO" collectionClass="NSMutableArray" id="rQu-T9-2EA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

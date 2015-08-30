@@ -9,6 +9,9 @@
 import UIKit
 
 class ViewController: UIViewController {
+    @IBOutlet var callers: [CallerView]!
+    @IBOutlet weak var operatorView: CallerView!
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
