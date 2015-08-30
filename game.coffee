@@ -1,75 +1,72 @@
 _ = require "underscore"
 exec = require('child_process').exec
 
-ConsoleInterface = require './interfaces/console_interface'
+class Game
+  people: [
+    "1A"
+    "1B"
+    "1C"
+    "1D"
+    "1E"
+    "2A"
+    "2B"
+    "2C"
+    "2D"
+    "2E"
+  ]
+  constructor: ->
+    @calls = []
+    @interfaces = []
 
-people = [
-  "1A"
-  "1B"
-  "1C"
-  "1D"
-  "1E"
-  "2A"
-  "2B"
-  "2C"
-  "2D"
-  "2E"
-]
+  connectOperator: (caller) ->
+    call = _(@calls).findWhere {sender: caller}
+    return unless call
+    return if call.pickedUp
 
-# Game
-calls = []
-interfaces = []
+    call.pickedUp = true
 
+    i.askToConnect(call) for i in @interfaces
 
-connectOperator = (caller) ->
-  call = _(calls).findWhere {sender: caller}
-  return unless call
-  return if call.pickedUp
+  disconnectOperator: (caller) ->
 
-  call.pickedUp = true
+  connect: (first, second) ->
+    call = _(@calls).findWhere {sender: first, receiver: second}
+    unless call
+      call = _(@calls).findWhere {sender: second, receiver: first}
+    return unless call and call.pickedUp
 
-  i.askToConnect(call) for i in interfaces
+    i.completeCall(call) for i in @interfaces
 
-disconnectOperator = (caller) ->
+    first.busy = false
+    second.busy = false
 
-connect = (first, second) ->
-  call = _(calls).findWhere {sender: first, receiver: second}
-  unless call
-    call = _(calls).findWhere {sender: second, receiver: first}
-  return unless call and call.pickedUp
+    @calls = _(@calls).without(call)
+    @addNewCall()
 
-  i.completeCall(call) for i in interfaces
+  disconnect: (first, second) ->
 
-  first.busy = false
-  second.busy = false
+  addNewCall: ->
+    [first, second] = _(@people).chain()
+      .reject (p) -> p.busy
+      .sample(2)
+      .value()
 
-  calls = _(calls).without(call)
-  addNewCall()
+    return unless first and second
 
-disconnect = (first, second) ->
+    instruction =
+      sender: first,
+      receiver: second
 
+    first.busy = true
+    second.busy = true
 
-addNewCall = ->
-  [first, second] = _(people).chain()
-    .reject (p) -> p.busy
-    .sample(2)
-    .value()
+    @calls.push(instruction)
+    i.initiateCall(instruction.sender) for i in @interfaces
 
-  return unless first and second
+  addInterface: (Constructor) ->
+    @interfaces.push new Constructor(@people, @)
 
-  instruction =
-    sender: first,
-    receiver: second
+  startGame: ->
+    @addNewCall()
 
-  first.busy = true
-  second.busy = true
-
-  calls.push(instruction)
-
-
-
-  i.initiateCall(instruction.sender) for i in interfaces
-
-client = {connect, disconnect, connectOperator, disconnectOperator}
-interfaces.push new ConsoleInterface(people, client)
-addNewCall()
+module.exports = Game
