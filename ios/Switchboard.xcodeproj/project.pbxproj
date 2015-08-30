@@ -13,6 +13,8 @@
 		C6545D441B8B8D8B00E845D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6545D421B8B8D8B00E845D3 /* Main.storyboard */; };
 		C6545D461B8B8D8B00E845D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6545D451B8B8D8B00E845D3 /* Assets.xcassets */; };
 		C6545D491B8B8D8B00E845D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6545D471B8B8D8B00E845D3 /* LaunchScreen.storyboard */; };
+		C6B85B061B936AE100DCA936 /* CallerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B85B051B936AE100DCA936 /* CallerView.swift */; };
+		C6B85B081B936AF100DCA936 /* CallerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6B85B071B936AF100DCA936 /* CallerView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		C6545D451B8B8D8B00E845D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C6545D481B8B8D8B00E845D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C6545D4A1B8B8D8B00E845D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C6B85B051B936AE100DCA936 /* CallerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallerView.swift; sourceTree = "<group>"; };
+		C6B85B071B936AF100DCA936 /* CallerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CallerView.xib; sourceTree = "<group>"; };
 		EC4EE3346726C2F3F572BE37 /* Pods-Switchboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Switchboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Switchboard/Pods-Switchboard.debug.xcconfig"; sourceTree = "<group>"; };
 		FAF36A90086F01E2FCE736FD /* Pods-Switchboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Switchboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Switchboard/Pods-Switchboard.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -75,6 +79,8 @@
 				C6545D451B8B8D8B00E845D3 /* Assets.xcassets */,
 				C6545D471B8B8D8B00E845D3 /* LaunchScreen.storyboard */,
 				C6545D4A1B8B8D8B00E845D3 /* Info.plist */,
+				C6B85B051B936AE100DCA936 /* CallerView.swift */,
+				C6B85B071B936AF100DCA936 /* CallerView.xib */,
 			);
 			path = Switchboard;
 			sourceTree = "<group>";
@@ -149,6 +155,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6545D491B8B8D8B00E845D3 /* LaunchScreen.storyboard in Resources */,
+				C6B85B081B936AF100DCA936 /* CallerView.xib in Resources */,
 				C6545D461B8B8D8B00E845D3 /* Assets.xcassets in Resources */,
 				C6545D441B8B8D8B00E845D3 /* Main.storyboard in Resources */,
 			);
@@ -209,6 +216,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6B85B061B936AE100DCA936 /* CallerView.swift in Sources */,
 				C6545D411B8B8D8B00E845D3 /* ViewController.swift in Sources */,
 				C6545D3F1B8B8D8B00E845D3 /* AppDelegate.swift in Sources */,
 			);
