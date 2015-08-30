@@ -12,6 +12,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
             <connections>
                 <outlet property="contentView" destination="iN0-l3-epB" id="Z3e-3Y-wZl"/>
+                <outlet property="light" destination="6le-eT-8Bz" id="R2x-XZ-sIk"/>
+                <outlet property="nameLabel" destination="AU8-Lz-6Ng" id="iHk-rv-53h"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -25,6 +27,9 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="53" id="kO8-aY-awx"/>
                     </constraints>
+                    <connections>
+                        <action selector="didTapPlug:" destination="-1" eventType="touchUpInside" id="IHZ-nl-SwF"/>
+                    </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AU8-Lz-6Ng">
                     <rect key="frame" x="0.0" y="0.0" width="60" height="16"/>

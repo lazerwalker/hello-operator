@@ -1,7 +1,32 @@
 import UIKit
 
 @IBDesignable class CallerView: UIView {
+    @IBOutlet weak var nameLabel: UILabel!
+
+    @IBAction func didTapPlug(sender: AnyObject) {
+    }
+
+    func turnOnLight() {
+        light.backgroundColor = UIColor.greenColor()
+    }
+
+    func turnOffLight() {
+        light.backgroundColor = UIColor.lightGrayColor()
+    }
+
+    var name:String? {
+        get {
+            return nameLabel.text
+        }
+        set {
+            nameLabel.text = newValue
+        }
+    }
+
+    // --
+
     @IBOutlet weak private var contentView:UIView!
+    @IBOutlet weak private var light: UIView!
 
     override init(frame: CGRect) { // for using CustomView in code
         super.init(frame: frame)
