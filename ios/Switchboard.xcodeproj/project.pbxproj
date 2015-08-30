@@ -15,6 +15,10 @@
 		C6545D491B8B8D8B00E845D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6545D471B8B8D8B00E845D3 /* LaunchScreen.storyboard */; };
 		C6B85B061B936AE100DCA936 /* CallerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B85B051B936AE100DCA936 /* CallerView.swift */; };
 		C6B85B081B936AF100DCA936 /* CallerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6B85B071B936AF100DCA936 /* CallerView.xib */; };
+		C6B85B0C1B9380A300DCA936 /* game.js in Resources */ = {isa = PBXBuildFile; fileRef = C6B85B0B1B9380A300DCA936 /* game.js */; };
+		C6B85B0E1B9380FE00DCA936 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B85B0D1B9380FE00DCA936 /* GameManager.swift */; };
+		C6B85B101B93879700DCA936 /* underscore.js in Resources */ = {isa = PBXBuildFile; fileRef = C6B85B0F1B93879700DCA936 /* underscore.js */; };
+		C6B85B121B93945500DCA936 /* JSInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B85B111B93945500DCA936 /* JSInterface.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +32,10 @@
 		C6545D4A1B8B8D8B00E845D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6B85B051B936AE100DCA936 /* CallerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallerView.swift; sourceTree = "<group>"; };
 		C6B85B071B936AF100DCA936 /* CallerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CallerView.xib; sourceTree = "<group>"; };
+		C6B85B0B1B9380A300DCA936 /* game.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = game.js; path = ../../game.js; sourceTree = "<group>"; };
+		C6B85B0D1B9380FE00DCA936 /* GameManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
+		C6B85B0F1B93879700DCA936 /* underscore.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = underscore.js; path = ../../node_modules/underscore/underscore.js; sourceTree = "<group>"; };
+		C6B85B111B93945500DCA936 /* JSInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSInterface.swift; sourceTree = "<group>"; };
 		EC4EE3346726C2F3F572BE37 /* Pods-Switchboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Switchboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Switchboard/Pods-Switchboard.debug.xcconfig"; sourceTree = "<group>"; };
 		FAF36A90086F01E2FCE736FD /* Pods-Switchboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Switchboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Switchboard/Pods-Switchboard.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,6 +81,8 @@
 		C6545D3D1B8B8D8B00E845D3 /* Switchboard */ = {
 			isa = PBXGroup;
 			children = (
+				C6B85B0B1B9380A300DCA936 /* game.js */,
+				C6B85B0F1B93879700DCA936 /* underscore.js */,
 				C6545D3E1B8B8D8B00E845D3 /* AppDelegate.swift */,
 				C6545D401B8B8D8B00E845D3 /* ViewController.swift */,
 				C6545D421B8B8D8B00E845D3 /* Main.storyboard */,
@@ -81,6 +91,8 @@
 				C6545D4A1B8B8D8B00E845D3 /* Info.plist */,
 				C6B85B051B936AE100DCA936 /* CallerView.swift */,
 				C6B85B071B936AF100DCA936 /* CallerView.xib */,
+				C6B85B0D1B9380FE00DCA936 /* GameManager.swift */,
+				C6B85B111B93945500DCA936 /* JSInterface.swift */,
 			);
 			path = Switchboard;
 			sourceTree = "<group>";
@@ -154,7 +166,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6B85B101B93879700DCA936 /* underscore.js in Resources */,
 				C6545D491B8B8D8B00E845D3 /* LaunchScreen.storyboard in Resources */,
+				C6B85B0C1B9380A300DCA936 /* game.js in Resources */,
 				C6B85B081B936AF100DCA936 /* CallerView.xib in Resources */,
 				C6545D461B8B8D8B00E845D3 /* Assets.xcassets in Resources */,
 				C6545D441B8B8D8B00E845D3 /* Main.storyboard in Resources */,
@@ -217,6 +231,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6B85B061B936AE100DCA936 /* CallerView.swift in Sources */,
+				C6B85B0E1B9380FE00DCA936 /* GameManager.swift in Sources */,
+				C6B85B121B93945500DCA936 /* JSInterface.swift in Sources */,
 				C6545D411B8B8D8B00E845D3 /* ViewController.swift in Sources */,
 				C6545D3F1B8B8D8B00E845D3 /* AppDelegate.swift in Sources */,
 			);

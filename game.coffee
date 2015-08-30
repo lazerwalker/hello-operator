@@ -1,5 +1,6 @@
-_ = require "underscore"
-exec = require('child_process').exec
+root = exports ? this
+root._ = require('underscore') unless root._?
+  
 
 class Game
   people: [
@@ -19,7 +20,7 @@ class Game
     @interfaces = []
 
   connectOperator: (caller) ->
-    call = _(@calls).findWhere {sender: caller}
+    call = root._(@calls).findWhere {sender: caller}
     return unless call
     return if call.pickedUp
 
@@ -30,9 +31,9 @@ class Game
   disconnectOperator: (caller) ->
 
   connect: (first, second) ->
-    call = _(@calls).findWhere {sender: first, receiver: second}
+    call = root._(@calls).findWhere {sender: first, receiver: second}
     unless call
-      call = _(@calls).findWhere {sender: second, receiver: first}
+      call = root._(@calls).findWhere {sender: second, receiver: first}
     return unless call and call.pickedUp
 
     i.completeCall(call) for i in @interfaces
@@ -40,13 +41,13 @@ class Game
     first.busy = false
     second.busy = false
 
-    @calls = _(@calls).without(call)
+    @calls = root._(@calls).without(call)
     @addNewCall()
 
   disconnect: (first, second) ->
 
-  addNewCall: ->
-    [first, second] = _(@people).chain()
+  addNewCall: =>
+    [first, second] = root._(@people).chain()
       .reject (p) -> p.busy
       .sample(2)
       .value()
@@ -63,10 +64,17 @@ class Game
     @calls.push(instruction)
     i.initiateCall(instruction.sender) for i in @interfaces
 
-  addInterface: (Constructor) ->
-    @interfaces.push new Constructor(@people, @)
+  addInterface: (i) ->
+    i.people = @people
+    i.client = @
+    @interfaces.push i
 
   startGame: ->
     @addNewCall()
 
-module.exports = Game
+if module?.exports
+  module.exports = Game
+else if exports?
+    exports = Game
+else
+  @Game = Game
