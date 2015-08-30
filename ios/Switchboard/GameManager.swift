@@ -1,11 +1,9 @@
 import JavaScriptCore
 
 class GameManager {
-    let context:JSContext
+    let context = JSContext()
 
     init() {
-        context = JSContext()
-
         let log: @convention(block) (String) -> Void = { string1 in
             print("log:\(string1)")
         }
@@ -31,8 +29,9 @@ class GameManager {
         }
 
         context.evaluateScript(gameString)
+    }
 
-        let interface = JSInterface()
+    func startGame(interface:JSInterface) {
         context.setObject(interface, forKeyedSubscript: "JSInterface")
 
         context.evaluateScript("var game = new Game()")
