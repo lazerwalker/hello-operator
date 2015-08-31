@@ -10,7 +10,6 @@ import JavaScriptCore
     func askToConnect(sender:String, receiver:String)
 }
 
-// Custom class must inherit from `NSObject`
 @objc class JSInterface : NSObject, JSInterfaceExports {
     var onInitiateCall:((sender: String) -> Void)?
     var onCompleteCall:((sender: String, receiver:String) -> Void)?

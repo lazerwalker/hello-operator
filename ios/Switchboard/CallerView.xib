@@ -7,6 +7,9 @@
         <mutableArray key="CourierNewBold.ttf">
             <string>CourierNewPS-BoldMT</string>
         </mutableArray>
+        <mutableArray key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+        </mutableArray>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
@@ -28,6 +31,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="53" id="kO8-aY-awx"/>
                     </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                     <connections>
                         <action selector="didTapPlug:" destination="-1" eventType="touchUpInside" id="IHZ-nl-SwF"/>
                     </connections>

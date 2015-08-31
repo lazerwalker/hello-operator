@@ -24,6 +24,9 @@ class ViewController: UIViewController {
             c.onTap = self.didTapCaller
         }
 
+        operatorView.onTap = self.didTapCaller
+        operatorView.name = "OPER"
+
         interface.onPeopleChange = { people in
             for var i = 0; i < people.count; i++ {
                 let view = self.callers[i]
@@ -79,6 +82,10 @@ class ViewController: UIViewController {
     //-
 
     private func viewForCaller(caller:String) -> CallerView? {
+        if caller == "OPER" {
+            return self.operatorView
+        }
+
         if let index = self.interface.people.indexOf(caller) {
             return self.callers[index]
         }
@@ -86,6 +93,10 @@ class ViewController: UIViewController {
     }
 
     private func callerForView(view:CallerView) -> String? {
+        if view == self.operatorView {
+            return "OPER"
+        }
+
         if let index = self.callers.indexOf(view) {
             return self.interface.people[index]
         }
