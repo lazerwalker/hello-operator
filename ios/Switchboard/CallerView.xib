@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
             <connections>
+                <outlet property="button" destination="bjM-D0-594" id="BIC-Jb-9Q5"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="Z3e-3Y-wZl"/>
                 <outlet property="light" destination="6le-eT-8Bz" id="R2x-XZ-sIk"/>
                 <outlet property="nameLabel" destination="AU8-Lz-6Ng" id="iHk-rv-53h"/>

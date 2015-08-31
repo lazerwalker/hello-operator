@@ -2,8 +2,20 @@ import UIKit
 
 @IBDesignable class CallerView: UIView {
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var button: UIButton!
 
     @IBAction func didTapPlug(sender: AnyObject) {
+        self.onTap?(sender: self)
+    }
+
+    var onTap:((sender: CallerView) -> Void)?
+
+    func highlight() {
+        button.backgroundColor = UIColor.darkGrayColor()
+    }
+
+    func unhighlight() {
+        button.backgroundColor = UIColor.lightGrayColor()
     }
 
     func turnOnLight() {
