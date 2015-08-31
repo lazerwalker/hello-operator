@@ -44,6 +44,7 @@ class ViewController: UIViewController {
         let containing = connections.filter { $0.0 == caller || $0.1 == caller }
         if containing.count == 1 {
             caller.unhighlight()
+            caller.connected = nil
 
             if let (first, second) = containing.first {
                 let index = connections.indexOf { $0.0 == caller || $0.1 == caller }
@@ -51,6 +52,7 @@ class ViewController: UIViewController {
 
                 let other = (first == caller ? second : first)
                 if other != nil {
+                    other?.connected = nil
                     let new:(CallerView?, CallerView?) = (other, Optional.None as CallerView?)
                     connections.append(new)
                 }
@@ -61,6 +63,8 @@ class ViewController: UIViewController {
 
                 let other = connections.filter({ $0.1 == .None }).first!.0
                 connections.removeAtIndex(pairIndex)
+                other?.connected = callerForView(caller)
+                caller.connected = callerForView(other!)
                 let new:(CallerView?, CallerView?) = (other, caller)
                 connections.append(new)
             } else if connections.count < numberOfCords {

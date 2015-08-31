@@ -26,6 +26,15 @@ import UIKit
         light.backgroundColor = UIColor.lightGrayColor()
     }
 
+    var connected:String? {
+        get {
+            return button.titleForState(.Normal)
+        }
+        set {
+            button.setTitle(newValue, forState: .Normal)
+        }
+    }
+
     var name:String? {
         get {
             return nameLabel.text
