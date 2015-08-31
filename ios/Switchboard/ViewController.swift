@@ -91,8 +91,10 @@ class ViewController: UIViewController {
     func checkConnections() {
         let namedConnections = connections.map { (callerForView($0.0), callerForView($0.1)) }
         if let goal = interface.currentGoal {
-            if namedConnections.contains({ $0.0 == goal.0 && $0.1 == goal.1 }) {
-                interface.completeGoal()
+            if namedConnections.contains({
+                ($0.0 == goal.0 && $0.1 == goal.1) ||
+                ($0.0 == goal.1 && $0.1 == goal.0) }) {
+                    interface.completeGoal()
             }
         }
     }
