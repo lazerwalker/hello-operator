@@ -7,7 +7,11 @@ class ViewController: UIViewController {
     let interface:JSInterface
     let manager:GameManager
 
-    var connections:[(CallerView?, CallerView?)] = []
+    var connections:[(CallerView?, CallerView?)] = [] {
+        didSet {
+            self.checkConnections()
+        }
+    }
     let numberOfCords = 2
 
     required init(coder aDecoder: NSCoder) {
@@ -43,7 +47,6 @@ class ViewController: UIViewController {
 
     //-
     func didTapCaller(caller:CallerView) {
-        print(connections)
         let containing = connections.filter { $0.0 == caller || $0.1 == caller }
         if containing.count == 1 {
             caller.unhighlight()
@@ -81,6 +84,17 @@ class ViewController: UIViewController {
 
     //-
 
+    func checkConnections() {
+        let namedConnections = connections.map { (callerForView($0.0), callerForView($0.1)) }
+        if let goal = interface.currentGoal {
+            if namedConnections.contains({ $0.0 == goal.0 && $0.1 == goal.1 }) {
+                interface.completeGoal()
+            }
+        }
+    }
+
+    //-
+
     private func viewForCaller(caller:String) -> CallerView? {
         if caller == "OPER" {
             return self.operatorView
@@ -92,13 +106,15 @@ class ViewController: UIViewController {
         return nil
     }
 
-    private func callerForView(view:CallerView) -> String? {
-        if view == self.operatorView {
-            return "OPER"
-        }
+    private func callerForView(view:CallerView?) -> String? {
+        if let view = view {
+            if view == self.operatorView {
+                return "OPER"
+            }
 
-        if let index = self.callers.indexOf(view) {
-            return self.interface.people[index]
+            if let index = self.callers.indexOf(view) {
+                return self.interface.people[index]
+            }
         }
         return nil
     }

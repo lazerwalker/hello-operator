@@ -19,18 +19,17 @@ class Game
     @calls = []
     @interfaces = []
 
-  connectOperator: (caller) ->
+  connectOperator: (caller) =>
     call = root._(@calls).findWhere {sender: caller}
+
     return unless call
     return if call.pickedUp
-
     call.pickedUp = true
-
     i.askToConnect(call) for i in @interfaces
 
-  disconnectOperator: (caller) ->
+  disconnectOperator: (caller) =>
 
-  connect: (first, second) ->
+  connect: (first, second) =>
     call = root._(@calls).findWhere {sender: first, receiver: second}
     unless call
       call = root._(@calls).findWhere {sender: second, receiver: first}
@@ -44,7 +43,7 @@ class Game
     @calls = root._(@calls).without(call)
     @addNewCall()
 
-  disconnect: (first, second) ->
+  disconnect: (first, second) =>
 
   addNewCall: =>
     [first, second] = root._(@people).chain()

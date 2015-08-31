@@ -14,13 +14,17 @@
 
     function Game() {
       this.addNewCall = bind(this.addNewCall, this);
+      this.disconnect = bind(this.disconnect, this);
+      this.connect = bind(this.connect, this);
+      this.disconnectOperator = bind(this.disconnectOperator, this);
+      this.connectOperator = bind(this.connectOperator, this);
       this.calls = [];
       this.interfaces = [];
     }
 
     Game.prototype.connectOperator = function(caller) {
       var call, i, j, len, ref, results;
-      call = _(this.calls).findWhere({
+      call = root._(this.calls).findWhere({
         sender: caller
       });
       if (!call) {
@@ -43,12 +47,12 @@
 
     Game.prototype.connect = function(first, second) {
       var call, i, j, len, ref;
-      call = _(this.calls).findWhere({
+      call = root._(this.calls).findWhere({
         sender: first,
         receiver: second
       });
       if (!call) {
-        call = _(this.calls).findWhere({
+        call = root._(this.calls).findWhere({
           sender: second,
           receiver: first
         });
@@ -71,7 +75,7 @@
 
     Game.prototype.addNewCall = function() {
       var first, i, instruction, j, len, ref, ref1, results, second;
-      ref = _(this.people).chain().reject(function(p) {
+      ref = root._(this.people).chain().reject(function(p) {
         return p.busy;
       }).sample(2).value(), first = ref[0], second = ref[1];
       if (!(first && second)) {
