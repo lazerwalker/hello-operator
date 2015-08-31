@@ -23,7 +23,7 @@ import UIKit
     }
 
     func turnOffLight() {
-        light.backgroundColor = UIColor.lightGrayColor()
+        light.backgroundColor = UIColor.groupTableViewBackgroundColor()
     }
 
     var connected:String? {

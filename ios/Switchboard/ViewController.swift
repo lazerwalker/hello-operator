@@ -42,6 +42,10 @@ class ViewController: UIViewController {
             self.viewForCaller(caller)?.turnOnLight()
         }
 
+        interface.onAskToConnect = { sender, _ in
+            self.viewForCaller(sender)?.turnOffLight()
+        }
+
         manager.startGame(interface)
     }
 
