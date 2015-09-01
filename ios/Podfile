@@ -4,6 +4,5 @@
 use_frameworks!
 
 target 'Switchboard' do
-    pod 'SwiftWebSocket', '~> 2.0'
 end
 
