@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     }
     let numberOfCords = 2
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         interface = JSInterface()
         manager = GameManager()
 
@@ -92,7 +92,9 @@ class ViewController: UIViewController {
         let namedConnections = connections.map { (callerForView($0.0), callerForView($0.1)) }
         if let goal = interface.currentGoal {
             if namedConnections.contains({
-                ($0.0 == goal.0 && $0.1 == goal.1) ||
+                ($0.0 == goal.0 && $0.1 == goal.1) }) {
+                    interface.completeGoal()
+            } else if namedConnections.contains({
                 ($0.0 == goal.1 && $0.1 == goal.0) }) {
                     interface.completeGoal()
             }

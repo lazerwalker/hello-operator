@@ -54,7 +54,7 @@ import UIKit
         self.commonInit()
     }
 
-    required init(coder aDecoder: NSCoder) { // for using CustomView in IB
+    required init?(coder aDecoder: NSCoder) { // for using CustomView in IB
         super.init(coder: aDecoder)
         self.commonInit()
     }
