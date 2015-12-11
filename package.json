@@ -1,7 +1,8 @@
 {
   "name": "switchboard",
   "dependencies": {
-    "serialport": "~1.4.6",
+    "onoff": "^1.0.3",
+    "serialport": "^1.4.10",
     "underscore": "~1.7.0",
     "ws": "^0.8.0"
   }
