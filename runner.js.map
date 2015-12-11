@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "runner.js",
+  "sourceRoot": "",
+  "sources": [
+    "runner.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,MAAA,wBAAA;;AAAA,EAAA,IAAA,GAAO,OAAA,CAAQ,QAAR,CAAP,CAAA;;AAAA,EACA,YAAA,GAAe,OAAA,CAAQ,4BAAR,CADf,CAAA;;AAAA,EAGA,IAAA,GAAW,IAAA,IAAA,CAAA,CAHX,CAAA;;AAAA,EAIA,IAAI,CAAC,YAAL,CAAuB,IAAA,YAAA,CAAA,CAAvB,CAJA,CAAA;;AAAA,EAKA,IAAI,CAAC,SAAL,CAAA,CALA,CAAA;AAAA"
+}

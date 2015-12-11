@@ -1,6 +1,6 @@
 Game = require './game'
-ConsoleInterface = require './interfaces/console_interface'
+RpiInterface = require './interfaces/rpi_interface'
 
 game = new Game()
-game.addInterface (new ConsoleInterface())
+game.addInterface (new RpiInterface())
 game.startGame()

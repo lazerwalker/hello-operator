@@ -1,4 +1,4 @@
-int LOW_PIN = 2;
+int LOW_PIN = 4;
 int HIGH_PIN = 12;
 
 int STATE_UNUSED = -1;

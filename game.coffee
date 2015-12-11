@@ -2,18 +2,31 @@ root = exports ? this
 root._ = require('underscore') unless root._?
   
 
+### Client
+askToConnect(call)
+completeCall(call)
+initiateCall(sender)
+
+client
+people
+
+Expected to call:
+connect
+disconnect
+connectOperator (deprecate)
+disconnectOperator (deprecate)
+###
+
 class Game
   people: [
     "1A"
     "1B"
     "1C"
     "1D"
-    "1E"
-    "2A"
-    "2B"
-    "2C"
-    "2D"
-    "2E"
+    # "2A"
+    # "2B"
+    # "2C"
+    # "2D"
   ]
   constructor: ->
     @calls = []
