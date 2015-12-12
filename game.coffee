@@ -23,10 +23,10 @@ class Game
     "1B"
     "1C"
     "1D"
-    # "2A"
-    # "2B"
-    # "2C"
-    # "2D"
+    "2A"
+    "2B"
+    "2C"
+    "2D"
   ]
   constructor: ->
     @calls = []
