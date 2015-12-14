@@ -51,22 +51,20 @@ class RpiInterface
     pins.push operatorPlug
 
     p = cp.fork "interfaces/rpi_scanner.coffee", [JSON.stringify(pins)]
-    me = @
-    p.on 'message', (m) ->
+    p.on 'message', (m) =>
       #console.log m
       if operatorPlug in m.pins
         otherPin = _.without(m.pins, operatorPlug)[0]
         other = plugToName(otherPin) 
         if m.type is "on"
-          console.log "Connecting operator"
-          me.client.connectOperator other
+          @client.connectOperator other
         else
-          me.client.disconnectOperator other 
+          @client.disconnectOperator other 
       else
         if m.type is "on"
-          me.client.connect plugToName(m.pins[0]), plugToName(m.pins[1])
+          @client.connect plugToName(m.pins[0]), plugToName(m.pins[1])
         else
-          me.client.disconnect plugToName(m.pins[0]), plugToName(m.pins[1])
+          @client.disconnect plugToName(m.pins[0]), plugToName(m.pins[1])
 
   initiateCall: (sender) ->
     console.log "Talk to #{sender}" 
