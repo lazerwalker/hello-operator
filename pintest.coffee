@@ -17,8 +17,6 @@ iter = (i) ->
     iter(i+1)
   ), 5000
 
-# iter(0)
-
 connect = () ->
   console.log "Connect two ports"
   @input = new SerialPort INPUT_PORT, 
@@ -30,4 +28,5 @@ connect = () ->
       event = JSON.parse(data)
       console.log("event:", event)
 
-connect()
+iter(0)
+#connect()

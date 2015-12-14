@@ -1,5 +1,7 @@
 Gpio = require('onoff').Gpio
 _ = require 'underscore'
+cp = require 'child_process'
+
 serialport = require 'serialport'
 SerialPort = serialport.SerialPort
 
@@ -9,31 +11,31 @@ INPUT_PORT= "/dev/ttyUSB0"
 mapping = {
   "1A":
     "led": 22
-    "plug": 12
+    "plug": 27
   "1B":
     "led": 27
-    "plug": 10
+    "plug": 22
   "1C":
     "led": 17
-    "plug": 9
+    "plug": 13 
   "1D":
     "led": 4
-    "plug": 11
+    "plug": 19
   "2A":
     "led": 25
-    "plug": 7
+    "plug": 26
   "2B":
     "led": 24 
-    "plug": 8
+    "plug": 23
   "2C":
-    "led": 23
-    "plug": 5
+    "led": 26
+    "plug": 24
   "2D":
     "led": 18
-    "plug": 6              
+    "plug": 18              
   }
 
-operatorPlug = 4
+operatorPlug = 17
 
 plugToName = (plug) ->
   _(mapping).findWhere({plug}).name
@@ -43,35 +45,37 @@ class RpiInterface
     SerialPort = require("serialport").SerialPort
     @peopleMap = _(mapping).each (p, n) ->
       p.name = n
-      p.ledPin = new Gpio(p.led, 'out')
+      #p.ledPin = new Gpio(p.led, 'out')
 
-    input = new SerialPort INPUT_PORT,
-      parser: serialport.parsers.readline "\n"
-      baudrate: INPUT_RATE
+    pins = _.pluck(mapping, 'plug')
+    pins.push operatorPlug
 
-    input.on "open", =>
-      input.on "data", (data) =>
-        e = JSON.parse(data)
-        if operatorPlug in e.values
-          otherPin = _.without(e.values, operatorPlug)[0]
-          other = plugToName(otherPin) 
-          if e.type is "on"
-            @client.connectOperator other
-          else
-            @client.disconnectOperator other 
+    p = cp.fork "interfaces/rpi_scanner.coffee", [JSON.stringify(pins)]
+    me = @
+    p.on 'message', (m) ->
+      #console.log m
+      if operatorPlug in m.pins
+        otherPin = _.without(m.pins, operatorPlug)[0]
+        other = plugToName(otherPin) 
+        if m.type is "on"
+          console.log "Connecting operator"
+          me.client.connectOperator other
         else
-          if e.type is "on"
-            @client.connect plugToName(e.values[0]), plugToName(e.values[1])
-          else
-            @client.disconnect plugToName(e.values[0]), plugToName(e.values[1])
+          me.client.disconnectOperator other 
+      else
+        if m.type is "on"
+          me.client.connect plugToName(m.pins[0]), plugToName(m.pins[1])
+        else
+          me.client.disconnect plugToName(m.pins[0]), plugToName(m.pins[1])
 
   initiateCall: (sender) ->
+    console.log "Talk to #{sender}" 
     pin = @peopleMap[sender].ledPin
-    pin.write(1)
+    #pin.write(1)
 
   askToConnect: ({sender, receiver}) ->
     pin = @peopleMap[sender].ledPin
-    pin.write(0)
+    #pin.write(0)
     console.log "#{sender} wants to talk to #{receiver}" 
 
   completeCall: ({sender, receiver}) ->
