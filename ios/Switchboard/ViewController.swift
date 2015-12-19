@@ -1,11 +1,14 @@
+import AVFoundation
 import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet var callers: [CallerView]!
     @IBOutlet weak var operatorView: CallerView!
 
-    let interface:JSInterface
-    let manager:GameManager
+    let interface = JSInterface()
+    let manager = GameManager()
+
+    let synthesizer = AVSpeechSynthesizer()
 
     var connections:[(CallerView?, CallerView?)] = [] {
         didSet {
@@ -13,13 +16,6 @@ class ViewController: UIViewController {
         }
     }
     let numberOfCords = 2
-
-    required init?(coder aDecoder: NSCoder) {
-        interface = JSInterface()
-        manager = GameManager()
-
-        super.init(coder: aDecoder)
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,8 +38,11 @@ class ViewController: UIViewController {
             self.viewForCaller(caller)?.turnOnLight()
         }
 
-        interface.onAskToConnect = { sender, _ in
+        interface.onAskToConnect = { sender, receiver in
             self.viewForCaller(sender)?.turnOffLight()
+            let text = "Hello! Can I speak with \(receiver)?"
+            let utterance = AVSpeechUtterance(string: text)
+            self.synthesizer.speakUtterance(utterance)
         }
 
         manager.startGame(interface)
