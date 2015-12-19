@@ -80,8 +80,19 @@ class ViewController: UIViewController {
             if let firstName = first.name, secondName = second.name {
                 interface.connect(firstName, secondName)
             }
+        } else if first.connectedTo != nil && second.connectedTo == nil {
+            // First is connected to something else.
+            // Let's connect that something else to Second
+
+            if let other = first.connectedTo, firstName = first.name, otherName = other.name, secondName = second.name {
+                first.connectedTo = nil
+                interface.disconnect(firstName, otherName)
+
+                other.connectedTo = second
+                second.connectedTo = other
+                interface.connect(secondName, otherName)
+            }
         }
-        // TODO: Moving one end to another plug
     }
 
     //-
