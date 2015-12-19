@@ -4,7 +4,7 @@ root._ = require('underscore') unless root._?
 
 ### Client
 askToConnect(call)
-completeCall(call)
+askToDisconnect(call)
 initiateCall(sender)
 
 client
@@ -56,7 +56,7 @@ class Game
       call = root._(@calls).findWhere {sender: second, receiver: first}
     return unless call and call.pickedUp
 
-    i.completeCall(call) for i in @interfaces
+    i.askToDisconnect(call) for i in @interfaces
 
     first.busy = false
     second.busy = false

@@ -6,13 +6,13 @@ import JavaScriptCore
     var client: JSValue? { get set }
 
     func initiateCall(sender:String)
-    func completeCall(call:[String: AnyObject])
     func askToConnect(call:[String: AnyObject])
+    func askToDisconnect(call:[String: AnyObject])
 }
 
 @objc class JSInterface : NSObject, JSInterfaceExports {
     var onInitiateCall:((sender: String) -> Void)?
-    var onCompleteCall:((sender: String, receiver:String) -> Void)?
+    var onAskToDisconnect:((sender: String, receiver:String) -> Void)?
     var onAskToConnect:((sender: String, receiver:String) -> Void)?
     var onPeopleChange:(([String]) -> Void)?
 

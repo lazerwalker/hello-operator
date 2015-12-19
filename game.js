@@ -12,7 +12,7 @@
 
   /* Client
   askToConnect(call)
-  completeCall(call)
+  askToDisconnect(call)
   initiateCall(sender)
   
   client
@@ -79,7 +79,7 @@
       ref = this.interfaces;
       for (j = 0, len = ref.length; j < len; j++) {
         i = ref[j];
-        i.completeCall(call);
+        i.askToDisconnect(call);
       }
       first.busy = false;
       second.busy = false;
