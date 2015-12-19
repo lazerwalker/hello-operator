@@ -65,37 +65,36 @@ class ViewController: UIViewController {
     func drewLineBetween(first:CallerView, _ second:CallerView) {
         // TODO: Track number of cords
         if first.connectedTo == second {
-            // They're connected, disconnect them
-            first.connectedTo = nil;
-            second.connectedTo = nil;
-
-            if let firstName = first.name, secondName = second.name {
-                interface.disconnect(firstName, secondName)
-            }
+            disconnect(first, second)
         } else if first.connectedTo == nil && second.connectedTo == nil {
-            // Both are unconnected, connect 'em
-            first.connectedTo = second
-            second.connectedTo = first
-
-            if let firstName = first.name, secondName = second.name {
-                interface.connect(firstName, secondName)
-            }
+            connect(first, second)
         } else if first.connectedTo != nil && second.connectedTo == nil {
-            // First is connected to something else.
-            // Let's connect that something else to Second
-
-            if let other = first.connectedTo, firstName = first.name, otherName = other.name, secondName = second.name {
-                first.connectedTo = nil
-                interface.disconnect(firstName, otherName)
-
-                other.connectedTo = second
-                second.connectedTo = other
-                interface.connect(secondName, otherName)
+            if let other = first.connectedTo {
+                disconnect(first, other)
+                connect(second, other)
             }
         }
     }
 
     //-
+
+    private func connect(first:CallerView, _ second:CallerView) {
+        first.connectedTo = second
+        second.connectedTo = first
+
+        if let firstName = first.name, secondName = second.name {
+            interface.connect(firstName, secondName)
+        }
+    }
+
+    private func disconnect(first:CallerView, _ second:CallerView) {
+        first.connectedTo = nil;
+        second.connectedTo = nil;
+
+        if let firstName = first.name, secondName = second.name {
+            interface.disconnect(firstName, secondName)
+        }
+    }
 
     private func viewForCaller(caller:String) -> CallerView? {
         if caller == "OPER" {
