@@ -19,14 +19,22 @@ disconnectOperator (deprecate)
 
 class Game
   people: [
-    "1A"
-    "1B"
-    "1C"
-    "1D"
-    "2A"
-    "2B"
-    "2C"
-    "2D"
+    "Dolores"
+    "Mabel"
+    "Irene"
+    "Evelyn"
+    "Gladys"
+    "Ethel"
+    "Bernice"
+    "Lucille"
+    "Edith"
+    "Rita"
+    "Mae"
+    "Rosemary"
+    "Beverly"
+    "Pearl"
+    "Vera"
+    "Joyce"
   ]
   constructor: ->
     @calls = []

@@ -26,7 +26,7 @@
    */
 
   Game = (function() {
-    Game.prototype.people = ["1A", "1B", "1C", "1D"];
+    Game.prototype.people = ["Dolores", "Mabel", "Irene", "Evelyn", "Gladys", "Ethel", "Bernice", "Lucille", "Edith", "Rita", "Mae", "Rosemary", "Beverly", "Pearl", "Vera", "Joyce"];
 
     function Game() {
       this.addNewCall = bind(this.addNewCall, this);
