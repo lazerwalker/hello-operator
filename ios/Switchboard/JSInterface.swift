@@ -17,7 +17,8 @@ import JavaScriptCore
     var onPeopleChange:(([String]) -> Void)?
 
     var currentGoal:(String, String?)?
-    var onGoalCompletion:(() -> Void)?
+
+    let OPERATOR = "OPER"
 
     dynamic var people:[String] = [] {
         didSet {
@@ -27,47 +28,47 @@ import JavaScriptCore
     
     dynamic var client: JSValue?
 
+    //-
+    // Called from JS
+
     func initiateCall(sender: String) {
         print("\(sender) is calling!")
-
-        currentGoal = (sender, "OPER")
-        onGoalCompletion = {
-            self.client?.objectForKeyedSubscript("connectOperator").callWithArguments([sender])
-        }
-
         self.onInitiateCall?(sender: sender)
     }
 
-    func completeCall(call:[String: AnyObject]) {
+    func askToDisconnect(call:[String: AnyObject]) {
         let sender = call["sender"] as! String
         let receiver = call["receiver"] as! String
-        print("Completed call from \(sender) to \(receiver)")
 
-        currentGoal = nil
-        onGoalCompletion = nil
-
-        self.onCompleteCall?(sender: sender, receiver: receiver)
+        self.onAskToDisconnect?(sender: sender, receiver: receiver)
     }
 
     func askToConnect(call:[String:AnyObject]) {
         let sender = call["sender"] as! String
         let receiver = call["receiver"] as! String
 
-        print("Asked to connect \(sender) and \(receiver)")
-
-        currentGoal = (sender, receiver)
-        onGoalCompletion = {
-            self.client?.objectForKeyedSubscript("connect").callWithArguments([sender, receiver])
-        }
-
         self.onAskToConnect?(sender: sender, receiver: receiver)
     }
 
     //-
-    func completeGoal() {
-        let block = self.onGoalCompletion
-        onGoalCompletion = nil
-        currentGoal = nil
-        block?()
+    // Called from view controller
+    func connect(first:String, _ second:String) {
+        if first == OPERATOR {
+            self.client?.objectForKeyedSubscript("connectOperator").callWithArguments([second])
+        } else if second == OPERATOR {
+            self.client?.objectForKeyedSubscript("connectOperator").callWithArguments([first])
+        } else {
+            self.client?.objectForKeyedSubscript("connect").callWithArguments([first, second])
+        }
+    }
+
+    func disconnect(first:String, _ second:String) {
+        if first == OPERATOR {
+            self.client?.objectForKeyedSubscript("disconnectOperator").callWithArguments([second])
+        } else if second == OPERATOR {
+            self.client?.objectForKeyedSubscript("disconnectOperator").callWithArguments([first])
+        } else {
+            self.client?.objectForKeyedSubscript("disconnect").callWithArguments([first, second])
+        }
     }
 }

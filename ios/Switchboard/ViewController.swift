@@ -10,22 +10,19 @@ class ViewController: UIViewController {
 
     let synthesizer = AVSpeechSynthesizer()
 
-    var connections:[(CallerView?, CallerView?)] = [] {
-        didSet {
-            self.checkConnections()
-        }
-    }
-    let numberOfCords = 2
+    var numberOfConnections = 0
+    var currentCable:CallerView?
+    let numberOfCords = 6
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         for c in callers {
-            c.onTap = self.didTapCaller
+            c.onDragEnd = self.didDrag
         }
 
-        operatorView.onTap = self.didTapCaller
-        operatorView.name = "OPER"
+        operatorView.name = interface.OPERATOR
+        operatorView.onDragEnd = self.didDrag
 
         interface.onPeopleChange = { people in
             for var i = 0; i < people.count; i++ {
@@ -45,59 +42,46 @@ class ViewController: UIViewController {
             self.synthesizer.speakUtterance(utterance)
         }
 
+        interface.onAskToDisconnect = { sender, receiver in }
+
         manager.startGame(interface)
     }
 
     //-
-    func didTapCaller(caller:CallerView) {
-        let containing = connections.filter { $0.0 == caller || $0.1 == caller }
-        if containing.count == 1 {
-            caller.unhighlight()
-            caller.connected = nil
-
-            if let (first, second) = containing.first {
-                let index = connections.indexOf { $0.0 == caller || $0.1 == caller }
-                connections.removeAtIndex(index!)
-
-                let other = (first == caller ? second : first)
-                if other != nil {
-                    other?.connected = nil
-                    let new:(CallerView?, CallerView?) = (other, Optional.None as CallerView?)
-                    connections.append(new)
+    func didDrag(from:CallerView, event:UIEvent) {
+        if let touches = event.allTouches(), touch = touches.first {
+            if let view = self.view.hitTest(touch.locationInView(self.view), withEvent: nil) {
+                // TODO: This is silly.
+                if let grandparent = view.superview?.superview {
+                    if grandparent.isKindOfClass(CallerView.self) {
+                        let to = grandparent as! CallerView
+                        self.drewLineBetween(from, to)
+                    }
                 }
-            }
-        } else {
-            if let pairIndex = connections.indexOf({ $0.1 == .None }) {
-                caller.highlight()
-
-                let other = connections.filter({ $0.1 == .None }).first!.0
-                connections.removeAtIndex(pairIndex)
-                other?.connected = callerForView(caller)
-                caller.connected = callerForView(other!)
-                let new:(CallerView?, CallerView?) = (other, caller)
-                connections.append(new)
-            } else if connections.count < numberOfCords {
-                caller.highlight()
-
-                let new:(CallerView?, CallerView?) = (caller, Optional.None as CallerView?)
-                connections.append(new)
             }
         }
     }
 
-    //-
+    func drewLineBetween(first:CallerView, _ second:CallerView) {
+        // TODO: Track number of cords
+        if first.connectedTo == second {
+            // They're connected, disconnect them
+            first.connectedTo = nil;
+            second.connectedTo = nil;
 
-    func checkConnections() {
-        let namedConnections = connections.map { (callerForView($0.0), callerForView($0.1)) }
-        if let goal = interface.currentGoal {
-            if namedConnections.contains({
-                ($0.0 == goal.0 && $0.1 == goal.1) }) {
-                    interface.completeGoal()
-            } else if namedConnections.contains({
-                ($0.0 == goal.1 && $0.1 == goal.0) }) {
-                    interface.completeGoal()
+            if let firstName = first.name, secondName = second.name {
+                interface.disconnect(firstName, secondName)
+            }
+        } else if first.connectedTo == nil && second.connectedTo == nil {
+            // Both are unconnected, connect 'em
+            first.connectedTo = second
+            second.connectedTo = first
+
+            if let firstName = first.name, secondName = second.name {
+                interface.connect(firstName, secondName)
             }
         }
+        // TODO: Moving one end to another plug
     }
 
     //-
@@ -109,19 +93,6 @@ class ViewController: UIViewController {
 
         if let index = self.interface.people.indexOf(caller) {
             return self.callers[index]
-        }
-        return nil
-    }
-
-    private func callerForView(view:CallerView?) -> String? {
-        if let view = view {
-            if view == self.operatorView {
-                return "OPER"
-            }
-
-            if let index = self.callers.indexOf(view) {
-                return self.interface.people[index]
-            }
         }
         return nil
     }

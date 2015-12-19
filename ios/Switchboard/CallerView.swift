@@ -4,12 +4,11 @@ import UIKit
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var button: UIButton!
 
-    @IBAction func didTapPlug(sender: AnyObject) {
-        self.onTap?(sender: self)
+    @IBAction func endDrag(sender: AnyObject, event:UIEvent) {
+        self.onDragEnd?(sender: self, event:event)
     }
 
-    var onTap:((sender: CallerView) -> Void)?
-
+    var onDragEnd:((sender: CallerView, event:UIEvent) -> Void)?
     func highlight() {
         button.backgroundColor = UIColor.darkGrayColor()
     }
@@ -26,12 +25,15 @@ import UIKit
         light.backgroundColor = UIColor.groupTableViewBackgroundColor()
     }
 
-    var connected:String? {
-        get {
-            return button.titleForState(.Normal)
-        }
-        set {
-            button.setTitle(newValue, forState: .Normal)
+    var connectedTo:CallerView? {
+        willSet {
+            if let other = newValue {
+                button.setTitle(other.name, forState: .Normal)
+                highlight()
+            } else {
+                button.setTitle(nil, forState: .Normal)
+                unhighlight()
+            }
         }
     }
 
