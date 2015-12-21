@@ -112,10 +112,21 @@
                                 <rect key="frame" x="353" y="720" width="62" height="105"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="koU-AZ-SLs" customClass="LineDrawingView" customModule="Switchboard" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="728" height="1024"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" notEnabled="YES"/>
+                                </accessibility>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="koU-AZ-SLs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="36a-HE-Yns"/>
                             <constraint firstItem="d5q-Jy-EaG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8Qn-8f-d3b"/>
+                            <constraint firstItem="koU-AZ-SLs" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="A0A-wm-rFW"/>
+                            <constraint firstAttribute="trailing" secondItem="koU-AZ-SLs" secondAttribute="trailing" id="ETK-03-sn5"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="koU-AZ-SLs" secondAttribute="bottom" id="WkY-6M-pXc"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="d5q-Jy-EaG" secondAttribute="bottom" constant="50" id="ko7-jh-Mwd"/>
                             <constraint firstItem="rff-4g-eto" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="64" id="mUW-z3-J6t"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rff-4g-eto" secondAttribute="trailing" constant="64" id="oZi-8o-REG"/>
@@ -123,6 +134,7 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
+                        <outlet property="lineView" destination="koU-AZ-SLs" id="f2u-s2-UmD"/>
                         <outlet property="operatorView" destination="d5q-Jy-EaG" id="3W0-ko-GWe"/>
                         <outletCollection property="callers" destination="qjx-2g-Omr" collectionClass="NSMutableArray" id="0ME-h4-twZ"/>
                         <outletCollection property="callers" destination="wr4-Ae-WDO" collectionClass="NSMutableArray" id="Hxz-v0-4ZU"/>

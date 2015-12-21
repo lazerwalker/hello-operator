@@ -27,11 +27,9 @@ import UIKit
 
     var connectedTo:CallerView? {
         willSet {
-            if let other = newValue {
-                button.setTitle(other.name, forState: .Normal)
+            if newValue != .None {
                 highlight()
             } else {
-                button.setTitle(nil, forState: .Normal)
                 unhighlight()
             }
         }

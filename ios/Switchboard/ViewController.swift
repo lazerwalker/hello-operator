@@ -4,7 +4,8 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet var callers: [CallerView]!
     @IBOutlet weak var operatorView: CallerView!
-
+    @IBOutlet weak var lineView: LineDrawingView!
+    
     let interface = JSInterface()
     let manager = GameManager()
 
@@ -81,6 +82,7 @@ class ViewController: UIViewController {
     private func connect(first:CallerView, _ second:CallerView) {
         first.connectedTo = second
         second.connectedTo = first
+        lineView.addLine(first, second)
 
         if let firstName = first.name, secondName = second.name {
             interface.connect(firstName, secondName)
@@ -90,6 +92,7 @@ class ViewController: UIViewController {
     private func disconnect(first:CallerView, _ second:CallerView) {
         first.connectedTo = nil;
         second.connectedTo = nil;
+        lineView.removeLine(first, second)
 
         if let firstName = first.name, secondName = second.name {
             interface.disconnect(firstName, secondName)
