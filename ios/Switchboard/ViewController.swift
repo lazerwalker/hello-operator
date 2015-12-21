@@ -3,6 +3,7 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet var callers: [CallerView]!
+    @IBOutlet var switches: [UISwitch]!
     @IBOutlet weak var operatorView: CallerView!
     @IBOutlet weak var lineView: LineDrawingView!
     

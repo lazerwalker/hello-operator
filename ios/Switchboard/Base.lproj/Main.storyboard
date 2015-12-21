@@ -17,8 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" spacing="200" translatesAutoresizingMaskIntoConstraints="NO" id="rff-4g-eto">
-                                <rect key="frame" x="84" y="56" width="600" height="456"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" spacing="160" translatesAutoresizingMaskIntoConstraints="NO" id="rff-4g-eto">
+                                <rect key="frame" x="84" y="56" width="600" height="681"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="k2X-it-5Kj">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="128"/>
@@ -62,7 +62,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="TZ2-f3-TMK">
-                                        <rect key="frame" x="0.0" y="328" width="600" height="128"/>
+                                        <rect key="frame" x="0.0" y="288" width="600" height="128"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BVi-Dw-hfq" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="128"/>
@@ -102,16 +102,39 @@
                                             </view>
                                         </subviews>
                                     </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" distribution="fillEqually" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="imW-Pi-3he">
+                                        <rect key="frame" x="0.0" y="576" width="600" height="105"/>
+                                        <subviews>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="YbG-Hx-34a">
+                                                <rect key="frame" x="0.0" y="37" width="62" height="31"/>
+                                            </switch>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="czU-Dk-tez">
+                                                <rect key="frame" x="90" y="37" width="62" height="31"/>
+                                            </switch>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="crB-Gx-tJX">
+                                                <rect key="frame" x="180" y="37" width="62" height="31"/>
+                                            </switch>
+                                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d5q-Jy-EaG" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
+                                                <rect key="frame" x="270" y="0.0" width="60" height="105"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="KV7-lw-gVj">
+                                                <rect key="frame" x="360" y="37" width="62" height="31"/>
+                                            </switch>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="y6W-Z3-Gd6">
+                                                <rect key="frame" x="450" y="37" width="62" height="31"/>
+                                            </switch>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="yZ0-hk-DkC">
+                                                <rect key="frame" x="540" y="37" width="62" height="31"/>
+                                            </switch>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="k2X-it-5Kj" secondAttribute="trailing" id="80Z-Ir-hOZ"/>
                                     <constraint firstItem="k2X-it-5Kj" firstAttribute="leading" secondItem="rff-4g-eto" secondAttribute="leading" id="dOy-ag-wD2"/>
                                 </constraints>
                             </stackView>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d5q-Jy-EaG" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
-                                <rect key="frame" x="353" y="720" width="62" height="105"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="koU-AZ-SLs" customClass="LineDrawingView" customModule="Switchboard" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="728" height="1024"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -123,11 +146,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="koU-AZ-SLs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="36a-HE-Yns"/>
-                            <constraint firstItem="d5q-Jy-EaG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8Qn-8f-d3b"/>
                             <constraint firstItem="koU-AZ-SLs" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="A0A-wm-rFW"/>
                             <constraint firstAttribute="trailing" secondItem="koU-AZ-SLs" secondAttribute="trailing" id="ETK-03-sn5"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="koU-AZ-SLs" secondAttribute="bottom" id="WkY-6M-pXc"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="d5q-Jy-EaG" secondAttribute="bottom" constant="50" id="ko7-jh-Mwd"/>
                             <constraint firstItem="rff-4g-eto" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="64" id="mUW-z3-J6t"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rff-4g-eto" secondAttribute="trailing" constant="64" id="oZi-8o-REG"/>
                         </constraints>
@@ -152,6 +173,12 @@
                         <outletCollection property="callers" destination="ber-pn-2m1" collectionClass="NSMutableArray" id="nQu-5a-vnF"/>
                         <outletCollection property="callers" destination="g6C-IJ-NyZ" collectionClass="NSMutableArray" id="qos-e8-MTc"/>
                         <outletCollection property="callers" destination="BWf-EA-Q8P" collectionClass="NSMutableArray" id="rhT-zH-Y6b"/>
+                        <outletCollection property="switches" destination="YbG-Hx-34a" collectionClass="NSMutableArray" id="NZF-KL-Tf0"/>
+                        <outletCollection property="switches" destination="czU-Dk-tez" collectionClass="NSMutableArray" id="5dx-yq-Jr2"/>
+                        <outletCollection property="switches" destination="crB-Gx-tJX" collectionClass="NSMutableArray" id="OjL-m9-Yq2"/>
+                        <outletCollection property="switches" destination="KV7-lw-gVj" collectionClass="NSMutableArray" id="7Qw-za-FGw"/>
+                        <outletCollection property="switches" destination="y6W-Z3-Gd6" collectionClass="NSMutableArray" id="YaZ-Df-d3L"/>
+                        <outletCollection property="switches" destination="yZ0-hk-DkC" collectionClass="NSMutableArray" id="I4o-Lv-E35"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
