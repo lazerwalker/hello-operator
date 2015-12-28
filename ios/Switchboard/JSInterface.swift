@@ -39,6 +39,7 @@ import JavaScriptCore
     }
 
     func askToDisconnect(call:[String: AnyObject]) {
+        print("Asking to disconnect")
         let sender = call["sender"] as! String
         let receiver = call["receiver"] as! String
 

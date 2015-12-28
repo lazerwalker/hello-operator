@@ -57,15 +57,18 @@ class Game
       call = root._(@calls).findWhere {sender: second, receiver: first}
     return unless call and call.pickedUp
 
-    call.waitingToDisconnect = true
+    call.connected = true
 
-    i.askToDisconnect(call) for i in @interfaces
+    # Set timer to start the disconnect
+    # TODO: When this gets more complicated, extract this out.
+    timeout = root._.random(10, 50) * 100
+    setTimeout ( () => @askToEndCall(call) ), timeout
 
   disconnect: (first, second) =>
     call = root._(@calls).findWhere {sender: first, receiver: second}
     unless call
       call = root._(@calls).findWhere {sender: second, receiver: first}
-    return unless call and call.pickedUp and call.waitingToDisconnect
+    return unless call?.waitingToDisconnect
 
     first.busy = false
     second.busy = false
@@ -100,6 +103,13 @@ class Game
 
   startGame: ->
     @addNewCall()
+
+  askToEndCall: (call) =>
+    return unless call.connected
+
+    call.waitingToDisconnect = true
+    i.askToDisconnect(call) for i in @interfaces
+
 
 if module?.exports
   module.exports = Game

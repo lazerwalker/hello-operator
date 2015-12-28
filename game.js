@@ -30,6 +30,7 @@
     Game.prototype.people = ["Dolores", "Mabel", "Irene", "Evelyn", "Gladys", "Ethel", "Bernice", "Lucille", "Edith", "Rita", "Mae", "Rosemary", "Beverly", "Pearl", "Vera", "Joyce"];
 
     function Game() {
+      this.askToEndCall = bind(this.askToEndCall, this);
       this.addNewCall = bind(this.addNewCall, this);
       this.disconnect = bind(this.disconnect, this);
       this.connect = bind(this.connect, this);
@@ -63,7 +64,7 @@
     Game.prototype.disconnectOperator = function(caller) {};
 
     Game.prototype.connect = function(first, second) {
-      var call, i, j, len, ref, results;
+      var call, timeout;
       call = root._(this.calls).findWhere({
         sender: first,
         receiver: second
@@ -77,14 +78,13 @@
       if (!(call && call.pickedUp)) {
         return;
       }
-      call.waitingToDisconnect = true;
-      ref = this.interfaces;
-      results = [];
-      for (j = 0, len = ref.length; j < len; j++) {
-        i = ref[j];
-        results.push(i.askToDisconnect(call));
-      }
-      return results;
+      call.connected = true;
+      timeout = root._.random(10, 50) * 100;
+      return setTimeout(((function(_this) {
+        return function() {
+          return _this.askToEndCall(call);
+        };
+      })(this)), timeout);
     };
 
     Game.prototype.disconnect = function(first, second) {
@@ -99,7 +99,7 @@
           receiver: first
         });
       }
-      if (!(call && call.pickedUp && call.waitingToDisconnect)) {
+      if (!(call != null ? call.waitingToDisconnect : void 0)) {
         return;
       }
       first.busy = false;
@@ -145,6 +145,21 @@
 
     Game.prototype.startGame = function() {
       return this.addNewCall();
+    };
+
+    Game.prototype.askToEndCall = function(call) {
+      var i, j, len, ref, results;
+      if (!call.connected) {
+        return;
+      }
+      call.waitingToDisconnect = true;
+      ref = this.interfaces;
+      results = [];
+      for (j = 0, len = ref.length; j < len; j++) {
+        i = ref[j];
+        results.push(i.askToDisconnect(call));
+      }
+      return results;
     };
 
     return Game;

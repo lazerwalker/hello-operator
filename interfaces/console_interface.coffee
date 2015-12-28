@@ -49,6 +49,4 @@ class ConsoleInterface
           @connected.push [first, second]
           @client.connect(first, second)
 
-
-
 module.exports = ConsoleInterface

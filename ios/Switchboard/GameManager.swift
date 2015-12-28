@@ -7,7 +7,15 @@ class GameManager {
         let log: @convention(block) (String) -> Void = { string1 in
             print("log:\(string1)")
         }
+        let setTimeout: @convention(block) (JSValue, JSValue) -> Void = { function, timeout in
+            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(timeout.toDouble() * Double(NSEC_PER_MSEC)))
+            dispatch_after(delayTime, dispatch_get_main_queue()) {
+                function.callWithArguments([])
+            }
+        }
+
         context.objectForKeyedSubscript("console").setObject(unsafeBitCast(log, AnyObject.self), forKeyedSubscript: "log");
+        context.setObject(unsafeBitCast(setTimeout, AnyObject.self), forKeyedSubscript: "setTimeout")
 
         let underscorePath = NSBundle.mainBundle().pathForResource("underscore", ofType: "js")
         var us = ""
