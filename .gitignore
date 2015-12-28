@@ -1,5 +1,8 @@
 *.swp
 
+*.js
+*.js.map
+
 .DS_Store
 node_modules
 
