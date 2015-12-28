@@ -14,6 +14,7 @@
   askToConnect(call)
   askToDisconnect(call)
   initiateCall(sender)
+  completeCall(call)
   
   client
   people
@@ -62,7 +63,7 @@
     Game.prototype.disconnectOperator = function(caller) {};
 
     Game.prototype.connect = function(first, second) {
-      var call, i, j, len, ref;
+      var call, i, j, len, ref, results;
       call = root._(this.calls).findWhere({
         sender: first,
         receiver: second
@@ -76,18 +77,41 @@
       if (!(call && call.pickedUp)) {
         return;
       }
+      call.waitingToDisconnect = true;
       ref = this.interfaces;
+      results = [];
       for (j = 0, len = ref.length; j < len; j++) {
         i = ref[j];
-        i.askToDisconnect(call);
+        results.push(i.askToDisconnect(call));
+      }
+      return results;
+    };
+
+    Game.prototype.disconnect = function(first, second) {
+      var call, i, j, len, ref;
+      call = root._(this.calls).findWhere({
+        sender: first,
+        receiver: second
+      });
+      if (!call) {
+        call = root._(this.calls).findWhere({
+          sender: second,
+          receiver: first
+        });
+      }
+      if (!(call && call.pickedUp && call.waitingToDisconnect)) {
+        return;
       }
       first.busy = false;
       second.busy = false;
+      ref = this.interfaces;
+      for (j = 0, len = ref.length; j < len; j++) {
+        i = ref[j];
+        i.completeCall(call);
+      }
       this.calls = root._(this.calls).without(call);
       return this.addNewCall();
     };
-
-    Game.prototype.disconnect = function(first, second) {};
 
     Game.prototype.addNewCall = function() {
       var first, i, instruction, j, len, ref, ref1, results, second;

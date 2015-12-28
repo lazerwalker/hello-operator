@@ -9,6 +9,10 @@ import UIKit
     }
 
     var onDragEnd:((sender: CallerView, event:UIEvent) -> Void)?
+
+    var flashTimer:NSTimer?
+    var isOn = false;
+
     func highlight() {
         button.backgroundColor = UIColor.darkGrayColor()
     }
@@ -19,10 +23,29 @@ import UIKit
 
     func turnOnLight() {
         light.backgroundColor = UIColor.greenColor()
+        isOn = true;
     }
 
     func turnOffLight() {
         light.backgroundColor = UIColor.groupTableViewBackgroundColor()
+        isOn = false;
+    }
+
+    func startFlashing() {
+        flashTimer?.invalidate() // Should never be necessary
+        flashTimer = NSTimer.scheduledTimerWithTimeInterval(0.3, target: self, selector: "flash", userInfo: nil, repeats: true)
+    }
+
+    func stopFlashing() {
+        flashTimer?.invalidate()
+    }
+
+    func flash() {
+        if (isOn) {
+            turnOffLight()
+        } else {
+            turnOnLight()
+        }
     }
 
     var connectedTo:CallerView? {

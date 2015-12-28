@@ -6,6 +6,7 @@ root._ = require('underscore') unless root._?
 askToConnect(call)
 askToDisconnect(call)
 initiateCall(sender)
+completeCall(call)
 
 client
 people
@@ -56,15 +57,23 @@ class Game
       call = root._(@calls).findWhere {sender: second, receiver: first}
     return unless call and call.pickedUp
 
+    call.waitingToDisconnect = true
+
     i.askToDisconnect(call) for i in @interfaces
+
+  disconnect: (first, second) =>
+    call = root._(@calls).findWhere {sender: first, receiver: second}
+    unless call
+      call = root._(@calls).findWhere {sender: second, receiver: first}
+    return unless call and call.pickedUp and call.waitingToDisconnect
 
     first.busy = false
     second.busy = false
 
+    i.completeCall(call) for i in @interfaces
+
     @calls = root._(@calls).without(call)
     @addNewCall()
-
-  disconnect: (first, second) =>
 
   addNewCall: =>
     [first, second] = root._(@people).chain()

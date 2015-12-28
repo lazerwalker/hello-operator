@@ -42,9 +42,18 @@ class ViewController: UIViewController {
             let text = "Hello! Can I speak with \(receiver)?"
             let utterance = AVSpeechUtterance(string: text)
             self.synthesizer.speakUtterance(utterance)
+            print(text)
         }
 
-        interface.onAskToDisconnect = { sender, receiver in }
+        interface.onAskToDisconnect = { sender, receiver in
+            self.viewForCaller(sender)?.startFlashing();
+            self.viewForCaller(receiver)?.startFlashing();
+        }
+
+        interface.onCompleteCall = { sender, receiver in
+            self.viewForCaller(sender)?.stopFlashing();
+            self.viewForCaller(receiver)?.stopFlashing();
+        }
 
         manager.startGame(interface)
     }

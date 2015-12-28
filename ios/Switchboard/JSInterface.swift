@@ -8,12 +8,14 @@ import JavaScriptCore
     func initiateCall(sender:String)
     func askToConnect(call:[String: AnyObject])
     func askToDisconnect(call:[String: AnyObject])
+    func completeCall(call:[String: AnyObject])
 }
 
 @objc class JSInterface : NSObject, JSInterfaceExports {
     var onInitiateCall:((sender: String) -> Void)?
     var onAskToDisconnect:((sender: String, receiver:String) -> Void)?
     var onAskToConnect:((sender: String, receiver:String) -> Void)?
+    var onCompleteCall:((sender: String, receiver:String) -> Void)?
     var onPeopleChange:(([String]) -> Void)?
 
     var currentGoal:(String, String?)?
@@ -48,6 +50,13 @@ import JavaScriptCore
         let receiver = call["receiver"] as! String
 
         self.onAskToConnect?(sender: sender, receiver: receiver)
+    }
+
+    func completeCall(call: [String : AnyObject]) {
+        let sender = call["sender"] as! String
+        let receiver = call["receiver"] as! String
+
+        self.onCompleteCall?(sender: sender, receiver: receiver)
     }
 
     //-
