@@ -38,6 +38,7 @@ import UIKit
 
     func stopFlashing() {
         flashTimer?.invalidate()
+        turnOffLight()
     }
 
     func flash() {

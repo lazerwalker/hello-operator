@@ -37,6 +37,9 @@ class Game
     "Vera"
     "Joyce"
   ]
+
+  numberOfConnections: 2
+
   constructor: ->
     @calls = []
     @interfaces = []
@@ -102,7 +105,10 @@ class Game
     @interfaces.push i
 
   startGame: ->
-    @addNewCall()
+    timeout = 0
+    for i in [0...@numberOfConnections]
+      setTimeout @addNewCall, timeout
+      timeout += root._.random(5, 50) * 100
 
   askToEndCall: (call) =>
     return unless call.connected

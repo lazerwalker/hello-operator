@@ -29,6 +29,8 @@
   Game = (function() {
     Game.prototype.people = ["Dolores", "Mabel", "Irene", "Evelyn", "Gladys", "Ethel", "Bernice", "Lucille", "Edith", "Rita", "Mae", "Rosemary", "Beverly", "Pearl", "Vera", "Joyce"];
 
+    Game.prototype.numberOfConnections = 2;
+
     function Game() {
       this.askToEndCall = bind(this.askToEndCall, this);
       this.addNewCall = bind(this.addNewCall, this);
@@ -144,7 +146,14 @@
     };
 
     Game.prototype.startGame = function() {
-      return this.addNewCall();
+      var i, j, ref, results, timeout;
+      timeout = 0;
+      results = [];
+      for (i = j = 0, ref = this.numberOfConnections; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
+        setTimeout(this.addNewCall, timeout);
+        results.push(timeout += root._.random(5, 50) * 100);
+      }
+      return results;
     };
 
     Game.prototype.askToEndCall = function(call) {
