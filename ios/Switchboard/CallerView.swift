@@ -31,9 +31,24 @@ import UIKit
         isOn = false;
     }
 
-    func startFlashing() {
+    func startFlashing(happiness:Int = 0) {
         flashTimer?.invalidate() // Should never be necessary
-        flashTimer = NSTimer.scheduledTimerWithTimeInterval(0.3, target: self, selector: "flash", userInfo: nil, repeats: true)
+
+        var interval:NSTimeInterval;
+        switch(happiness) {
+        case 0:
+            interval = 1.0
+        case 1:
+            interval = 0.5
+        case 2:
+            interval = 0.2
+        case 3:
+            interval = 0.1
+        default:
+            interval = 1.0
+        }
+
+        flashTimer = NSTimer.scheduledTimerWithTimeInterval(interval, target: self, selector: "flash", userInfo: nil, repeats: true)
     }
 
     func stopFlashing() {

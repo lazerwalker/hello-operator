@@ -40,6 +40,14 @@ class Game
 
   numberOfConnections: 2
 
+  # States are 0-4
+  happinessStates: [
+    { timeout: 4000, score: 10 },
+    { timeout: 4000, score: 7 },
+    { timeout: 4000, score: 4 },
+    { score: 1 }
+  ]
+
   constructor: ->
     @calls = []
     @interfaces = []
@@ -114,8 +122,22 @@ class Game
     return unless call.connected
 
     call.waitingToDisconnect = true
+    call.happiness = -1
+    @updateHappiness(call)
+
     i.askToDisconnect(call) for i in @interfaces
 
+
+  updateHappiness: (call) =>
+    return if call.happiness >= call.happiness.length
+
+    call.happiness = call.happiness + 1
+    happiness = @happinessStates[call.happiness]
+
+    i.updateHappiness(call) for i in @interfaces
+
+    if happiness.timeout?
+      setTimeout ( () => @updateHappiness(call) ), happiness.timeout
 
 if module?.exports
   module.exports = Game

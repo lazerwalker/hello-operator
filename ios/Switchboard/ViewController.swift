@@ -45,14 +45,16 @@ class ViewController: UIViewController {
             print(text)
         }
 
-        interface.onAskToDisconnect = { sender, receiver in
-            self.viewForCaller(sender)?.startFlashing();
-            self.viewForCaller(receiver)?.startFlashing();
-        }
+        interface.onAskToDisconnect = { sender, receiver in }
 
         interface.onCompleteCall = { sender, receiver in
             self.viewForCaller(sender)?.stopFlashing();
             self.viewForCaller(receiver)?.stopFlashing();
+        }
+
+        interface.onUpdateHappiness = { sender, receiver, happiness in
+            self.viewForCaller(sender)?.startFlashing(happiness);
+            self.viewForCaller(receiver)?.startFlashing(happiness);
         }
 
         manager.startGame(interface)

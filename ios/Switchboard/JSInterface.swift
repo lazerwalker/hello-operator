@@ -9,6 +9,7 @@ import JavaScriptCore
     func askToConnect(call:[String: AnyObject])
     func askToDisconnect(call:[String: AnyObject])
     func completeCall(call:[String: AnyObject])
+    func updateHappiness(call:[String: AnyObject])
 }
 
 @objc class JSInterface : NSObject, JSInterfaceExports {
@@ -16,6 +17,7 @@ import JavaScriptCore
     var onAskToDisconnect:((sender: String, receiver:String) -> Void)?
     var onAskToConnect:((sender: String, receiver:String) -> Void)?
     var onCompleteCall:((sender: String, receiver:String) -> Void)?
+    var onUpdateHappiness:((sender: String, receiver:String, happiness:Int) -> Void)?
     var onPeopleChange:(([String]) -> Void)?
 
     var currentGoal:(String, String?)?
@@ -58,6 +60,14 @@ import JavaScriptCore
         let receiver = call["receiver"] as! String
 
         self.onCompleteCall?(sender: sender, receiver: receiver)
+    }
+
+    func updateHappiness(call: [String : AnyObject]) {
+        let sender = call["sender"] as! String
+        let receiver = call["receiver"] as! String
+        let happiness = call["happiness"] as! Int
+        
+        self.onUpdateHappiness?(sender: sender, receiver: receiver, happiness: happiness);
     }
 
     //-
