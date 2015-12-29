@@ -91,9 +91,6 @@ class Game
 
     @calls = root._(@calls).without(call)
 
-    wait = root._.random(10, 50) * 100
-    setTimeout (() => @addNewCall()), wait
-
   addNewCall: =>
     [first, second] = root._(@people).chain()
       .reject (p) -> p.busy
@@ -136,6 +133,8 @@ class Game
 
     i.askToDisconnect(call) for i in @interfaces
 
+    wait = root._.random(10, 70) * 100
+    setTimeout (() => @addNewCall()), wait
 
   updateHappiness: (call) =>
     return if call.shouldIgnoreHappiness

@@ -20,6 +20,9 @@ class ConsoleInterface
     console.log "Picked up #{sender}"
     console.log "\"Hey, it's #{sender}. Can I talk to #{receiver}?\""
 
+  askToDisconnect: ({sender, receiver}) ->
+    console.log "#{sender} and #{receiver} are done"
+
   completeCall: ({sender, receiver}) ->
     console.log "#{sender} and #{receiver} finished talking."
 
