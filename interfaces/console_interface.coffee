@@ -1,6 +1,13 @@
 _ = require 'underscore'
 
 class ConsoleInterface
+  happiness: [
+    "happily waiting"
+    "starting to get impatient"
+    "rather annoyed"
+    "livid"
+  ]
+
   constructor: (@people, @client) ->
     @connected = []
     @waitForInput()
@@ -19,6 +26,13 @@ class ConsoleInterface
     existing = _.filter @connected, (pair) -> caller in pair    
     console.log "Auto-Disconnected #{p[0]} and #{p[1]}" for p in existing    
     @connected = _.reject @connected, (pair) -> caller in pair
+
+  updateHappiness: (call) ->
+    state = @happiness[call.happiness]
+    if call.receiver? 
+      console.log "#{call.sender} and #{call.receiver} are #{state}"
+    else
+      console.log "#{call.sender} is #{state}"
 
   waitForInput: () ->
     process.stdin.resume();

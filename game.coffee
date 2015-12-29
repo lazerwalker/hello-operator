@@ -57,6 +57,7 @@ class Game
 
     return unless call
     return if call.pickedUp
+    call.shouldIgnoreHappiness = true
     call.pickedUp = true
     i.askToConnect(call) for i in @interfaces
 
@@ -83,6 +84,7 @@ class Game
 
     first.busy = false
     second.busy = false
+    call.shouldIgnoreHappiness = true
 
     i.completeCall(call) for i in @interfaces
 
@@ -97,15 +99,18 @@ class Game
 
     return unless first and second
 
-    instruction =
+    call =
       sender: first,
       receiver: second
+      happiness: -1
 
     first.busy = true
     second.busy = true
 
-    @calls.push(instruction)
-    i.initiateCall(instruction.sender) for i in @interfaces
+    @calls.push(call)
+    i.initiateCall(call.sender) for i in @interfaces
+
+    @updateHappiness(call)
 
   addInterface: (i) ->
     i.people = @people
@@ -122,6 +127,7 @@ class Game
     return unless call.connected
 
     call.waitingToDisconnect = true
+    call.shouldIgnoreHappiness = false
     call.happiness = -1
     @updateHappiness(call)
 
@@ -129,15 +135,20 @@ class Game
 
 
   updateHappiness: (call) =>
+    return if call.shouldIgnoreHappiness
     return if call.happiness >= call.happiness.length
 
     call.happiness = call.happiness + 1
     happiness = @happinessStates[call.happiness]
 
-    i.updateHappiness(call) for i in @interfaces
+    callObj = Object.assign({}, call)
+    if !call.pickedUp
+      delete callObj.receiver
+
+    i.updateHappiness(callObj) for i in @interfaces
 
     if happiness.timeout?
-      setTimeout ( () => @updateHappiness(call) ), happiness.timeout
+      call.timer = setTimeout ( () => @updateHappiness(call) ), happiness.timeout
 
 if module?.exports
   module.exports = Game

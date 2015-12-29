@@ -33,12 +33,10 @@ class ViewController: UIViewController {
             }
         }
 
-        interface.onInitiateCall = { caller in
-            self.viewForCaller(caller)?.turnOnLight()
-        }
+        interface.onInitiateCall = { caller in }
 
         interface.onAskToConnect = { sender, receiver in
-            self.viewForCaller(sender)?.turnOffLight()
+            self.viewForCaller(sender)?.stopFlashing()
             let text = "Hello! Can I speak with \(receiver)?"
             let utterance = AVSpeechUtterance(string: text)
             self.synthesizer.speakUtterance(utterance)
@@ -111,13 +109,15 @@ class ViewController: UIViewController {
         }
     }
 
-    private func viewForCaller(caller:String) -> CallerView? {
-        if caller == "OPER" {
-            return self.operatorView
-        }
+    private func viewForCaller(caller:String?) -> CallerView? {
+        if let c = caller {
+            if c == "OPER" {
+                return self.operatorView
+            }
 
-        if let index = self.interface.people.indexOf(caller) {
-            return self.callers[index]
+            if let index = self.interface.people.indexOf(c) {
+                return self.callers[index]
+            }
         }
         return nil
     }

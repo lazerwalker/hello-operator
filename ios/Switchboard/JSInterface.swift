@@ -17,7 +17,7 @@ import JavaScriptCore
     var onAskToDisconnect:((sender: String, receiver:String) -> Void)?
     var onAskToConnect:((sender: String, receiver:String) -> Void)?
     var onCompleteCall:((sender: String, receiver:String) -> Void)?
-    var onUpdateHappiness:((sender: String, receiver:String, happiness:Int) -> Void)?
+    var onUpdateHappiness:((sender: String, receiver:String?, happiness:Int) -> Void)?
     var onPeopleChange:(([String]) -> Void)?
 
     var currentGoal:(String, String?)?
@@ -64,9 +64,9 @@ import JavaScriptCore
 
     func updateHappiness(call: [String : AnyObject]) {
         let sender = call["sender"] as! String
-        let receiver = call["receiver"] as! String
+        let receiver = call["receiver"] as? String
         let happiness = call["happiness"] as! Int
-        
+
         self.onUpdateHappiness?(sender: sender, receiver: receiver, happiness: happiness);
     }
 
