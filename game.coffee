@@ -53,6 +53,13 @@ class Game
     @calls = []
     @interfaces = []
 
+    @startDate = new Date()
+
+  timeWeightedRand: (low, high) ->
+    diff = (new Date() - @startDate) / 1000
+    rand = root._.random(low, high)
+    return rand * (1 - diff/300)
+
   connectOperator: (caller) =>
     call = root._(@calls).findWhere {sender: caller}
 
@@ -74,7 +81,7 @@ class Game
 
     # Set timer to start the disconnect
     # TODO: When this gets more complicated, extract this out.
-    timeout = root._.random(10, 50) * 100
+    timeout = @timeWeightedRand(1000, 5000)
     setTimeout ( () => @askToEndCall(call) ), timeout
 
   disconnect: (first, second) =>
@@ -121,7 +128,7 @@ class Game
     timeout = 0
     for i in [0...@numberOfConnections]
       setTimeout @addNewCall, timeout
-      timeout += root._.random(5, 50) * 100
+      timeout += @timeWeightedRand(500, 5000)
 
   askToEndCall: (call) =>
     return unless call.connected
@@ -133,7 +140,7 @@ class Game
 
     i.askToDisconnect(call) for i in @interfaces
 
-    wait = root._.random(10, 70) * 100
+    wait = @timeWeightedRand(1000, 7000)
     setTimeout (() => @addNewCall()), wait
 
   updateHappiness: (call) =>
