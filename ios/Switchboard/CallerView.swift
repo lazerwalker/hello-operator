@@ -35,14 +35,20 @@ import UIKit
         flashTimer?.invalidate() // Should never be necessary
 
         var interval:NSTimeInterval;
+
+        if (happiness == 0) {
+            turnOnLight()
+            return
+        }
+        
         switch(happiness) {
-        case 0:
-            interval = 1.0
         case 1:
-            interval = 0.5
+            interval = 1.0
         case 2:
-            interval = 0.2
+            interval = 0.5
         case 3:
+            interval = 0.2
+        case 4:
             interval = 0.1
         default:
             interval = 1.0

@@ -3,6 +3,7 @@ _ = require 'underscore'
 class ConsoleInterface
   happiness: [
     "happily waiting"
+    "still pretty satisfied"
     "starting to get impatient"
     "rather annoyed"
     "livid"

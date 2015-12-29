@@ -40,11 +40,12 @@ class Game
 
   numberOfConnections: 2
 
-  # States are 0-4
+  # States are 0-5
   happinessStates: [
-    { timeout: 4000, score: 10 },
-    { timeout: 4000, score: 7 },
-    { timeout: 4000, score: 4 },
+    { timeout: 2000, score: 10 },
+    { timeout: 4000, score: 8 },
+    { timeout: 4000, score: 6 },
+    { timeout: 4000, score: 3 },
     { score: 1 }
   ]
 
