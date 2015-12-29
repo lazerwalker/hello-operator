@@ -90,7 +90,9 @@ class Game
     i.completeCall(call) for i in @interfaces
 
     @calls = root._(@calls).without(call)
-    @addNewCall()
+
+    wait = root._.random(10, 50) * 100
+    setTimeout (() => @addNewCall()), wait
 
   addNewCall: =>
     [first, second] = root._(@people).chain()
