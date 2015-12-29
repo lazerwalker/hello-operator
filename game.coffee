@@ -64,7 +64,7 @@ class Game
     call = root._(@calls).findWhere {sender: caller}
 
     return unless call
-    return if call.pickedUp
+    return if call.connected
     call.shouldIgnoreHappiness = true
     call.pickedUp = true
     i.askToConnect(call) for i in @interfaces
