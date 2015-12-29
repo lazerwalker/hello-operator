@@ -130,6 +130,9 @@ class Game
       setTimeout @addNewCall, timeout
       timeout += @timeWeightedRand(500, 5000)
 
+    for i in [30, 60, 120]
+      setTimeout ( () => @addNewCall() ), i * 1000 
+
   askToEndCall: (call) =>
     return unless call.connected
 
