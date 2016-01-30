@@ -38,7 +38,7 @@ class Game
     "Joyce"
   ]
 
-  numberOfConnections: 2
+  numberOfConnections: 1
 
   # States are 0-5
   happinessStates: [
@@ -130,7 +130,7 @@ class Game
       setTimeout @addNewCall, timeout
       timeout += @timeWeightedRand(500, 5000)
 
-    for i in [30, 60, 120]
+    for i in [15, 60, 120, 150]
       setTimeout ( () => @addNewCall() ), i * 1000 
 
   askToEndCall: (call) =>
