@@ -13,30 +13,23 @@ class ConsoleInterface
     @connected = []
     @waitForInput()
 
-  initiateCall: (sender) ->
-    console.log "#{sender} is calling!"
+  turnOnLight: (caller) ->
+    console.log "#{caller} is ON"
 
-  askToConnect: ({sender, receiver}) ->
+  turnOffLight: (caller) ->
+    console.log "#{caller} is OFF"
+
+  blinkLight: ({caller, rate}) ->
+    console.log "#{caller} is BLINKING at #{rate}"
+
+  sayToConnect: ({sender, receiver}) ->
     console.log "Picked up #{sender}"
     console.log "\"Hey, it's #{sender}. Can I talk to #{receiver}?\""
-
-  askToDisconnect: ({sender, receiver}) ->
-    console.log "#{sender} and #{receiver} are done"
-
-  completeCall: ({sender, receiver}) ->
-    console.log "#{sender} and #{receiver} finished talking."
 
   disconnectExisting: (caller) ->
     existing = _.filter @connected, (pair) -> caller in pair    
     console.log "Auto-Disconnected #{p[0]} and #{p[1]}" for p in existing    
     @connected = _.reject @connected, (pair) -> caller in pair
-
-  updateHappiness: (call) ->
-    state = @happiness[call.happiness]
-    if call.receiver? 
-      console.log "#{call.sender} and #{call.receiver} are #{state}"
-    else
-      console.log "#{call.sender} is #{state}"
 
   waitForInput: () ->
     process.stdin.resume();

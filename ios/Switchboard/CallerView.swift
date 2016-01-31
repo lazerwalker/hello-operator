@@ -21,40 +21,32 @@ import UIKit
         button.backgroundColor = UIColor.lightGrayColor()
     }
 
-    func turnOnLight() {
+    func turnOnLight(isFlash:Bool = false) {
         light.backgroundColor = UIColor.greenColor()
         isOn = true;
+
+        if (!isFlash) {
+            flashTimer?.invalidate()
+        }
     }
 
-    func turnOffLight() {
+    func turnOffLight(isFlash:Bool = false) {
         light.backgroundColor = UIColor.groupTableViewBackgroundColor()
         isOn = false;
+
+        if (!isFlash) {
+            flashTimer?.invalidate()
+        }
     }
 
-    func startFlashing(happiness:Int = 0) {
-        flashTimer?.invalidate() // Should never be necessary
-
-        var interval:NSTimeInterval;
-
-        if (happiness == 0) {
+    func startFlashing(rate:NSTimeInterval = 0) {
+        flashTimer?.invalidate()
+        if (rate == 0) {
             turnOnLight()
             return
         }
-        
-        switch(happiness) {
-        case 1:
-            interval = 1.0
-        case 2:
-            interval = 0.5
-        case 3:
-            interval = 0.2
-        case 4:
-            interval = 0.1
-        default:
-            interval = 1.0
-        }
 
-        flashTimer = NSTimer.scheduledTimerWithTimeInterval(interval, target: self, selector: "flash", userInfo: nil, repeats: true)
+        flashTimer = NSTimer.scheduledTimerWithTimeInterval(rate, target: self, selector: "flash", userInfo: nil, repeats: true)
     }
 
     func stopFlashing() {
@@ -64,9 +56,9 @@ import UIKit
 
     func flash() {
         if (isOn) {
-            turnOffLight()
+            turnOffLight(true)
         } else {
-            turnOnLight()
+            turnOnLight(true)
         }
     }
 

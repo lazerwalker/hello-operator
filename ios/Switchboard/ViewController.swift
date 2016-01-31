@@ -33,26 +33,23 @@ class ViewController: UIViewController {
             }
         }
 
-        interface.onInitiateCall = { caller in }
-
-        interface.onAskToConnect = { sender, receiver in
-            self.viewForCaller(sender)?.stopFlashing()
+        interface.onSayToConnect = { sender, receiver in
             let text = "Hello! Can I speak with \(receiver)?"
             let utterance = AVSpeechUtterance(string: text)
             self.synthesizer.speakUtterance(utterance)
             print(text)
         }
 
-        interface.onAskToDisconnect = { sender, receiver in }
-
-        interface.onCompleteCall = { sender, receiver in
-            self.viewForCaller(sender)?.stopFlashing();
-            self.viewForCaller(receiver)?.stopFlashing();
+        interface.onTurnOn = { caller in
+            self.viewForCaller(caller)?.turnOnLight()
         }
 
-        interface.onUpdateHappiness = { sender, receiver, happiness in
-            self.viewForCaller(sender)?.startFlashing(happiness);
-            self.viewForCaller(receiver)?.startFlashing(happiness);
+        interface.onTurnOff = { caller in
+            self.viewForCaller(caller)?.turnOffLight()
+        }
+
+        interface.onBlink = { caller, rate in
+            self.viewForCaller(caller)?.startFlashing(rate)
         }
 
         manager.startGame(interface)

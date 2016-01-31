@@ -1,21 +1,30 @@
 root = exports ? this
 root._ = require('underscore') unless root._?
   
+###
+Informal API
 
-### Client
-askToConnect(call)
-askToDisconnect(call)
-initiateCall(sender)
-completeCall(call)
+@protocol Client
 
-client
-people
+function turnOnLight(caller)
+function turnOffLight(caller)
+function blinkLight({caller, rate}) // This is how it is because I don't know how to make JSCore accept multi-argument fns
+function sayToConnect(call)
 
-Expected to call:
-connect
-disconnect
-connectOperator (deprecate)
-disconnectOperator (deprecate)
+@end
+
+@protocol Game
+
+var client
+var people
+
+function connect(a, b)
+functiondisconnect(a, b)
+function connectOperator(caller)
+function disconnectOperator(caller)
+
+@end
+
 ###
 
 class Game
@@ -42,11 +51,11 @@ class Game
 
   # States are 0-5
   happinessStates: [
-    { timeout: 2000, score: 10 },
-    { timeout: 4000, score: 8 },
-    { timeout: 4000, score: 6 },
-    { timeout: 4000, score: 3 },
-    { score: 1 }
+    { timeout: 2000, score: 10, rate: 0 },
+    { timeout: 4000, score: 8, rate: 1000 },
+    { timeout: 4000, score: 6, rate: 500 },
+    { timeout: 4000, score: 3, rate: 200 },
+    { score: 1, rate: 100 }
   ]
 
   constructor: ->
@@ -62,12 +71,13 @@ class Game
 
   connectOperator: (caller) =>
     call = root._(@calls).findWhere {sender: caller}
-
     return unless call
     return if call.connected
     call.shouldIgnoreHappiness = true
     call.pickedUp = true
-    i.askToConnect(call) for i in @interfaces
+    for i in @interfaces
+      i.sayToConnect(call) 
+      i.turnOffLight(call.sender)
 
   disconnectOperator: (caller) =>
 
@@ -94,7 +104,9 @@ class Game
     second.busy = false
     call.shouldIgnoreHappiness = true
 
-    i.completeCall(call) for i in @interfaces
+    for i in @interfaces
+      i.turnOffLight(call.sender) 
+      i.turnOffLight(call.receiver)
 
     @calls = root._(@calls).without(call)
 
@@ -115,7 +127,7 @@ class Game
     second.busy = true
 
     @calls.push(call)
-    i.initiateCall(call.sender) for i in @interfaces
+    i.turnOnLight(call.sender) for i in @interfaces
 
     @updateHappiness(call)
 
@@ -141,7 +153,9 @@ class Game
     call.happiness = -1
     @updateHappiness(call)
 
-    i.askToDisconnect(call) for i in @interfaces
+    for i in @interfaces
+      i.turnOnLight(call.sender)
+      i.turnOnLight(call.receiver)
 
     wait = @timeWeightedRand(1000, 7000)
     setTimeout (() => @addNewCall()), wait
@@ -157,7 +171,9 @@ class Game
     if !call.pickedUp
       delete callObj.receiver
 
-    i.updateHappiness(callObj) for i in @interfaces
+    for i in @interfaces
+      i.blinkLight({caller: callObj.sender, rate: happiness.rate})
+      i.blinkLight({caller: callObj.sender, rate: happiness.rate}) if callObj.receiver?
 
     if happiness.timeout?
       call.timer = setTimeout ( () => @updateHappiness(call) ), happiness.timeout

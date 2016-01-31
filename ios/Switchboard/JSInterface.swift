@@ -5,20 +5,18 @@ import JavaScriptCore
     var people: [String] { get set }
     var client: JSValue? { get set }
 
-    func initiateCall(sender:String)
-    func askToConnect(call:[String: AnyObject])
-    func askToDisconnect(call:[String: AnyObject])
-    func completeCall(call:[String: AnyObject])
-    func updateHappiness(call:[String: AnyObject])
+    func turnOnLight(sender: String)
+    func turnOffLight(sender: String)
+    func blinkLight(obj:[String: AnyObject])
+    func sayToConnect(call:[String: AnyObject])
 }
 
 @objc class JSInterface : NSObject, JSInterfaceExports {
-    var onInitiateCall:((sender: String) -> Void)?
-    var onAskToDisconnect:((sender: String, receiver:String) -> Void)?
-    var onAskToConnect:((sender: String, receiver:String) -> Void)?
-    var onCompleteCall:((sender: String, receiver:String) -> Void)?
-    var onUpdateHappiness:((sender: String, receiver:String?, happiness:Int) -> Void)?
+    var onTurnOn:((String) -> Void)?
+    var onTurnOff:((String) -> Void)?
+    var onBlink:((String, NSTimeInterval) -> Void)?
     var onPeopleChange:(([String]) -> Void)?
+    var onSayToConnect:((sender: String, receiver:String) -> Void)?
 
     var currentGoal:(String, String?)?
 
@@ -35,39 +33,29 @@ import JavaScriptCore
     //-
     // Called from JS
 
-    func initiateCall(sender: String) {
-        print("\(sender) is calling!")
-        self.onInitiateCall?(sender: sender)
+    func turnOnLight(sender: String) {
+        print("Turning on \(sender)")
+        self.onTurnOn?(sender)
     }
 
-    func askToDisconnect(call:[String: AnyObject]) {
-        print("Asking to disconnect")
+    func turnOffLight(sender: String) {
+        print("Turning off \(sender)")
+        self.onTurnOff?(sender)
+    }
+
+    func blinkLight(obj:[String: AnyObject]) {
+        let caller = obj["caller"] as! String
+        let rate = obj["rate"] as! Double
+        print("Blinking \(caller), \(rate)")
+        let interval:NSTimeInterval = rate / 1000
+        self.onBlink?(caller, interval)
+    }
+
+    func sayToConnect(call:[String:AnyObject]) {
         let sender = call["sender"] as! String
         let receiver = call["receiver"] as! String
 
-        self.onAskToDisconnect?(sender: sender, receiver: receiver)
-    }
-
-    func askToConnect(call:[String:AnyObject]) {
-        let sender = call["sender"] as! String
-        let receiver = call["receiver"] as! String
-
-        self.onAskToConnect?(sender: sender, receiver: receiver)
-    }
-
-    func completeCall(call: [String : AnyObject]) {
-        let sender = call["sender"] as! String
-        let receiver = call["receiver"] as! String
-
-        self.onCompleteCall?(sender: sender, receiver: receiver)
-    }
-
-    func updateHappiness(call: [String : AnyObject]) {
-        let sender = call["sender"] as! String
-        let receiver = call["receiver"] as? String
-        let happiness = call["happiness"] as! Int
-
-        self.onUpdateHappiness?(sender: sender, receiver: receiver, happiness: happiness);
+        self.onSayToConnect?(sender: sender, receiver: receiver)
     }
 
     //-
