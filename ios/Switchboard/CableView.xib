@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+            <string>HelveticaNeue</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CableView" customModule="Switchboard" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="DAU-q1-XcC" id="Q88-YK-cQy"/>
+                <outlet property="frontCable" destination="NPh-pZ-Kml" id="udx-gE-krM"/>
+                <outlet property="frontLight" destination="BcK-hh-byI" id="kgl-TD-BlU"/>
+                <outlet property="frontSwitch" destination="7Bf-SN-t9Z" id="ew2-St-NF8"/>
+                <outlet property="rearCable" destination="3X0-VZ-q8D" id="IVi-6q-AWP"/>
+                <outlet property="rearLight" destination="9DP-ay-6fR" id="bQf-jt-sFr"/>
+                <outlet property="rearSwitch" destination="SIx-jc-x4D" id="xM4-Ul-qvb"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="DAU-q1-XcC">
+            <rect key="frame" x="0.0" y="0.0" width="141" height="275"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3X0-VZ-q8D">
+                    <rect key="frame" x="44" y="8" width="53" height="53"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="53" id="7vT-h0-shA"/>
+                        <constraint firstAttribute="height" constant="53" id="JXJ-rZ-PM1"/>
+                        <constraint firstAttribute="width" constant="53" id="cGi-cv-NNF"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NPh-pZ-Kml">
+                    <rect key="frame" x="44" y="69" width="53" height="53"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="53" id="DJU-Zn-t6S"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="53" id="QoF-3s-bpk"/>
+                        <constraint firstAttribute="width" constant="53" id="tHh-3p-cCZ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                </button>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="SIx-jc-x4D">
+                    <rect key="frame" x="10" y="191" width="121" height="34"/>
+                    <segments>
+                        <segment title="Talk"/>
+                        <segment title=""/>
+                        <segment title="Ring"/>
+                    </segments>
+                </segmentedControl>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="7Bf-SN-t9Z">
+                    <rect key="frame" x="10" y="233" width="121" height="29"/>
+                    <segments>
+                        <segment title="Talk"/>
+                        <segment title=""/>
+                        <segment title="Ring"/>
+                    </segments>
+                </segmentedControl>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9DP-ay-6fR">
+                    <rect key="frame" x="60" y="130" width="20" height="20"/>
+                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <accessibilityTraits key="traits" notEnabled="YES"/>
+                    </accessibility>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="1q7-Ct-JFd"/>
+                        <constraint firstAttribute="width" constant="20" id="ygy-ln-yx4"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BcK-hh-byI">
+                    <rect key="frame" x="60" y="158" width="20" height="20"/>
+                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <accessibilityTraits key="traits" notEnabled="YES"/>
+                    </accessibility>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="Gt0-6L-bgT"/>
+                        <constraint firstAttribute="width" constant="20" id="TGz-XI-u91"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="NPh-pZ-Kml" firstAttribute="centerX" secondItem="DAU-q1-XcC" secondAttribute="centerX" id="6vI-Zp-ZMY"/>
+                <constraint firstItem="9DP-ay-6fR" firstAttribute="centerX" secondItem="DAU-q1-XcC" secondAttribute="centerX" id="9T5-9N-qYn"/>
+                <constraint firstItem="BcK-hh-byI" firstAttribute="top" secondItem="9DP-ay-6fR" secondAttribute="bottom" constant="8" id="9tQ-nJ-Bic"/>
+                <constraint firstItem="3X0-VZ-q8D" firstAttribute="centerX" secondItem="DAU-q1-XcC" secondAttribute="centerX" id="Cbb-2J-jnv"/>
+                <constraint firstItem="SIx-jc-x4D" firstAttribute="top" secondItem="BcK-hh-byI" secondAttribute="bottom" constant="8" id="E0T-gS-feL"/>
+                <constraint firstItem="NPh-pZ-Kml" firstAttribute="top" secondItem="3X0-VZ-q8D" secondAttribute="bottom" constant="8" id="VFK-SL-2lV"/>
+                <constraint firstItem="SIx-jc-x4D" firstAttribute="centerX" secondItem="DAU-q1-XcC" secondAttribute="centerX" id="WBl-98-Ayn"/>
+                <constraint firstItem="BcK-hh-byI" firstAttribute="centerX" secondItem="DAU-q1-XcC" secondAttribute="centerX" id="WVi-GD-wSR"/>
+                <constraint firstItem="3X0-VZ-q8D" firstAttribute="top" secondItem="DAU-q1-XcC" secondAttribute="top" constant="8" id="YhG-IZ-5MT"/>
+                <constraint firstItem="7Bf-SN-t9Z" firstAttribute="top" secondItem="SIx-jc-x4D" secondAttribute="bottom" constant="14" id="dvO-aL-Yon"/>
+                <constraint firstItem="9DP-ay-6fR" firstAttribute="top" secondItem="NPh-pZ-Kml" secondAttribute="bottom" constant="8" id="fEG-2S-4Y6"/>
+                <constraint firstItem="7Bf-SN-t9Z" firstAttribute="centerX" secondItem="DAU-q1-XcC" secondAttribute="centerX" id="umj-F5-De2"/>
+                <constraint firstAttribute="bottom" secondItem="7Bf-SN-t9Z" secondAttribute="bottom" constant="14" id="vvH-vA-laX"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-425.5" y="-341.5"/>
+        </view>
+    </objects>
+</document>

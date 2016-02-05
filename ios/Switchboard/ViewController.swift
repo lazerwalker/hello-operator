@@ -4,7 +4,6 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet var callers: [CallerView]!
     @IBOutlet var switches: [UISwitch]!
-    @IBOutlet weak var operatorView: CallerView!
     @IBOutlet weak var lineView: LineDrawingView!
     
     let interface = JSInterface()
@@ -23,8 +22,7 @@ class ViewController: UIViewController {
             c.onDragEnd = self.didDrag
         }
 
-        operatorView.name = interface.OPERATOR
-        operatorView.onDragEnd = self.didDrag
+//        operatorView.onDragEnd = self.didDrag
 
         interface.onPeopleChange = { people in
             for var i = 0; i < people.count; i++ {
@@ -109,7 +107,8 @@ class ViewController: UIViewController {
     private func viewForCaller(caller:String?) -> CallerView? {
         if let c = caller {
             if c == "OPER" {
-                return self.operatorView
+                return nil
+//                return self.operatorView
             }
 
             if let index = self.interface.people.indexOf(c) {

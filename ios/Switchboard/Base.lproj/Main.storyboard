@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -20,136 +20,133 @@
                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" spacing="160" translatesAutoresizingMaskIntoConstraints="NO" id="rff-4g-eto">
                                 <rect key="frame" x="84" y="56" width="614" height="1004"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="k2X-it-5Kj">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="k2X-it-5Kj">
                                         <rect key="frame" x="0.0" y="0.0" width="614" height="128"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wr4-Ae-WDO" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wr4-Ae-WDO" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="64" height="128"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Lr-L2-mDu" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Lr-L2-mDu" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
                                                 <rect key="frame" x="69" y="0.0" width="64" height="128"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qjx-2g-Omr" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qjx-2g-Omr" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
                                                 <rect key="frame" x="138" y="0.0" width="64" height="128"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fqa-st-LJz" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fqa-st-LJz" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
                                                 <rect key="frame" x="207" y="0.0" width="64" height="128"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nf9-Y7-kVy">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nf9-Y7-kVy">
                                                 <rect key="frame" x="275" y="0.0" width="64" height="128"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bdH-OZ-BlD" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bdH-OZ-BlD" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
                                                 <rect key="frame" x="344" y="0.0" width="64" height="128"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fwd-dV-URw" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fwd-dV-URw" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
                                                 <rect key="frame" x="413" y="0.0" width="64" height="128"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ETY-KL-9aC" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ETY-KL-9aC" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
                                                 <rect key="frame" x="482" y="0.0" width="64" height="128"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qiC-fJ-rTx" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qiC-fJ-rTx" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
                                                 <rect key="frame" x="550" y="0.0" width="64" height="128"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="TZ2-f3-TMK">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="TZ2-f3-TMK">
                                         <rect key="frame" x="0.0" y="288" width="614" height="128"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BVi-Dw-hfq" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BVi-Dw-hfq" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="64" height="128"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W0p-u3-vMg" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W0p-u3-vMg" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
                                                 <rect key="frame" x="69" y="0.0" width="64" height="128"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Htb-P1-sm8" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Htb-P1-sm8" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
                                                 <rect key="frame" x="138" y="0.0" width="64" height="128"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n5G-ol-4Ax" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n5G-ol-4Ax" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
                                                 <rect key="frame" x="207" y="0.0" width="64" height="128"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4wd-Kz-iYl">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4wd-Kz-iYl">
                                                 <rect key="frame" x="275" y="0.0" width="64" height="128"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DbS-3k-vmO" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DbS-3k-vmO" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
                                                 <rect key="frame" x="344" y="0.0" width="64" height="128"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ber-pn-2m1" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ber-pn-2m1" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
                                                 <rect key="frame" x="413" y="0.0" width="64" height="128"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g6C-IJ-NyZ" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g6C-IJ-NyZ" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
                                                 <rect key="frame" x="482" y="0.0" width="64" height="128"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BWf-EA-Q8P" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BWf-EA-Q8P" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
                                                 <rect key="frame" x="550" y="0.0" width="64" height="128"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="fillEqually" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="imW-Pi-3he">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="imW-Pi-3he">
                                         <rect key="frame" x="0.0" y="576" width="614" height="428"/>
                                         <subviews>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="YbG-Hx-34a">
-                                                <rect key="frame" x="0.0" y="199" width="64" height="31"/>
-                                            </switch>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="czU-Dk-tez">
-                                                <rect key="frame" x="92" y="199" width="64" height="31"/>
-                                            </switch>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="crB-Gx-tJX">
-                                                <rect key="frame" x="184" y="199" width="64" height="31"/>
-                                            </switch>
-                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d5q-Jy-EaG" customClass="CallerView" customModule="Switchboard" customModuleProvider="target">
-                                                <rect key="frame" x="276" y="162" width="62" height="105"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rsg-2T-hGe" customClass="CableView" customModule="Switchboard" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="77" width="107" height="275"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="KV7-lw-gVj">
-                                                <rect key="frame" x="368" y="199" width="64" height="31"/>
-                                            </switch>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="y6W-Z3-Gd6">
-                                                <rect key="frame" x="460" y="199" width="64" height="31"/>
-                                            </switch>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="yZ0-hk-DkC">
-                                                <rect key="frame" x="552" y="199" width="64" height="31"/>
-                                            </switch>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="46t-xK-nzD" customClass="CableView" customModule="Switchboard" customModuleProvider="target">
+                                                <rect key="frame" x="127" y="77" width="107" height="275"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9a5-7E-N4w" customClass="CableView" customModule="Switchboard" customModuleProvider="target">
+                                                <rect key="frame" x="254" y="77" width="107" height="275"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aL2-Xp-Ur0" customClass="CableView" customModule="Switchboard" customModuleProvider="target">
+                                                <rect key="frame" x="381" y="77" width="107" height="275"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lbE-2g-FdH" customClass="CableView" customModule="Switchboard" customModuleProvider="target">
+                                                <rect key="frame" x="507" y="77" width="107" height="275"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
                                         </subviews>
                                     </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="k2X-it-5Kj" secondAttribute="trailing" id="80Z-Ir-hOZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="TZ2-f3-TMK" secondAttribute="bottom" constant="588" id="UO4-5e-TUE"/>
                                     <constraint firstItem="k2X-it-5Kj" firstAttribute="leading" secondItem="rff-4g-eto" secondAttribute="leading" id="dOy-ag-wD2"/>
+                                    <constraint firstItem="TZ2-f3-TMK" firstAttribute="top" secondItem="rff-4g-eto" secondAttribute="top" constant="288" id="zDj-1D-wes"/>
                                 </constraints>
                             </stackView>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="koU-AZ-SLs" customClass="LineDrawingView" customModule="Switchboard" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="728" height="1024"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bhh-Je-QAM" customClass="LineDrawingView" customModule="Switchboard" customModuleProvider="target">
+                                <rect key="frame" x="264" y="448" width="240" height="128"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" notEnabled="YES"/>
-                                </accessibility>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="koU-AZ-SLs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="36a-HE-Yns"/>
-                            <constraint firstItem="koU-AZ-SLs" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="A0A-wm-rFW"/>
-                            <constraint firstAttribute="trailing" secondItem="koU-AZ-SLs" secondAttribute="trailing" id="ETK-03-sn5"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="bhh-Je-QAM" secondAttribute="bottom" id="1Nn-Fk-24M"/>
+                            <constraint firstItem="bhh-Je-QAM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="EJv-qp-Pfy"/>
+                            <constraint firstItem="bhh-Je-QAM" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="IFG-rv-aGM"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="rff-4g-eto" secondAttribute="bottom" id="WI2-bz-qyD"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="koU-AZ-SLs" secondAttribute="bottom" id="WkY-6M-pXc"/>
+                            <constraint firstAttribute="trailing" secondItem="bhh-Je-QAM" secondAttribute="trailing" id="jAU-XK-0or"/>
                             <constraint firstItem="rff-4g-eto" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="64" id="mUW-z3-J6t"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rff-4g-eto" secondAttribute="trailing" constant="50" id="oZi-8o-REG"/>
                             <constraint firstItem="rff-4g-eto" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="ylo-22-j4W"/>
@@ -157,8 +154,7 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
-                        <outlet property="lineView" destination="koU-AZ-SLs" id="f2u-s2-UmD"/>
-                        <outlet property="operatorView" destination="d5q-Jy-EaG" id="3W0-ko-GWe"/>
+                        <outlet property="lineView" destination="bhh-Je-QAM" id="IlM-YE-Spq"/>
                         <outletCollection property="callers" destination="qjx-2g-Omr" collectionClass="NSMutableArray" id="0ME-h4-twZ"/>
                         <outletCollection property="callers" destination="wr4-Ae-WDO" collectionClass="NSMutableArray" id="Hxz-v0-4ZU"/>
                         <outletCollection property="callers" destination="3Lr-L2-mDu" collectionClass="NSMutableArray" id="HKi-oQ-de1"/>
@@ -175,12 +171,6 @@
                         <outletCollection property="callers" destination="ber-pn-2m1" collectionClass="NSMutableArray" id="nQu-5a-vnF"/>
                         <outletCollection property="callers" destination="g6C-IJ-NyZ" collectionClass="NSMutableArray" id="qos-e8-MTc"/>
                         <outletCollection property="callers" destination="BWf-EA-Q8P" collectionClass="NSMutableArray" id="rhT-zH-Y6b"/>
-                        <outletCollection property="switches" destination="YbG-Hx-34a" collectionClass="NSMutableArray" id="NZF-KL-Tf0"/>
-                        <outletCollection property="switches" destination="czU-Dk-tez" collectionClass="NSMutableArray" id="5dx-yq-Jr2"/>
-                        <outletCollection property="switches" destination="crB-Gx-tJX" collectionClass="NSMutableArray" id="OjL-m9-Yq2"/>
-                        <outletCollection property="switches" destination="KV7-lw-gVj" collectionClass="NSMutableArray" id="7Qw-za-FGw"/>
-                        <outletCollection property="switches" destination="y6W-Z3-Gd6" collectionClass="NSMutableArray" id="YaZ-Df-d3L"/>
-                        <outletCollection property="switches" destination="yZ0-hk-DkC" collectionClass="NSMutableArray" id="I4o-Lv-E35"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
