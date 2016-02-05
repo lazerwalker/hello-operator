@@ -76,6 +76,7 @@ class Game
     call.shouldIgnoreHappiness = true
     call.pickedUp = true
     for i in @interfaces
+      i.turnOnLight(call.sender) # Make their light solid, if blinking
       i.sayToConnect(call) 
 
   disconnectOperator: (caller) =>
