@@ -19,7 +19,7 @@ var client
 var people
 
 function connect(a, b)
-functiondisconnect(a, b)
+function disconnect(a, b)
 function connectOperator(caller)
 function disconnectOperator(caller)
 
@@ -77,7 +77,6 @@ class Game
     call.pickedUp = true
     for i in @interfaces
       i.sayToConnect(call) 
-      i.turnOffLight(call.sender)
 
   disconnectOperator: (caller) =>
 
@@ -88,20 +87,18 @@ class Game
     return unless call and call.pickedUp
 
     call.connected = true
+    for i in @interfaces
+      i.turnOnLight(call.sender)
+      i.turnOnLight(call.receiver)
 
     # Set timer to start the disconnect
     # TODO: When this gets more complicated, extract this out.
     timeout = @timeWeightedRand(1000, 5000)
-    setTimeout ( () => @askToEndCall(call) ), timeout
+    setTimeout ( () => @endCall(call) ), timeout
 
-  disconnect: (first, second) =>
-    call = root._(@calls).findWhere {sender: first, receiver: second}
-    unless call
-      call = root._(@calls).findWhere {sender: second, receiver: first}
-    return unless call?.waitingToDisconnect
-
-    first.busy = false
-    second.busy = false
+  endCall: (call) =>
+    call.sender.busy = false
+    call.receiver.busy = false
     call.shouldIgnoreHappiness = true
 
     for i in @interfaces
@@ -109,6 +106,11 @@ class Game
       i.turnOffLight(call.receiver)
 
     @calls = root._(@calls).without(call)
+
+    wait = @timeWeightedRand(1000, 7000)
+    setTimeout (() => @addNewCall()), wait
+
+  disconnect: (first, second) =>
 
   addNewCall: =>
     [first, second] = root._(@people).chain()
@@ -144,21 +146,6 @@ class Game
 
     for i in [15, 60, 120, 150]
       setTimeout ( () => @addNewCall() ), i * 1000 
-
-  askToEndCall: (call) =>
-    return unless call.connected
-
-    call.waitingToDisconnect = true
-    call.shouldIgnoreHappiness = false
-    call.happiness = -1
-    @updateHappiness(call)
-
-    for i in @interfaces
-      i.turnOnLight(call.sender)
-      i.turnOnLight(call.receiver)
-
-    wait = @timeWeightedRand(1000, 7000)
-    setTimeout (() => @addNewCall()), wait
 
   updateHappiness: (call) =>
     return if call.shouldIgnoreHappiness
