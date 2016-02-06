@@ -35,6 +35,9 @@
                         <constraint firstAttribute="width" constant="53" id="cGi-cv-NNF"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                    <connections>
+                        <action selector="didEndRearDrag:" destination="-1" eventType="touchUpOutside" id="sd9-r0-cUZ"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NPh-pZ-Kml">
                     <rect key="frame" x="44" y="69" width="53" height="53"/>
@@ -45,22 +48,20 @@
                         <constraint firstAttribute="width" constant="53" id="tHh-3p-cCZ"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                    <connections>
+                        <action selector="didEndFrontDrag:" destination="-1" eventType="touchUpOutside" id="knq-AY-v07"/>
+                    </connections>
                 </button>
-                <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="SIx-jc-x4D">
-                    <rect key="frame" x="10" y="191" width="121" height="34"/>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="7Bf-SN-t9Z">
+                    <rect key="frame" x="20" y="233" width="100" height="29"/>
                     <segments>
                         <segment title="Talk"/>
                         <segment title=""/>
                         <segment title="Ring"/>
                     </segments>
-                </segmentedControl>
-                <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="7Bf-SN-t9Z">
-                    <rect key="frame" x="10" y="233" width="121" height="29"/>
-                    <segments>
-                        <segment title="Talk"/>
-                        <segment title=""/>
-                        <segment title="Ring"/>
-                    </segments>
+                    <connections>
+                        <action selector="didToggleFrontSwitch:" destination="-1" eventType="valueChanged" id="K2Y-Is-F0c"/>
+                    </connections>
                 </segmentedControl>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9DP-ay-6fR">
                     <rect key="frame" x="60" y="130" width="20" height="20"/>
@@ -84,6 +85,17 @@
                         <constraint firstAttribute="width" constant="20" id="TGz-XI-u91"/>
                     </constraints>
                 </view>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="SIx-jc-x4D">
+                    <rect key="frame" x="20" y="192" width="100" height="34"/>
+                    <segments>
+                        <segment title="Talk"/>
+                        <segment title=""/>
+                        <segment title="Ring"/>
+                    </segments>
+                    <connections>
+                        <action selector="didToggleRearSwitch:" destination="-1" eventType="valueChanged" id="rdK-Yn-YQ1"/>
+                    </connections>
+                </segmentedControl>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>

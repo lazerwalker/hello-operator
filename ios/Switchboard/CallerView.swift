@@ -1,6 +1,6 @@
 import UIKit
 
-@IBDesignable class CallerView: UIView {
+@IBDesignable class CallerView: UIView, Lightable {
     @IBOutlet weak private var contentView:UIView!
 
     @IBOutlet weak var nameLabel: UILabel!
@@ -29,10 +29,12 @@ import UIKit
 
     //-
     @IBAction func endDrag(sender: AnyObject, event:UIEvent) {
-        self.onDragEnd?(sender: self, event:event)
+        if let name = name {
+            self.onDragEnd?(sender: name, event:event)
+        }
     }
 
-    var onDragEnd:((sender: CallerView, event:UIEvent) -> Void)?
+    var onDragEnd:((sender: String, event:UIEvent) -> Void)?
 
     var flashTimer:NSTimer?
     var isOn = false;
@@ -45,7 +47,11 @@ import UIKit
         button.backgroundColor = UIColor.lightGrayColor()
     }
 
-    func turnOnLight(isFlash:Bool = false) {
+    func turnOnLight(caller:String?) {
+        self.turnOnLight(caller, isFlash: false)
+    }
+
+    private func turnOnLight(caller:String?, isFlash:Bool) {
         light.backgroundColor = UIColor.greenColor()
         isOn = true;
 
@@ -54,7 +60,11 @@ import UIKit
         }
     }
 
-    func turnOffLight(isFlash:Bool = false) {
+    func turnOffLight(caller:String?) {
+        self.turnOffLight(caller, isFlash: false)
+    }
+
+    private func turnOffLight(caller:String?, isFlash:Bool) {
         light.backgroundColor = UIColor.groupTableViewBackgroundColor()
         isOn = false;
 
@@ -63,10 +73,10 @@ import UIKit
         }
     }
 
-    func startFlashing(rate:NSTimeInterval = 0) {
+    func startFlashing(caller:String?, rate:NSTimeInterval = 0) {
         flashTimer?.invalidate()
         if (rate == 0) {
-            turnOnLight()
+            turnOnLight(nil)
             return
         }
 
@@ -75,14 +85,14 @@ import UIKit
 
     func stopFlashing() {
         flashTimer?.invalidate()
-        turnOffLight()
+        turnOffLight(nil)
     }
 
     func flash() {
         if (isOn) {
-            turnOffLight(true)
+            turnOffLight(nil, isFlash: true)
         } else {
-            turnOnLight(true)
+            turnOnLight(nil, isFlash: true)
         }
     }
 

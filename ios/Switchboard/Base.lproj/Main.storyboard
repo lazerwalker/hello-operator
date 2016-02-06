@@ -171,6 +171,11 @@
                         <outletCollection property="callers" destination="ber-pn-2m1" collectionClass="NSMutableArray" id="nQu-5a-vnF"/>
                         <outletCollection property="callers" destination="g6C-IJ-NyZ" collectionClass="NSMutableArray" id="qos-e8-MTc"/>
                         <outletCollection property="callers" destination="BWf-EA-Q8P" collectionClass="NSMutableArray" id="rhT-zH-Y6b"/>
+                        <outletCollection property="cables" destination="rsg-2T-hGe" collectionClass="NSMutableArray" id="CI5-bv-J0R"/>
+                        <outletCollection property="cables" destination="46t-xK-nzD" collectionClass="NSMutableArray" id="jPn-3Q-Eq0"/>
+                        <outletCollection property="cables" destination="9a5-7E-N4w" collectionClass="NSMutableArray" id="TLk-DC-HOm"/>
+                        <outletCollection property="cables" destination="aL2-Xp-Ur0" collectionClass="NSMutableArray" id="g3Z-cM-TVi"/>
+                        <outletCollection property="cables" destination="lbE-2g-FdH" collectionClass="NSMutableArray" id="sA2-WJ-63N"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

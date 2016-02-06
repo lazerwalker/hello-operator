@@ -1,9 +1,15 @@
 import AVFoundation
 import UIKit
 
+protocol Lightable {
+    func turnOnLight(caller:String?)
+    func turnOffLight(caller:String?)
+    func startFlashing(caller:String?, rate:NSTimeInterval)
+}
+
 class ViewController: UIViewController {
     @IBOutlet var callers: [CallerView]!
-    @IBOutlet var switches: [UISwitch]!
+    @IBOutlet var cables: [CableView]!
     @IBOutlet weak var lineView: LineDrawingView!
     
     let interface = JSInterface()
@@ -22,7 +28,9 @@ class ViewController: UIViewController {
             c.onDragEnd = self.didDrag
         }
 
-//        operatorView.onDragEnd = self.didDrag
+        for c in cables {
+            c.onDragEnd = self.didDrag
+        }
 
         interface.onPeopleChange = { people in
             for var i = 0; i < people.count; i++ {
@@ -39,29 +47,29 @@ class ViewController: UIViewController {
         }
 
         interface.onTurnOn = { caller in
-            self.viewForCaller(caller)?.turnOnLight()
+            self.viewForCaller(caller)?.turnOnLight(caller)
         }
 
         interface.onTurnOff = { caller in
-            self.viewForCaller(caller)?.turnOffLight()
+            self.viewForCaller(caller)?.turnOffLight(caller)
         }
 
         interface.onBlink = { caller, rate in
-            self.viewForCaller(caller)?.startFlashing(rate)
+            self.viewForCaller(caller)?.startFlashing(caller, rate:rate)
         }
 
         manager.startGame(interface)
     }
 
     //-
-    func didDrag(from:CallerView, event:UIEvent) {
+    func didDrag(from:String, event:UIEvent) {
         if let touches = event.allTouches(), touch = touches.first {
             if let view = self.view.hitTest(touch.locationInView(self.view), withEvent: nil) {
                 // TODO: This is silly.
                 if let grandparent = view.superview?.superview {
                     if grandparent.isKindOfClass(CallerView.self) {
-                        let to = grandparent as! CallerView
-                        self.drewLineBetween(from, to)
+//                        let to = grandparent as! CallerView
+//                        self.drewLineBetween(from, to)
                     }
                 }
             }
@@ -104,14 +112,13 @@ class ViewController: UIViewController {
         }
     }
 
-    private func viewForCaller(caller:String?) -> CallerView? {
+    private func viewForCaller(caller:String?) -> Lightable? {
         if let c = caller {
-            if c == "OPER" {
-                return nil
-//                return self.operatorView
-            }
-
-            if let index = self.interface.people.indexOf(c) {
+            if c.rangeOfString("cable") != nil {
+                if let number = Int(String(c[c.startIndex.advancedBy(5)])) {
+                    return self.cables[number]
+                }
+            } else if let index = self.interface.people.indexOf(c) {
                 return self.callers[index]
             }
         }

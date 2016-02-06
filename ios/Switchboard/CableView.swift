@@ -1,6 +1,6 @@
 import UIKit
 
-@IBDesignable class CableView: UIView {
+@IBDesignable class CableView: UIView, Lightable {
     @IBOutlet weak var rearCable: UIButton!
     @IBOutlet weak var frontCable: UIButton!
 
@@ -11,6 +11,8 @@ import UIKit
     @IBOutlet weak var rearSwitch: UISegmentedControl!
 
     @IBOutlet weak private var contentView:UIView!
+
+    var onDragEnd:((sender: String, event:UIEvent) -> Void)?
 
     override init(frame: CGRect) { // for using CustomView in code
         super.init(frame: frame)
@@ -30,5 +32,41 @@ import UIKit
         let bindings = ["view": contentView]
         self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[view]|", options:NSLayoutFormatOptions(rawValue:0), metrics:nil, views: bindings))
         self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[view]|", options:NSLayoutFormatOptions(rawValue:0), metrics:nil, views: bindings))
+    }
+
+    //-
+
+
+    @IBAction func didEndRearDrag(sender: AnyObject) {
+    }
+
+    @IBAction func didEndFrontDrag(sender: AnyObject) {
+    }
+
+    @IBAction func didToggleRearSwitch(sender: AnyObject) {
+    }
+
+    @IBAction func didToggleFrontSwitch(sender: AnyObject) {
+    }
+
+    //-
+    func turnOnLight(caller:String?) {
+        if let caller = caller {
+            let isFront = caller[caller.endIndex.predecessor()] == "F"
+            let light = (isFront ? frontLight : rearLight)
+            light.backgroundColor = UIColor.greenColor()
+        }
+    }
+
+    func turnOffLight(caller:String?) {
+        if let caller = caller {
+            let isFront = caller[caller.endIndex.predecessor()] == "F"
+            let light = (isFront ? frontLight : rearLight)
+            light.backgroundColor = UIColor.groupTableViewBackgroundColor()
+        }
+    }
+
+    func startFlashing(caller:String?, rate:NSTimeInterval = 0) {
+        // TODO: I don't think cables actually need flashing?
     }
 }
