@@ -1,6 +1,6 @@
 import UIKit
 
-@IBDesignable class CableView: UIView, Lightable {
+@IBDesignable class CableView: UIView, Unit {
     @IBOutlet weak var rearCable: UIButton!
     @IBOutlet weak var frontCable: UIButton!
 
@@ -12,7 +12,49 @@ import UIKit
 
     @IBOutlet weak private var contentView:UIView!
 
-    var onDragEnd:((sender: String, event:UIEvent) -> Void)?
+    var position:Int?
+    var onDragEnd:DragHandler
+
+    var frontConnection:String? {
+        willSet {
+            if newValue != nil {
+                frontCable.backgroundColor = UIColor.darkGrayColor()
+            } else {
+                frontCable.backgroundColor = UIColor.lightGrayColor()
+            }
+        }
+    }
+
+    var rearConnection:String? {
+        willSet {
+            if newValue != nil {
+                rearCable.backgroundColor = UIColor.darkGrayColor()
+            } else {
+                rearCable.backgroundColor = UIColor.lightGrayColor()
+            }
+        }
+    }
+
+    var rearName:String? {
+        get {
+            if let position = position {
+                return "cable\(position)R"
+            } else {
+                return nil
+            }
+        }
+    }
+
+    var frontName:String? {
+        get {
+            if let position = position {
+                return "cable\(position)F"
+            } else {
+                return nil
+            }
+        }
+    }
+
 
     override init(frame: CGRect) { // for using CustomView in code
         super.init(frame: frame)
@@ -35,21 +77,75 @@ import UIKit
     }
 
     //-
+    // Draggable
 
-
-    @IBAction func didEndRearDrag(sender: AnyObject) {
+    func nameForPort(port: UIView) -> String? {
+        if port == frontCable {
+            return frontName
+        } else if port == rearCable {
+            return rearName
+        } else {
+            return nil
+        }
     }
 
-    @IBAction func didEndFrontDrag(sender: AnyObject) {
+    func portForName(name: String) -> UIView? {
+        if name == frontName {
+            return frontCable
+        } else if name == rearName {
+            return rearCable
+        } else {
+            return nil
+        }
     }
 
-    @IBAction func didToggleRearSwitch(sender: AnyObject) {
+
+    func connectionForName(name: String) -> String? {
+        if name == frontName {
+            return frontConnection
+        } else if name == rearName {
+            return rearConnection
+        } else {
+            return nil
+        }
     }
 
-    @IBAction func didToggleFrontSwitch(sender: AnyObject) {
+    func connect(name: String, toOther other: String) {
+        if name == frontName {
+            frontConnection = other
+        } else if name == rearName {
+            rearConnection = other
+        }
+    }
+
+    func disconnect(name: String) {
+        if name == frontName {
+            frontConnection = nil
+        } else if name == rearName {
+            rearConnection = nil
+        }
+    }
+
+    @IBAction func didEndRearDrag(sender: AnyObject, forEvent event: UIEvent) {
+        if let sender = rearName {
+            self.onDragEnd?(sender: sender, event: event)
+        }
+    }
+
+    @IBAction func didEndFrontDrag(sender: AnyObject, forEvent event: UIEvent) {
+        if let sender = frontName {
+            self.onDragEnd?(sender: sender, event: event)
+        }
+    }
+
+    @IBAction func didToggleRearSwitch(sender: AnyObject, forEvent event: UIEvent) {
+    }
+
+    @IBAction func didToggleFrontSwitch(sender: AnyObject, forEvent event: UIEvent) {
     }
 
     //-
+    // Lightable
     func turnOnLight(caller:String?) {
         if let caller = caller {
             let isFront = caller[caller.endIndex.predecessor()] == "F"

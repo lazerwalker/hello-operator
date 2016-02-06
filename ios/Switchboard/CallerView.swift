@@ -1,6 +1,6 @@
 import UIKit
 
-@IBDesignable class CallerView: UIView, Lightable {
+@IBDesignable class CallerView: UIView, Unit {
     @IBOutlet weak private var contentView:UIView!
 
     @IBOutlet weak var nameLabel: UILabel!
@@ -28,13 +28,37 @@ import UIKit
     }
 
     //-
+    // Draggable
+    var onDragEnd:DragHandler
+
     @IBAction func endDrag(sender: AnyObject, event:UIEvent) {
         if let name = name {
             self.onDragEnd?(sender: name, event:event)
         }
     }
 
-    var onDragEnd:((sender: String, event:UIEvent) -> Void)?
+    func nameForPort(port: UIView) -> String? {
+        return name
+    }
+
+    func portForName(name: String) -> UIView? {
+        return button
+    }
+
+    func connect(name: String, toOther: String) {
+        connectedTo = toOther
+    }
+
+    func disconnect(name: String) {
+        connectedTo = nil
+    }
+
+    func connectionForName(name: String) -> String? {
+        return connectedTo
+    }
+
+    //-
+    // Lightable
 
     var flashTimer:NSTimer?
     var isOn = false;
@@ -96,9 +120,9 @@ import UIKit
         }
     }
 
-    var connectedTo:CallerView? {
+    var connectedTo:String? {
         willSet {
-            if newValue != .None {
+            if newValue != nil {
                 highlight()
             } else {
                 unhighlight()

@@ -18,10 +18,8 @@ function sayToConnect(call)
 var client
 var people
 
-function connect(a, b)
-function disconnect(a, b)
-function connectOperator(caller)
-function disconnectOperator(caller)
+function connect(cable, caller)
+function disconnect(cable, caller)
 
 @end
 

@@ -9,14 +9,14 @@
 import UIKit
 
 class LineDrawingView: UIView {
-    var lines:[(CallerView, CallerView)] = []
+    var lines:[(UIView, UIView)] = []
 
-    func addLine(first:CallerView, _ second:CallerView) {
+    func addLine(first:UIView, _ second:UIView) {
         lines.append((first, second))
         setNeedsDisplay()
     }
 
-    func removeLine(first:CallerView, _ second:CallerView) {
+    func removeLine(first:UIView, _ second:UIView) {
         lines = lines.filter { (a, b) -> Bool in
             if (first == a && second == b) {
                 return false

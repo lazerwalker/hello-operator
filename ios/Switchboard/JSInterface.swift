@@ -61,22 +61,10 @@ import JavaScriptCore
     //-
     // Called from view controller
     func connect(first:String, _ second:String) {
-        if first == OPERATOR {
-            self.client?.objectForKeyedSubscript("connectOperator").callWithArguments([second])
-        } else if second == OPERATOR {
-            self.client?.objectForKeyedSubscript("connectOperator").callWithArguments([first])
-        } else {
-            self.client?.objectForKeyedSubscript("connect").callWithArguments([first, second])
-        }
+        self.client?.objectForKeyedSubscript("connect").callWithArguments([first, second])
     }
 
     func disconnect(first:String, _ second:String) {
-        if first == OPERATOR {
-            self.client?.objectForKeyedSubscript("disconnectOperator").callWithArguments([second])
-        } else if second == OPERATOR {
-            self.client?.objectForKeyedSubscript("disconnectOperator").callWithArguments([first])
-        } else {
-            self.client?.objectForKeyedSubscript("disconnect").callWithArguments([first, second])
-        }
+        self.client?.objectForKeyedSubscript("disconnect").callWithArguments([first, second])
     }
 }

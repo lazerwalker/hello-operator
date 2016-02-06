@@ -1,11 +1,41 @@
 import AVFoundation
 import UIKit
 
+typealias DragHandler = ((sender: String, event:UIEvent) -> Void)?
+
+protocol Unit : Lightable, Draggable {}
+
 protocol Lightable {
     func turnOnLight(caller:String?)
     func turnOffLight(caller:String?)
     func startFlashing(caller:String?, rate:NSTimeInterval)
 }
+
+protocol Draggable {
+    var onDragEnd:DragHandler { get set }
+
+    func connectionForName(name:String) -> String?
+    func nameForPort(port:UIView) -> String?
+    func portForName(name:String) -> UIView?
+
+    func connect(name:String, toOther:String)
+    func disconnect(name:String)
+}
+
+func == (lhs: Unit?, rhs: Unit?) -> Bool {
+    if lhs == nil || rhs == nil { return false }
+    if lhs is CallerView && rhs is CallerView &&
+        (lhs as! CallerView).name == (rhs as! CallerView).name {
+            return true
+    } else if lhs is CableView && rhs is CableView &&
+        (lhs as! CableView).position == (rhs as! CableView).position {
+            return true
+    } else {
+        return false
+    }
+}
+
+//-
 
 class ViewController: UIViewController {
     @IBOutlet var callers: [CallerView]!
@@ -28,8 +58,10 @@ class ViewController: UIViewController {
             c.onDragEnd = self.didDrag
         }
 
-        for c in cables {
+        for var i = 0; i < cables.count; i++ {
+            let c = cables[i]
             c.onDragEnd = self.didDrag
+            c.position = i
         }
 
         interface.onPeopleChange = { people in
@@ -66,53 +98,68 @@ class ViewController: UIViewController {
         if let touches = event.allTouches(), touch = touches.first {
             if let view = self.view.hitTest(touch.locationInView(self.view), withEvent: nil) {
                 // TODO: This is silly.
-                if let grandparent = view.superview?.superview {
-                    if grandparent.isKindOfClass(CallerView.self) {
-//                        let to = grandparent as! CallerView
-//                        self.drewLineBetween(from, to)
+                if let grandparent = view.superview?.superview as? Unit {
+                    if let to = grandparent.nameForPort(view) {
+                        self.drewLineBetween(from, to)
                     }
                 }
             }
         }
     }
 
-    func drewLineBetween(first:CallerView, _ second:CallerView) {
-        // TODO: Track number of cords
-        if first.connectedTo == second {
-            disconnect(first, second)
-        } else if first.connectedTo == nil && second.connectedTo == nil {
-            connect(first, second)
-        } else if first.connectedTo != nil && second.connectedTo == nil {
-            if let other = first.connectedTo {
-                disconnect(first, other)
-                connect(second, other)
-            }
+    func drewLineBetween(first:String, _ second:String) {
+        if let firstObj = self.viewForCaller(first),
+            secondObj = self.viewForCaller(second) {
+                let firstConnection = firstObj.connectionForName(first)
+                let secondConnection = secondObj.connectionForName(second)
+
+                if firstConnection == nil && secondConnection == nil {
+                    connect(first, second)
+                } else if firstConnection == second {
+                    disconnect(first, second)
+                } else if firstConnection != nil && secondConnection == nil {
+                    if let other = firstConnection {
+                        disconnect(first, other)
+                        connect(second, other)
+                    }
+                }
+                // Do I need the fourth case, where secondCon != nil and firstCon == nil?
         }
     }
 
     //-
 
-    private func connect(first:CallerView, _ second:CallerView) {
-        first.connectedTo = second
-        second.connectedTo = first
-        lineView.addLine(first, second)
+    private func connect(first:String, _ second:String) {
+        if let firstObj = self.viewForCaller(first),
+            secondObj = self.viewForCaller(second) {
+                interface.connect(first, second)
 
-        if let firstName = first.name, secondName = second.name {
-            interface.connect(firstName, secondName)
+                firstObj.connect(first, toOther: second)
+                secondObj.connect(second, toOther:first)
+
+                if let firstView = firstObj.portForName(first),
+                    secondView = secondObj.portForName(second) {
+                        lineView.addLine(firstView, secondView)
+                }
         }
     }
 
-    private func disconnect(first:CallerView, _ second:CallerView) {
-        first.connectedTo = nil;
-        second.connectedTo = nil;
-        lineView.removeLine(first, second)
+    private func disconnect(first:String, _ second:String) {
+        if let firstObj = self.viewForCaller(first),
+            secondObj = self.viewForCaller(second) {
+                interface.disconnect(first, second)
 
-        if let firstName = first.name, secondName = second.name {
-            interface.disconnect(firstName, secondName)
+                firstObj.disconnect(first)
+                secondObj.disconnect(second)
+
+                if let firstView = firstObj.portForName(first),
+                    secondView = secondObj.portForName(second) {
+                        lineView.removeLine(firstView, secondView)
+                }
         }
     }
 
-    private func viewForCaller(caller:String?) -> Lightable? {
+    private func viewForCaller(caller:String?) -> Unit? {
         if let c = caller {
             if c.rangeOfString("cable") != nil {
                 if let number = Int(String(c[c.startIndex.advancedBy(5)])) {
