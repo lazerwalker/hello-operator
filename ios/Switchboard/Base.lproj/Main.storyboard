@@ -105,23 +105,23 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="imW-Pi-3he">
                                         <rect key="frame" x="0.0" y="576" width="614" height="428"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rsg-2T-hGe" customClass="CableView" customModule="Switchboard" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rsg-2T-hGe" customClass="CableView" customModule="Switchboard" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="77" width="107" height="275"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="46t-xK-nzD" customClass="CableView" customModule="Switchboard" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="46t-xK-nzD" customClass="CableView" customModule="Switchboard" customModuleProvider="target">
                                                 <rect key="frame" x="127" y="77" width="107" height="275"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9a5-7E-N4w" customClass="CableView" customModule="Switchboard" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9a5-7E-N4w" customClass="CableView" customModule="Switchboard" customModuleProvider="target">
                                                 <rect key="frame" x="254" y="77" width="107" height="275"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aL2-Xp-Ur0" customClass="CableView" customModule="Switchboard" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aL2-Xp-Ur0" customClass="CableView" customModule="Switchboard" customModuleProvider="target">
                                                 <rect key="frame" x="381" y="77" width="107" height="275"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lbE-2g-FdH" customClass="CableView" customModule="Switchboard" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lbE-2g-FdH" customClass="CableView" customModule="Switchboard" customModuleProvider="target">
                                                 <rect key="frame" x="507" y="77" width="107" height="275"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>

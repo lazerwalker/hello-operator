@@ -20,6 +20,7 @@ var people
 
 function connect(cable, caller)
 function disconnect(cable, caller)
+function toggleSwitch(cable, state) // state is -1, 0, or 1. Default is 0
 
 @end
 
@@ -101,6 +102,8 @@ class Game
     setTimeout ( () => @endCall(call) ), timeout
 
   disconnect: (first, second) =>
+
+  toggleSwitch: (cable, state) =>
 
   ###
   # Deprecated

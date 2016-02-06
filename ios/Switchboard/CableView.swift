@@ -14,6 +14,7 @@ import UIKit
 
     var position:Int?
     var onDragEnd:DragHandler
+    var onSwitch:SwitchHandler
 
     var frontConnection:String? {
         willSet {
@@ -138,10 +139,32 @@ import UIKit
         }
     }
 
-    @IBAction func didToggleRearSwitch(sender: AnyObject, forEvent event: UIEvent) {
+    private func segmentedControlIndexToSwitchIndex(value:Int) -> SwitchIndex {
+        var newValue:SwitchIndex
+        switch value {
+            case 0: newValue = .Talk
+            case 1: newValue = .Neutral
+            case 2: newValue = .Ring
+            default: newValue = .Neutral
+        }
+
+        return newValue
     }
 
-    @IBAction func didToggleFrontSwitch(sender: AnyObject, forEvent event: UIEvent) {
+    @IBAction func didToggleFrontSwitch(sender: UISegmentedControl) {
+        if let name = frontName {
+            let changed = sender.selectedSegmentIndex
+            let value = segmentedControlIndexToSwitchIndex(changed)
+            self.onSwitch?(sender: name, value: value)
+        }
+    }
+
+    @IBAction func didToggleRearSwitch(sender: AnyObject) {
+        if let name = rearName {
+            let changed = sender.selectedSegmentIndex
+            let value = segmentedControlIndexToSwitchIndex(changed)
+            self.onSwitch?(sender: name, value: value)
+        }
     }
 
     //-

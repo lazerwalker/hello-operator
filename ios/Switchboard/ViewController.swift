@@ -2,6 +2,7 @@ import AVFoundation
 import UIKit
 
 typealias DragHandler = ((sender: String, event:UIEvent) -> Void)?
+typealias SwitchHandler = ((sender: String, value:SwitchIndex) -> Void)?
 
 protocol Unit : Lightable, Draggable {}
 
@@ -61,6 +62,7 @@ class ViewController: UIViewController {
         for var i = 0; i < cables.count; i++ {
             let c = cables[i]
             c.onDragEnd = self.didDrag
+            c.onSwitch = self.didSwitch
             c.position = i
         }
 
@@ -123,8 +125,13 @@ class ViewController: UIViewController {
                         connect(second, other)
                     }
                 }
-                // Do I need the fourth case, where secondCon != nil and firstCon == nil?
         }
+    }
+
+    //-
+
+    func didSwitch(cable:String, value:SwitchIndex) {
+        interface.toggleSwitch(cable, state: value)
     }
 
     //-

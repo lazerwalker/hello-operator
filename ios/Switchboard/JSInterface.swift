@@ -1,6 +1,10 @@
 import Foundation
 import JavaScriptCore
 
+enum SwitchIndex: Int {
+    case Talk = -1, Neutral, Ring
+}
+
 @objc protocol JSInterfaceExports : JSExport {
     var people: [String] { get set }
     var client: JSValue? { get set }
@@ -66,5 +70,9 @@ import JavaScriptCore
 
     func disconnect(first:String, _ second:String) {
         self.client?.objectForKeyedSubscript("disconnect").callWithArguments([first, second])
+    }
+
+    func toggleSwitch(cable:String, state:SwitchIndex) {
+        self.client?.objectForKeyedSubscript("toggleSwitch").callWithArguments([cable, state.rawValue])
     }
 }

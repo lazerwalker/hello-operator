@@ -60,7 +60,7 @@
                         <segment title="Ring"/>
                     </segments>
                     <connections>
-                        <action selector="didToggleFrontSwitch:" destination="-1" eventType="valueChanged" id="K2Y-Is-F0c"/>
+                        <action selector="didToggleFrontSwitch:" destination="-1" eventType="valueChanged" id="6mI-uN-qtE"/>
                     </connections>
                 </segmentedControl>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9DP-ay-6fR">
@@ -93,7 +93,7 @@
                         <segment title="Ring"/>
                     </segments>
                     <connections>
-                        <action selector="didToggleRearSwitch:" destination="-1" eventType="valueChanged" id="rdK-Yn-YQ1"/>
+                        <action selector="didToggleRearSwitch:" destination="-1" eventType="valueChanged" id="n8p-pQ-TGk"/>
                     </connections>
                 </segmentedControl>
             </subviews>
