@@ -56,29 +56,34 @@ class Game
     { score: 1, rate: 100 }
   ]
 
+  
+  ###
+  # Public API
+  ###
+
   constructor: ->
     @calls = []
     @interfaces = []
 
     @startDate = new Date()
 
-  timeWeightedRand: (low, high) ->
-    diff = (new Date() - @startDate) / 1000
-    rand = root._.random(low, high)
-    return rand * (1 - diff/300)
+  addInterface: (i) ->
+    i.people = @people
+    i.client = @
+    @interfaces.push i
 
-  connectOperator: (caller) =>
-    call = root._(@calls).findWhere {sender: caller}
-    return unless call
-    return if call.connected
-    call.shouldIgnoreHappiness = true
-    call.pickedUp = true
-    for i in @interfaces
-      i.turnOnLight(call.sender) # Make their light solid, if blinking
-      i.sayToConnect(call) 
+  startGame: ->
+    timeout = 0
+    for i in [0...@numberOfConnections]
+      setTimeout @addNewCall, timeout
+      timeout += @timeWeightedRand(500, 5000)
 
-  disconnectOperator: (caller) =>
+    for i in [15, 60, 120, 150]
+      setTimeout ( () => @addNewCall() ), i * 1000 
 
+  ###
+  # Interface methods
+  ###  
   connect: (first, second) =>
     call = root._(@calls).findWhere {sender: first, receiver: second}
     unless call
@@ -95,6 +100,32 @@ class Game
     timeout = @timeWeightedRand(1000, 5000)
     setTimeout ( () => @endCall(call) ), timeout
 
+  disconnect: (first, second) =>
+
+  ###
+  # Deprecated
+  ###
+
+  connectOperator: (caller) =>
+    call = root._(@calls).findWhere {sender: caller}
+    return unless call
+    return if call.connected
+    call.shouldIgnoreHappiness = true
+    call.pickedUp = true
+    for i in @interfaces
+      i.turnOnLight(call.sender) # Make their light solid, if blinking
+      i.sayToConnect(call) 
+
+  disconnectOperator: (caller) =>
+
+  ###
+  # Private
+  ###
+  timeWeightedRand: (low, high) ->
+    diff = (new Date() - @startDate) / 1000
+    rand = root._.random(low, high)
+    return rand * (1 - diff/300)
+
   endCall: (call) =>
     call.sender.busy = false
     call.receiver.busy = false
@@ -108,8 +139,6 @@ class Game
 
     wait = @timeWeightedRand(1000, 7000)
     setTimeout (() => @addNewCall()), wait
-
-  disconnect: (first, second) =>
 
   addNewCall: =>
     [first, second] = root._(@people).chain()
@@ -131,20 +160,6 @@ class Game
     i.turnOnLight(call.sender) for i in @interfaces
 
     @updateHappiness(call)
-
-  addInterface: (i) ->
-    i.people = @people
-    i.client = @
-    @interfaces.push i
-
-  startGame: ->
-    timeout = 0
-    for i in [0...@numberOfConnections]
-      setTimeout @addNewCall, timeout
-      timeout += @timeWeightedRand(500, 5000)
-
-    for i in [15, 60, 120, 150]
-      setTimeout ( () => @addNewCall() ), i * 1000 
 
   updateHappiness: (call) =>
     return if call.shouldIgnoreHappiness
