@@ -1,4 +1,5 @@
 _ = require 'underscore'
+SwitchState = require('../cablePair').SwitchState
 
 class ConsoleInterface
   happiness: [
@@ -39,25 +40,22 @@ class ConsoleInterface
       match = text.match /(\w+) (\w+)/
       [first, second] = [match[1], match[2]]
 
-      if first is "me" or second is "me"
-        other = if first is "me" then second else first
-        if other in @connected
-          console.log "Disconnected #{other} and operator"
-          @client.disconnectOperator(other)
-        else
-          @disconnectExisting(other)
-          console.log "Connected #{other} to operator"
-          @connected.push [other, "me"]
-          @client.connectOperator(other)
-      else if first in @people and second in @people
-        if _.find(@connected, (pair) -> first in pair and second in pair)
-          console.log "Disconnected #{first} and #{second}."
-          @client.disconnect(first, second)
-        else
-          @disconnectExisting(c) for c in [first, second]
+      if second in ["ring", "neutral", "talk"]
+        mapping = 
+          ring: SwitchState.Ring,
+          neutral: SwitchState.Neutral,
+          talk: SwitchState.Talk
 
-          console.log "Connected #{first} and #{second}."
-          @connected.push [first, second]
-          @client.connect(first, second)
+        console.log("Toggling switch", first, mapping[second])
+        @client.toggleSwitch(first, mapping[second])
+      else if _.find(@connected, (pair) -> first in pair and second in pair)
+        console.log "Disconnected #{first} and #{second}."
+        @client.disconnect(first, second)
+      else
+        @disconnectExisting(c) for c in [first, second]
+
+        console.log "Connected #{first} and #{second}."
+        @connected.push [first, second]
+        @client.connect(first, second)
 
 module.exports = ConsoleInterface
