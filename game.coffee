@@ -124,22 +124,6 @@ class Game
       @updateCall(call)
 
   ###
-  # Deprecated
-  ###
-
-  connectOperator: (caller) =>
-    call = root._(@calls).findWhere {sender: caller}
-    return unless call
-    return if call.connected
-    call.shouldIgnoreHappiness = true
-    call.pickedUp = true
-    for i in @interfaces
-      i.turnOnLight(call.sender) # Make their light solid, if blinking
-      i.sayToConnect(call) 
-
-  disconnectOperator: (caller) =>
-
-  ###
   # Private
   ###
 
@@ -180,20 +164,6 @@ class Game
     diff = (new Date() - @startDate) / 1000
     rand = root._.random(low, high)
     return rand * (1 - diff/300)
-
-  endCall: (call) =>
-    call.sender.busy = false
-    call.receiver.busy = false
-    call.shouldIgnoreHappiness = true
-
-    for i in @interfaces
-      i.turnOffLight(call.sender) 
-      i.turnOffLight(call.receiver)
-
-    @calls = root._(@calls).without(call)
-
-    wait = @timeWeightedRand(1000, 7000)
-    setTimeout (() => @addNewCall()), wait
 
   addNewCall: =>
     [first, second] = root._(@people).chain()
