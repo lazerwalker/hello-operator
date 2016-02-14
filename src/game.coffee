@@ -87,7 +87,7 @@ class Game
   startGame: ->
     @addNewCall()
 
-    for i in [15, 60, 120, 150]
+    for i in [30, 120]
       setTimeout ( () => @addNewCall() ), i * 1000 
 
   ###
