@@ -139,7 +139,11 @@ class ViewController: UIViewController {
     private func connect(first:String, _ second:String) {
         if let firstObj = self.viewForCaller(first),
             secondObj = self.viewForCaller(second) {
-                interface.connect(first, second)
+                if firstObj is CableView {
+                    interface.connect(first, second)
+                } else if secondObj is CableView {
+                    interface.connect(second, first)
+                }
 
                 firstObj.connect(first, toOther: second)
                 secondObj.connect(second, toOther:first)
