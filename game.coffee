@@ -72,7 +72,7 @@ class Game
 
     @cables = {}
     for i in [0..10]
-      @cables[i] = new root.CablePair()
+      @cables[i] = new root.CablePair(i)
 
 
     @interfaces = []
@@ -149,8 +149,9 @@ class Game
       when root.Call.State.WaitingToConnect
         call.shouldIgnoreHappiness = true
         for i in @interfaces
-          i.turnOnLight(call.sender) # Make their light solid, if blinking
-          i.sayToConnect(call) 
+          i.turnOffLight(call.sender)
+          i.turnOnLight(call.cable.rearLight)
+          i.sayToConnect(call)
       when root.Call.State.Ringing
         # TODO: pretty ring blinking?
         rand = root._.random(1000, 3000) # TODO: Better rand
@@ -160,7 +161,7 @@ class Game
           @updateCall(call) if (call.checkState(call.cable))
       when root.Call.State.PickedUp
         for i in @interfaces
-          i.turnOnLight(call.receiver)
+          i.turnOnLight(call.cable.frontLight)
 
         rand = @timeWeightedRand(1000, 7000)
         setTimeoutR rand, =>
@@ -168,8 +169,8 @@ class Game
           @updateCall(call) if (call.checkState(call.cable))
       when root.Call.State.Done
         for i in @interfaces
-          i.turnOffLight(call.sender)
-          i.turnOffLight(call.receiver)          
+          i.turnOffLight(call.cable.frontLight)
+          i.turnOffLight(call.cable.rearLight)         
 
         # TODO: Logic for starting a new call
 
