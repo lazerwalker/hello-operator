@@ -1,0 +1,2 @@
+#! /bin/bash
+browserify src/game.coffee -t coffeeify --extension=".coffee" --s Game -o game.js

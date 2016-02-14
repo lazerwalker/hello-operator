@@ -41,7 +41,6 @@ class GameManager {
 
     func startGame(interface:JSInterface) {
         context.setObject(interface, forKeyedSubscript: "JSInterface")
-
         context.evaluateScript("var game = new Game()")
         context.evaluateScript("game.addInterface(JSInterface)")
         context.evaluateScript("game.startGame()")

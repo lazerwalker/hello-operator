@@ -202,6 +202,5 @@ class Game
 if module?.exports
   module.exports = Game
 else if exports?
-    exports = Game
-else
-  @Game = Game
+  exports = Game
+
