@@ -87,8 +87,8 @@ class Game
   startGame: ->
     @addNewCall()
 
-    # for i in [15, 60, 120, 150]
-    #   setTimeout ( () => @addNewCall() ), i * 1000 
+    for i in [15, 60, 120, 150]
+      setTimeout ( () => @addNewCall() ), i * 1000 
 
   ###
   # Interface methods
