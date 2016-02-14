@@ -1,6 +1,11 @@
 root = exports ? this
 root._ = require('underscore') unless root._?
-  
+
+root.CablePair = require('./cablePair')
+root.Call = require('./call')
+
+setTimeoutR = (time, fn) -> setTimeout(fn, time)
+
 ###
 Informal API
 
@@ -64,6 +69,12 @@ class Game
 
   constructor: ->
     @calls = []
+
+    @cables = {}
+    for i in [0..10]
+      @cables[i] = new root.CablePair()
+
+
     @interfaces = []
 
     @startDate = new Date()
@@ -74,36 +85,43 @@ class Game
     @interfaces.push i
 
   startGame: ->
-    timeout = 0
-    for i in [0...@numberOfConnections]
-      setTimeout @addNewCall, timeout
-      timeout += @timeWeightedRand(500, 5000)
+    @addNewCall()
 
-    for i in [15, 60, 120, 150]
-      setTimeout ( () => @addNewCall() ), i * 1000 
+    # for i in [15, 60, 120, 150]
+    #   setTimeout ( () => @addNewCall() ), i * 1000 
 
   ###
   # Interface methods
   ###  
-  connect: (first, second) =>
-    call = root._(@calls).findWhere {sender: first, receiver: second}
-    unless call
-      call = root._(@calls).findWhere {sender: second, receiver: first}
-    return unless call and call.pickedUp
+  connect: (cableString, caller) =>
+    [cableNumber, isFront] = @parseCableString(cableString)
+    cable = @cables[cableNumber]
 
-    call.connected = true
-    for i in @interfaces
-      i.turnOnLight(call.sender)
-      i.turnOnLight(call.receiver)
-
-    # Set timer to start the disconnect
-    # TODO: When this gets more complicated, extract this out.
-    timeout = @timeWeightedRand(1000, 5000)
-    setTimeout ( () => @endCall(call) ), timeout
+    if isFront
+      cable.front = caller
+      call = root._(@calls).findWhere {receiver: cable.front}
+    else
+      cable.rear = caller
+      call = root._(@calls).findWhere {sender: cable.rear}
+  
+    # Check state
+    if call?.checkState(cable)
+      @updateCall(call)
 
   disconnect: (first, second) =>
 
-  toggleSwitch: (cable, state) =>
+  toggleSwitch: (cableString, state) =>
+    [cableNumber, isFront] = @parseCableString(cableString)
+    cable = @cables[cableNumber]
+
+    if isFront
+      cable.frontSwitch = state
+    else
+      cable.rearSwitch = state
+
+    call = root._(@calls).findWhere {sender: cable.rear}
+    if call?.checkState(cable)
+      @updateCall(call)
 
   ###
   # Deprecated
@@ -124,6 +142,39 @@ class Game
   ###
   # Private
   ###
+
+  updateCall: (call) ->
+    # Each block in here runs when we're transitioning to that state
+    switch call.state
+      when root.Call.State.WaitingToConnect
+        call.shouldIgnoreHappiness = true
+        for i in @interfaces
+          i.turnOnLight(call.sender) # Make their light solid, if blinking
+          i.sayToConnect(call) 
+      when root.Call.State.Ringing
+        # TODO: pretty ring blinking?
+        rand = root._.random(1000, 3000) # TODO: Better rand
+        setTimeoutR rand, =>
+          call.receiverPickedUp = true
+          # TODO: Whoo-ey, get a whiff of this code smell!          
+          @updateCall(call) if (call.checkState(call.cable))
+      when root.Call.State.PickedUp
+        for i in @interfaces
+          i.turnOnLight(call.receiver)
+
+        rand = @timeWeightedRand(1000, 7000)
+        setTimeoutR rand, =>
+          call.hungUp = true
+          @updateCall(call) if (call.checkState(call.cable))
+      when root.Call.State.Done
+        for i in @interfaces
+          i.turnOffLight(call.sender)
+          i.turnOffLight(call.receiver)          
+
+        # TODO: Logic for starting a new call
+
+  parseCableString: (cableString) -> [cableString[5], cableString[6] is "F"]
+
   timeWeightedRand: (low, high) ->
     diff = (new Date() - @startDate) / 1000
     rand = root._.random(low, high)
@@ -151,19 +202,14 @@ class Game
 
     return unless first and second
 
-    call =
-      sender: first,
-      receiver: second
-      happiness: -1
-
-    first.busy = true
-    second.busy = true
+    call = new root.Call(first, second)
 
     @calls.push(call)
     i.turnOnLight(call.sender) for i in @interfaces
 
     @updateHappiness(call)
 
+  # TODO: Push this into the object
   updateHappiness: (call) =>
     return if call.shouldIgnoreHappiness
     return if call.happiness >= call.happiness.length
