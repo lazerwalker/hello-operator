@@ -16,6 +16,11 @@ import UIKit
     var onDragEnd:DragHandler
     var onSwitch:SwitchHandler
 
+    var frontFlashTimer:NSTimer?
+    var rearFlashTimer:NSTimer?
+    var frontIsOn = false
+    var rearIsOn = false
+
     var frontConnection:String? {
         willSet {
             if newValue != nil {
@@ -170,22 +175,75 @@ import UIKit
     //-
     // Lightable
     func turnOnLight(caller:String?) {
+        turnOnLight(caller, isFlash: false)
+    }
+
+    func turnOnLight(caller:String?, isFlash:Bool = false) {
         if let caller = caller {
             let isFront = caller[caller.endIndex.predecessor()] == "F"
             let light = (isFront ? frontLight : rearLight)
             light.backgroundColor = UIColor.greenColor()
+
+            if isFront {
+                frontIsOn = true
+            } else {
+                rearIsOn = true
+            }
+
+            if !isFlash {
+                let timer = (isFront ? frontFlashTimer : rearFlashTimer)
+                timer?.invalidate()
+            }
         }
     }
 
     func turnOffLight(caller:String?) {
+        turnOffLight(caller, isFlash: false)
+    }
+
+    func turnOffLight(caller:String?, isFlash:Bool = false) {
         if let caller = caller {
             let isFront = caller[caller.endIndex.predecessor()] == "F"
             let light = (isFront ? frontLight : rearLight)
             light.backgroundColor = UIColor.groupTableViewBackgroundColor()
+
+            if isFront {
+                frontIsOn = false
+            } else {
+                rearIsOn = false
+            }
+
+            if !isFlash {
+                let timer = (isFront ? frontFlashTimer : rearFlashTimer)
+                timer?.invalidate()
+            }
         }
     }
 
     func startFlashing(caller:String?, rate:NSTimeInterval = 0) {
-        // TODO: I don't think cables actually need flashing?
+        if (rate == 0) {
+            turnOnLight(caller)
+            return
+        }
+
+        if (caller == frontName) {
+            frontFlashTimer?.invalidate()
+            frontFlashTimer = NSTimer.scheduledTimerWithTimeInterval(rate, target: self, selector: "flash:", userInfo: caller, repeats: true)
+        } else {
+            rearFlashTimer?.invalidate()
+            rearFlashTimer = NSTimer.scheduledTimerWithTimeInterval(rate, target: self, selector: "flash:", userInfo: caller, repeats: true)
+        }
+    }
+
+    func flash(timer:NSTimer) {
+        if let name = timer.userInfo as? String {
+            let isFront = (name == frontName)
+            let isOn = (isFront ? frontIsOn : rearIsOn)
+            if (isOn) {
+                turnOffLight(name, isFlash: true)
+            } else {
+                turnOnLight(name, isFlash: true)
+            }
+        }
     }
 }

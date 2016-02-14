@@ -137,7 +137,9 @@ class Game
           i.turnOnLight(call.cable.rearLight)
           i.sayToConnect(call)
       when root.Call.State.Ringing
-        # TODO: pretty ring blinking?
+        for i in @interfaces
+          i.blinkLight({caller: call.cable.frontLight, rate: 400})
+
         rand = root._.random(1000, 3000) # TODO: Better rand
         setTimeoutR rand, =>
           call.receiverPickedUp = true
