@@ -20,6 +20,10 @@ class Call
     @receiver.busy = true
 
 
+  tearDown: ->
+    @sender.busy = false
+    @receiver.busy = false
+
   checkState: (cable) ->
     rearIsConnected = cable?.rear? and cable.rear is @sender
     frontIsConnected = cable?.front? and cable.front is @receiver

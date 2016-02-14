@@ -156,7 +156,12 @@ class Game
           i.turnOffLight(call.cable.frontLight)
           i.turnOffLight(call.cable.rearLight)         
 
-        # TODO: Logic for starting a new call
+        @calls = root._(@calls).without(call)
+        call.tearDown()
+
+        # TODO: When this gets more complicated, extract this out.
+        wait = @timeWeightedRand(1000, 7000)
+        setTimeout (() => @addNewCall()), wait
 
   parseCableString: (cableString) -> [cableString[5], cableString[6] is "F"]
 
