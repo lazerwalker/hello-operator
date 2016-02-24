@@ -1,6 +1,8 @@
 {
   "name": "switchboard",
   "dependencies": {
+    "arduino-firmata": "^0.3.4",
+    "johnny-five": "^0.9.25",
     "onoff": "^1.0.3",
     "serialport": "^1.4.10",
     "underscore": "~1.7.0",

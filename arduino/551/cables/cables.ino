@@ -1,7 +1,7 @@
 int LOW_PIN = 22;
 int HIGH_PIN = 51;
 
-int LOW_CABLE = 10;
+int LOW_CABLE = 14;
 int HIGH_CABLE = 21;
 
 int STATE_UNUSED = -1;
