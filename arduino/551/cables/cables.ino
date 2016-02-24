@@ -18,7 +18,7 @@ String offJSON(int a, int b) {
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("\"hello\"");
+  Serial.println("\"cables\"");
   for (int i=LOW_PIN; i<=HIGH_PIN; i++) {
     pinMode(i, INPUT_PULLUP);
   }
