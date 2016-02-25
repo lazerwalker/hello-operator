@@ -68,8 +68,9 @@ calibratePorts = ->
     console.log state.ports
 
     if currentPort > maxPort
-      console.log "Thank you for calibrating cables!"
+      console.log "Thank you for calibrating ports!"
       console.log state
+      calibrateSwitches()
     else
       console.log "Please plug a cable into port ##{currentPort}"
 

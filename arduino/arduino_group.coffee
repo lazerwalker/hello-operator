@@ -14,7 +14,7 @@ deviceTypes =
   cables: Cables
   switches: Switches
   portLights: Lights
-  plugLights: Lights
+  cableLights: Lights
 
 class ArduinoGroup
   constructor: (ports=[], rate=9600) ->
@@ -42,24 +42,25 @@ class ArduinoGroup
         d = new deviceTypes[name](rawDevice)
         @devices.push d 
         @[name] = d
-
+        
         if @devices.length is ports.length
+          @switches.debug = true
           @trigger('ready')
 
     @on 'ready', ->
-      @cables.on 'connect', ({cable, port}) ->
+      @cables?.on 'connect', ({cable, port}) ->
         cableNum = @map.cableNumFromPin(cable)
         portNum = @map.portNumFromPin(port)        
         @trigger 'connect', {cable: cableNum, port: portNum}
 
-      @cables.on 'disconnect', ({cable, port}) ->
+      @cables?.on 'disconnect', ({cable, port}) ->
         cableNum = @map.cableNumFromPin(cable)
         portNum = @map.portNumFromPin(port)        
         @trigger 'disconnect', {cable: cableNum, port: portNum}
 
       # pin = arduino pin
       # output: {switchNum: "1R", position: SwitchState.TALK}
-      @switches.on 'change', ({pin, value}) ->
+      @switches?.on 'change', ({pin, value}) ->
         @trigger 'toggleSwitch', @map.switchNumFromPin(pin)
 
   turnOnLight: (num, isCable = false) ->

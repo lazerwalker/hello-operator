@@ -7,7 +7,7 @@ int HIGH_PIN = 52;
 void setup() {
   Serial.begin(9600);
   
-  Serial.println("\"plugLights\"");
+  Serial.println("\"cableLights\"");
   for (int i=LOW_PIN; i<=HIGH_PIN; i++) {
     pinMode(i, OUTPUT);
     digitalWrite(i, HIGH);

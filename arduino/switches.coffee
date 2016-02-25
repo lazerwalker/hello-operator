@@ -20,7 +20,7 @@ class Switches
       delete @timeouts[pin]
       return
 
-    @timeouts[pin] = setTimeoutR 50, =>
+    @timeouts[pin] = setTimeoutR 100, =>
       @trigger "change", {pin, value}
       delete @timeouts[pin]
 
