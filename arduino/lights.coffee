@@ -5,15 +5,14 @@ setTimeoutR = (t, fn) -> setTimeout(fn, t)
 
 class Lights
   constructor: (@device) ->
-    @blink()
-  blinkOn: false
+    @turnOn(i) for i in [13..52]
 
-  blink: ->
-    val = (if @blinkOn then 1 else 0)
-    @blinkOn = !@blinkOn
-    for i in [13..53] 
-      @device.write("#{i},")
-      @device.write("#{val},")
-    setTimeoutR 1000, (=> @blink())
+  turnOn: (num) ->
+    @device.write("#{num}")
+    @device.write("1")
+
+  turnOff: (num) ->
+    @device.write("#{num}")
+    @device.write("0")    
 
 module.exports = Lights
