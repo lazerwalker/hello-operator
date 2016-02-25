@@ -37,6 +37,9 @@ class ArduinoGroup
             @[name] ?= []
             @[name].push d
 
+            if @devices.length is ports.length
+              @trigger('ready')
+
   turnOnLight: (num) ->
     @lights[0]?.turnOn(num)
 
