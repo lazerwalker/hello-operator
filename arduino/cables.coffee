@@ -4,7 +4,8 @@ SerialPort = serialport.SerialPort
 setTimeoutR = (t, fn) -> setTimeout(fn, t)
 
 class Cables
-  constructor: (@device) ->
+  constructor: (@device, @debug = false) ->
+    @callbacks = {}
     @cables = {}
 
     @device.on "error", (e) -> console.log e
@@ -21,9 +22,21 @@ class Cables
       return
     else if connected is true and not oldport?
       @cables[cable] = port
-      console.log "Connected #{cable} to #{port}"
+      @trigger "connect", {cable, port}
+      console.log "Connected #{cable} to #{port}" if @debug
     else if connected is false and oldPort is port
       delete @cables[cable]
-      console.log "Disconnected #{cable} and #{port}"
+      @trigger "disconnect", {cable, port}
+      console.log "Disconnected #{cable} and #{port}" if @debug
+
+  # Events
+  on: (event, cb) ->
+    @callbacks[event] ?= []
+    @callbacks[event].push cb
+
+  trigger: (event, data) ->
+    return unless @callbacks[event]?
+    cb(data) for cb in @callbacks[event]
+
 
 module.exports = Cables
