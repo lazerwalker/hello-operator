@@ -17,7 +17,7 @@ String json(int pin, int val) {
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("switches");
+  Serial.println("\"switches\"");
   for (int i=LOW_PIN; i<=HIGH_PIN; i++) {
     pinMode(i, INPUT_PULLUP);
     state[i] = STATE_UNUSED;
