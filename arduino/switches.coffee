@@ -4,24 +4,12 @@ SerialPort = serialport.SerialPort
 setTimeoutR = (t, fn) -> setTimeout(fn, t)
 
 class Switches
-  name: "switches"
-
-  constructor: (port, rate=9600) ->
-    @connected = false
-    @device = new SerialPort port,
-      parser: serialport.parsers.readline "\r\n"
-      baudrate: rate
-
+  constructor: (@device) ->
     @cables = {}
 
     @device.on "error", (e) -> console.log e
-    @device.on "open", =>
-      @device.on "data", (data) =>
-        if @connected
-          @parseData(data)
-        else if data is "\"#{@name}\""
-          @connected = true
-          console.log "Connected to device '#{@name}', waiting for input"
+    @device.on "data", (data) =>
+      @parseData(data)
 
   parseData: (json) ->
     {pin, value} = JSON.parse(json)

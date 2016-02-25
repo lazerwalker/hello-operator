@@ -4,26 +4,8 @@ SerialPort = serialport.SerialPort
 setTimeoutR = (t, fn) -> setTimeout(fn, t)
 
 class Lights
-  name: "lights"
-
-  constructor: (port, rate=9600) ->
-    @connected = false
-    @device = new SerialPort port,
-      parser: serialport.parsers.readline "\r\n"
-      baudrate: rate
-
-    @device.on "error", (e) -> console.log e
-    @device.on "open", =>
-      @device.on "data", (data) =>
-        if @connected
-        else
-          if data is "\"#{@name}\""
-            console.log "Connected to device '#{@name}'"
-            @connected = true
-            @blink()
-          else
-            console.log "Received unexpected data: '#{data}'"
-
+  constructor: (@device) ->
+    @blink()
   blinkOn: false
 
   blink: ->

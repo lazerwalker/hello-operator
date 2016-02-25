@@ -1,8 +1,8 @@
-Switches = require('./switches')
-Cables = require('./cables')
-Lights = require('./lights')
+ArduinoGroup = require('./arduino_group')
 
-c = new Cables("/dev/cu.usbmodem14211")
-s = new Switches("/dev/cu.usbmodem14221")
-lights = new Lights("/dev/cu.usbmodem14231")
-lights2 = new Lights("/dev/cu.usbmodem14241")
+a = new ArduinoGroup([
+  "/dev/cu.usbmodem14211"
+  "/dev/cu.usbmodem14221"
+  "/dev/cu.usbmodem14231"
+  "/dev/cu.usbmodem14241"  
+])
