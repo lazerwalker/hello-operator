@@ -14,35 +14,41 @@ setTimeoutR = (t, fn) -> setTimeout(fn, t)
 state = {}
 
 calibrateCables = ->
-  return unless g.cables.length is 1
-  cable = g.cables[0]
+  cable = g.cables
 
   console.log "\n\nBEGINNING CABLE CALIBRATION"
   console.log "---------------------------\n"
 
   currentCable = 1
-  maxCable = 10
+  currentRow = "R"
+  maxCable = 5
 
   state.cables = {}
 
-  console.log "Please plug in cable #1"
+  console.log "Please plug in cable #1R"
 
   cable.on "connect", ({cable, port}) ->
     return if _.contains state.cables, cable
 
-    state.cables[currentCable] = cable
-    currentCable++
+    index = "#{currentCable}#{currentRow}"
+    state.cables[index] = cable
+
+    if currentRow is "R"
+      currentRow is "F"
+    else
+      currentCable++
+      currentRiw = "R"
+
     console.log state.cables
 
     if currentCable > maxCable
       console.log "Thank you for calibrating cables!"
       calibratePorts()
     else
-      console.log "Please plug in cable ##{currentCable}"
+      console.log "Please plug in cable ##{currentCable}#{currentRow}"
 
 calibratePorts = ->
-  return unless g.cables.length is 1
-  cable = g.cables[0]
+  cable = g.cables
 
   console.log "\n\nBEGINNING PORT CALIBRATION"
   console.log "---------------------------\n"
@@ -68,8 +74,7 @@ calibratePorts = ->
       console.log "Please plug a cable into port ##{currentPort}"
 
 calibrateSwitches = ->
-  return unless g.switches.length is 1
-  s = g.switches[0]
+  s = g.switches
 
   console.log "\n\nBEGINNING SWITCH CALIBRATION"
   console.log "---------------------------\n"
@@ -91,9 +96,9 @@ calibrateSwitches = ->
     return if _.contains seenPins, pin
     seenPins.push pin
 
-    state.switches[current] ?= {}
-    state.switches[current][currentRow] ?= {}
-    state.switches[current][currentRow][currentDir] = pin
+    index = "#{current}#{currentRow}"
+    state.switches[index] ?= {}
+    state.switches[index][currentDir] = pin
 
     if currentDir is "talk"
       currentDir = "ring"

@@ -11,6 +11,20 @@ class ArduinoInterface
     @blinkTimers = {}
     @blinkState = {}
 
+    @arduino.on 'connect', ({cable, port}) ->
+      cableName = "cable#{cable}"
+      portName = @people[port]
+      @client.connect(cableName, portName)
+
+    @arduino.on 'disconnect', ({cable, port}) ->
+      cableName = "cable#{cable}"
+      portName = @people[port]
+      @client.disconnect(cableName, portName)
+
+    @arduino.on 'toggleSwitch', ({theSwitch, position}) ->
+      switchName = "switch#{theSwitch}"
+      @client.toggleSwitch(switchName, position)
+
   turnOnLight: (caller, blink = false) ->
     if !blink and @blinkTimers[caller]?
       clearTimeout @blinkTimers[caller] 
