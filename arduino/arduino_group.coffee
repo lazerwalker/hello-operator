@@ -30,7 +30,7 @@ class ArduinoGroup
           name = JSON.parse(data)
           if name? and deviceTypes[name]
             connected = true
-            console.log "Found a #{name}"
+            console.log "Found a #{name} at #{rawDevice.path}"
 
             d = new deviceTypes[name](rawDevice)
             @devices.push d 
