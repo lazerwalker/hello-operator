@@ -13,7 +13,8 @@ SwitchState = require('../src/cablePair').SwitchState
 deviceTypes = 
   cables: Cables
   switches: Switches
-  lights: Lights
+  portLights: Lights
+  plugLights: Lights
 
 class ArduinoGroup
   constructor: (ports=[], rate=9600) ->
