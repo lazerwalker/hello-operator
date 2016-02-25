@@ -21,12 +21,14 @@ class Switches
       return
 
     @timeouts[pin] = setTimeoutR 100, =>
-      @trigger "change", {pin, value}
-      delete @timeouts[pin]
-
       if @debug
         str = if value then "on" else "off"
         console.log "Switched #{pin} to #{str}"
+        
+      @trigger "change", {pin, value}
+      delete @timeouts[pin]
+
+
 
 
   # Events

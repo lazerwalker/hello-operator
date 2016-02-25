@@ -44,24 +44,34 @@ class ArduinoGroup
         @[name] = d
         
         if @devices.length is ports.length
-          @switches.debug = true
           @trigger('ready')
 
-    @on 'ready', ->
-      @cables?.on 'connect', ({cable, port}) ->
+    @on 'ready', =>
+      @cables?.on 'connect', ({cable, port}) =>
         cableNum = @map.cableNumFromPin(cable)
         portNum = @map.portNumFromPin(port)        
         @trigger 'connect', {cable: cableNum, port: portNum}
 
-      @cables?.on 'disconnect', ({cable, port}) ->
+      @cables?.on 'disconnect', ({cable, port}) =>
         cableNum = @map.cableNumFromPin(cable)
         portNum = @map.portNumFromPin(port)        
         @trigger 'disconnect', {cable: cableNum, port: portNum}
 
       # pin = arduino pin
       # output: {switchNum: "1R", position: SwitchState.TALK}
-      @switches?.on 'change', ({pin, value}) ->
-        @trigger 'toggleSwitch', @map.switchNumFromPin(pin)
+      @switches?.on 'change', ({pin, value}) =>
+        s = @map.switchNumFromPin(pin)
+        return unless s?
+
+        position = SwitchState.Neutral
+
+        if s.switchNum[s.switchNum.length - 1] is "R" and s.position is SwitchState.Talk
+          if value is true
+            position = SwitchState.Talk
+        else if value is false
+          position = s.position
+
+        @trigger 'toggleSwitch', {switchNum: s.switchNum, position}
 
   turnOnLight: (num, isCable = false) ->
     if isCable

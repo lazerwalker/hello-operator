@@ -1,4 +1,6 @@
 fs = require('fs')
+_ = require('underscore')
+
 SwitchState = require('../src/cablePair').SwitchState
 
 class Calibration
@@ -28,7 +30,7 @@ class Calibration
       .value()
 
     if result
-      position = if obj[1].talk is pin then SwitchState.TALK else SwitchState.RING
+      position = if result[1].talk is pin then SwitchState.Talk else SwitchState.Ring
       return {switchNum: result[0], position}
 
 module.exports = Calibration

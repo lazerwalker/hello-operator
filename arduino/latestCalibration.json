@@ -12,21 +12,85 @@
     "5F": 41
   },
   "switches": {
-    "1F": {
-      "talk": 5,
-      "ring": 10
-    },
     "1R": {
-      "talk": 6,
-      "ring": 11
+      "talk": 41,
+      "ring": 21
     },
-    "2F": {
-      "talk": 7,
-      "ring": 12
+    "1F": {
+      "talk": 51,
+      "ring": 31
     },
     "2R": {
-      "talk": 8,
+      "talk": 40,
+      "ring": 20
+    },
+    "2F": {
+      "talk": 50,
+      "ring": 30
+    },
+    "3R": {
+      "talk": 39,
+      "ring": 19
+    },
+    "3F": {
+      "talk": 49,
+      "ring": 29
+    },
+    "4R": {
+      "talk": 38,
+      "ring": 18
+    },
+    "4F": {
+      "talk": 48,
+      "ring": 28
+    },
+    "5R": {
+      "talk": 37,
+      "ring": 17
+    },
+    "5F": {
+      "talk": 47,
+      "ring": 27
+    },
+    "6R": {
+      "talk": 36,
+      "ring": 16
+    },
+    "6F": {
+      "talk": 46,
+      "ring": 26
+    },
+    "7R": {
+      "talk": 35,
+      "ring": 15
+    },
+    "7F": {
+      "talk": 45,
+      "ring": 25
+    },
+    "8R": {
+      "talk": 34,
+      "ring": 14
+    },
+    "8F": {
+      "talk": 44,
+      "ring": 24
+    },
+    "9R": {
+      "talk": 33,
       "ring": 11
+    },
+    "9F": {
+      "talk": 43,
+      "ring": 23
+    },
+    "10R": {
+      "talk": 32,
+      "ring": 10
+    },
+    "10F": {
+      "talk": 42,
+      "ring": 22
     }
   },
   "portLights": {
