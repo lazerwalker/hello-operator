@@ -1,4 +1,5 @@
 _ = require 'underscore'
+exec = require('child_process').exec;
 
 ArduinoGroup = require('../../arduino/arduino_group')
 SwitchState = require('../cablePair').SwitchState
@@ -52,11 +53,13 @@ class ArduinoInterface
     callerNum = _.indexOf @people, caller
     @blinkTimers[caller] = setTimeoutR rate, ( => @blink({caller, rate}) )
 
-    console.log "#{caller} is BLINKING at #{rate}"
-
   sayToConnect: ({sender, receiver}) ->
     console.log "Picked up #{sender}"
-    console.log "\"Hey, it's #{sender}. Can I talk to #{receiver}?\""
+    speak "\"Hey, it's #{sender}. Can I talk to #{receiver}?\""
 
-  # TODO: connect, disconnect, toggleSwitch
+  speak: (sentence) ->
+    # TODO: This will only work on OS X
+    console.log sentence
+    exec("say \"#{sentence}\"")
+
 module.exports = ArduinoInterface
