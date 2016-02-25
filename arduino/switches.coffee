@@ -6,7 +6,8 @@ setTimeoutR = (t, fn) -> setTimeout(fn, t)
 class Switches
   constructor: (@device, @debug=false) ->
     @callbacks = {}
-    @cables = {}
+
+    @timeouts = {}
 
     @device.on "error", (e) -> console.log e
     @device.on "data", (data) =>
@@ -14,11 +15,19 @@ class Switches
 
   parseData: (json) ->
     {pin, value} = JSON.parse(json)
-    @trigger "change", {pin, value}
+    if @timeouts[pin]?
+      clearTimeout @timeouts[pin]
+      delete @timeouts[pin]
+      return
 
-    if @debug
-      str = if value then "on" else "off"
-      console.log "Switched #{pin} to #{str}"
+    @timeouts[pin] = setTimeoutR 50, =>
+      @trigger "change", {pin, value}
+      delete @timeouts[pin]
+
+      if @debug
+        str = if value then "on" else "off"
+        console.log "Switched #{pin} to #{str}"
+
 
   # Events
   on: (event, cb) ->
