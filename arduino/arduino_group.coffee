@@ -18,6 +18,8 @@ deviceTypes =
 
 class ArduinoGroup
   constructor: (ports=[], rate=9600) ->
+    @debug = true
+
     @map = new Calibration()
 
     @devices = []
@@ -49,12 +51,14 @@ class ArduinoGroup
     @on 'ready', =>
       @cables?.on 'connect', ({cable, port}) =>
         cableNum = @map.cableNumFromPin(cable)
-        portNum = @map.portNumFromPin(port)        
+        portNum = @map.portNumFromPin(port)
+        console.log "Connecting #{cableNum} to #{portNum}" if @debug
         @trigger 'connect', {cable: cableNum, port: portNum}
 
       @cables?.on 'disconnect', ({cable, port}) =>
         cableNum = @map.cableNumFromPin(cable)
-        portNum = @map.portNumFromPin(port)        
+        portNum = @map.portNumFromPin(port)
+        console.log "Disconnecting #{cableNum} from #{portNum}" if @debug        
         @trigger 'disconnect', {cable: cableNum, port: portNum}
 
       # pin = arduino pin
@@ -71,6 +75,7 @@ class ArduinoGroup
         else if value is false
           position = s.position
 
+        console.log "Toggling switch #{s.switchNum} to #{position}" if @debug
         @trigger 'toggleSwitch', {switchNum: s.switchNum, position}
 
   turnOnLight: (num, isCable = false) ->
