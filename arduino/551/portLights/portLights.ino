@@ -18,10 +18,15 @@ void setup() {
 void loop() {
   while (Serial.available() > 0) {
     int pin = Serial.parseInt();
+    if (pin < LOW_PIN || pin > HIGH_PIN) {
+      continue;
+    }
+    
     int value = Serial.parseInt();
     Serial.println(String(pin) + ", " + String(value));
-    if (pin >= LOW_PIN && pin <= HIGH_PIN && (value == 0 || value == 1)) {
+    if (value == 0 || value == 1) {
       digitalWrite(pin, value);
     }
   }
+  delay(10);
 }
