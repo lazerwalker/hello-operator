@@ -1,5 +1,7 @@
 _ = require('underscore')
+fs = require('fs')
 
+SwitchState = require('../src/cablePair').SwitchState
 ArduinoGroup = require('./arduino_group')
 
 g = new ArduinoGroup([
@@ -11,7 +13,12 @@ g = new ArduinoGroup([
 
 setTimeoutR = (t, fn) -> setTimeout(fn, t)
 
-state = {}
+existing = fs.readFileSync("#{__dirname}/latestCalibration.json")
+if existing
+  state = JSON.parse(existing)
+  console.log "Existing state loaded", state
+else
+  state = {}
 
 calibrateCables = ->
   cable = g.cables
@@ -34,12 +41,12 @@ calibrateCables = ->
     state.cables[index] = cable
 
     if currentRow is "R"
-      currentRow is "F"
+      currentRow = "F"
     else
       currentCable++
-      currentRiw = "R"
+      currentRow = "R"
 
-    console.log state.cables
+    console.log JSON.stringify(state.cables, null, 2)
 
     if currentCable > maxCable
       console.log "Thank you for calibrating cables!"
@@ -49,6 +56,7 @@ calibrateCables = ->
 
 calibratePorts = ->
   cable = g.cables
+  cable.debug = true
 
   console.log "\n\nBEGINNING PORT CALIBRATION"
   console.log "---------------------------\n"
@@ -65,12 +73,12 @@ calibratePorts = ->
 
     state.ports[currentPort] = port
     currentPort++
-    console.log state.ports
+    console.log JSON.stringify(state.ports, null, 2)
 
     if currentPort > maxPort
       console.log "Thank you for calibrating ports!"
-      console.log state
-      calibrateSwitches()
+      console.log JSON.stringify(state, null, 2)
+      calibratePortLights()
     else
       console.log "Please plug a cable into port ##{currentPort}"
 
@@ -113,11 +121,120 @@ calibrateSwitches = ->
         current++
         if current > max
           console.log "Thank you for calibrating switches!"
+          console.log JSON.stringify(state, null, 2)
+          # calibratePortLights()
           return
 
-    console.log state.switches
+    console.log JSON.stringify(state.switches, null, 2)
     console.log "Got it! Please flip switch ##{current}#{currentRow} to #{currentDir}"
 
+calibratePortLights = ->
+  cable = g.cables
+  light = g.portLights
 
-g.on 'ready', => (setTimeoutR 2000, calibrateCables)
+  light.debug = true
+  cable.debug = true
+  unless (cable? and light?)
+    console.log "Either cable or light was null", cable, light
+    return
+
+  console.log "\n\nBEGINNING PORT LIGHT CALIBRATION"
+  console.log "---------------------------\n"
+
+  # TODO
+  currentPin = 32
+  lastPin = 51
+
+  light.turnOff(pin) for pin in [currentPin..lastPin]
+
+  state.portLights = {}
+
+  light.turnOn(currentPin)
+  console.log "Turning on pin #{currentPin}. Please plug a cable into the illuminated port."
+
+  cable.on "connect", ({cable, port}) ->
+    portNum = _.invert(state.ports)[port]
+    console.log "#{port} -> #{portNum}"
+
+    return if _.contains state.portLights, portNum
+
+    state.portLights[currentPin] = portNum
+    light.turnOff(currentPin)
+    currentPin++
+
+    console.log JSON.stringify(state.portLights, null, 2)
+
+    if currentPin > lastPin
+      console.log "Thank you for calibrating port lights!"
+      console.log JSON.stringify(state, null, 2)
+      # calibrateCableLights()
+    else
+      light.turnOn(currentPin)
+      console.log "Turning on pin #{currentPin}. Please plug a cable into the illuminated port"
+
+calibrateCableLights = ->
+  switches = g.switches
+  light = g.cableLights
+  light.debug = true
+  unless (switches? and light?)
+    console.log "Either switches or light was null", switches, light
+    return
+
+  console.log "\n\nBEGINNING PORT LIGHT CALIBRATION"
+  console.log "---------------------------\n"
+
+  # TODO
+  currentPin = 10
+  lastPin = 51
+
+  light.turnOff(pin) for pin in [currentPin..lastPin]
+
+  state.cableLights = {}
+
+  light.turnOn(currentPin)
+  console.log "Turning on pin #{currentPin}. Please move the illuminated switch to Ring."
+
+  switches.on "change", ({pin, value}) ->
+    # Figure out what was changed
+    result = _.chain(state.switches)
+      .pairs()
+      .find( (obj) -> obj[1].talk is pin || obj[1].ring is pin )
+      .value()
+
+    if result
+      position = if result[1].talk is pin then SwitchState.Talk else SwitchState.Ring
+      changed = {num: result[0], position}
+
+    return if _.contains state.cableLights, changed.num
+    
+    position = SwitchState.Neutral
+    if changed.num[changed.num.length - 1] is "R" and changed.position is SwitchState.Talk
+      if value is true
+        position = SwitchState.Talk
+      else if value is false
+        position = changed.position
+
+    # Do the real thing
+    if changed.position is SwitchState.Talk
+      console.log "Skipping"
+    else if changed.position is SwitchState.Ring
+      state.cableLights[currentPin] = changed.num
+    else
+      return
+
+    light.turnOff(currentPin)
+    currentPin++
+
+    console.log JSON.stringify(state.cableLights, null, 2)
+
+    if currentPin > lastPin
+      console.log "Thank you for calibrating port lights!"
+      console.log JSON.stringify(state, null, 2)
+      # calibrateCableLights()
+    else
+      light.turnOn(currentPin)
+      console.log "Turning on pin #{currentPin}. Please move the illuminated switch to Ring"
+
+g.debug = false
+g.on 'ready', => (setTimeoutR 3000, calibrateCableLights)
 

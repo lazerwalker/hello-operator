@@ -18,8 +18,6 @@ deviceTypes =
 
 class ArduinoGroup
   constructor: (ports=[], rate=9600) ->
-    @debug = true
-
     @map = new Calibration()
 
     @devices = []

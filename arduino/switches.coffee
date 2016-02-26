@@ -28,9 +28,6 @@ class Switches
       @trigger "change", {pin, value}
       delete @timeouts[pin]
 
-
-
-
   # Events
   on: (event, cb) ->
     @callbacks[event] ?= []
