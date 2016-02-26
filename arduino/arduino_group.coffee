@@ -78,18 +78,18 @@ class ArduinoGroup
 
   turnOnLight: (num, isCable = false) ->
     if isCable
-      pin = @map.cableLightFromNum(num)
+      pin = @map.cableLightPinFromNum(num)
       @cableLights?.turnOn(pin)
     else
-      pin = @map.portLightFromNum(num)
+      pin = @map.portLightPinFromNum(num)
       @portLights?.turnOn(pin)
 
-  turnOffLight: (num) ->
+  turnOffLight: (num, isCable = false) ->
     if isCable
-      pin = mapping.cableLights[num]
+      pin = @map.cableLightPinFromNum(num)
       @cableLights?.turnOff(pin)
     else
-      pin = mapping.portLights[num]
+      pin = @map.portLightPinFromNum(num)
       @portLights?.turnOff(pin)
 
   # TODO: why the fuck am I rolling my own event emitter?

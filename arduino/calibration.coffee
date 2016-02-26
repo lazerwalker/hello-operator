@@ -9,17 +9,17 @@ class Calibration
     console.log(file)
     @mapping = JSON.parse fs.readFileSync(file)
 
-  cablePinFromNum: (num) -> @mapping.cables[num]
-  cableNumFromPin: (pin) -> _.invert(@mapping.cables)[pin]
+  cablePinFromNum: (num) -> parseInt(@mapping.cables[num])
+  cableNumFromPin: (pin) -> parseInt(_.invert(@mapping.cables)[pin])
 
-  portPinFromNum: (num) -> @mapping.ports[num]
-  portNumFromPin: (pin) -> _.invert(@mapping.ports)[pin]
+  portPinFromNum: (num) -> parseInt(@mapping.ports[num])
+  portNumFromPin: (pin) -> parseInt(_.invert(@mapping.ports)[pin])
 
   cableLightPinFromNum: (num) -> @mapping.cableLights[num]
   cableLightNumFromPin: (pin) -> _.invert(@mapping.cableLights)[pin]  
 
-  portLightPinFromNum: (num) -> @mapping.portLights[num]
-  portLightNumFromPin: (pin) -> _.invert(@mapping.portLights)[pin]
+  portLightPinFromNum: (num) -> parseInt(@mapping.portLights[num])
+  portLightNumFromPin: (pin) -> parseInt(_.invert(@mapping.portLights)[pin])
 
   switchPinFromNum: (num) -> @mapping.switches[num] # TODO: Fix this
 

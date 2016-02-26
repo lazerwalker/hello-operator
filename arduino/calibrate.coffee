@@ -132,8 +132,6 @@ calibratePortLights = ->
   cable = g.cables
   light = g.portLights
 
-  light.debug = true
-  cable.debug = true
   unless (cable? and light?)
     console.log "Either cable or light was null", cable, light
     return
@@ -158,7 +156,7 @@ calibratePortLights = ->
 
     return if _.contains state.portLights, portNum
 
-    state.portLights[currentPin] = portNum
+    state.portLights[portNum] = currentPin
     light.turnOff(currentPin)
     currentPin++
 
