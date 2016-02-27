@@ -81,8 +81,9 @@ class ArduinoGroup
         console.log "Toggling switch #{s.switchNum} to #{position}" if @debug
         @trigger 'toggleSwitch', {switchNum: s.switchNum, position}
 
-  turnOnLight: (num, isCable = false) ->
-    if isCable
+  turnOnLight: (num) ->
+    if num[num.length-1] in ["F", "R"]
+      console.log "Is cableLight", num
       pin = @map.cableLightPinFromNum(num)
       @cableLights?.turnOn(pin)
     else
@@ -90,7 +91,7 @@ class ArduinoGroup
       @portLights?.turnOn(pin)
 
   turnOffLight: (num, isCable = false) ->
-    if isCable
+    if num[num.length-1] in ["F", "R"]
       pin = @map.cableLightPinFromNum(num)
       @cableLights?.turnOff(pin)
     else

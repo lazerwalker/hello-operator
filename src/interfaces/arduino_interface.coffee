@@ -34,15 +34,22 @@ class ArduinoInterface
     if !blink and @blinkTimers[caller]?
       clearTimeout @blinkTimers[caller] 
 
-    callerNum = (_.indexOf @people, caller) + 1
-    @arduino.turnOnLight(callerNum)
+    if caller in @people
+      callerNum = (_.indexOf @people, caller) + 1
+      @arduino.turnOnLight(callerNum)
+    else if caller[caller.length - 1] in ["R", "F"]
+      @arduino.turnOnLight(caller[5..])
 
   turnOffLight: (caller, blink = false) ->
     if !blink and @blinkTimers[caller]?
       clearTimeout @blinkTimers[caller] 
    
-    callerNum = (_.indexOf @people, caller) + 1
-    @arduino.turnOffLight(callerNum)
+    if caller in @people
+      callerNum = (_.indexOf @people, caller) + 1
+      @arduino.turnOffLight(callerNum)
+    else if caller[caller.length - 1] in ["R", "F"]
+      @arduino.turnOffLight(caller[5..])
+
 
   blinkLight: ({caller, rate}) ->
     if rate is 0

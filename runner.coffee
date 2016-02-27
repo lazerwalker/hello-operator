@@ -9,8 +9,6 @@ arduino = new ArduinoInterface([
   "/dev/cu.usbmodem14111"
   "/dev/cu.usbmodem14121"  
 ])
-arduino.debug = true
-
 
 game = new Game()
 
