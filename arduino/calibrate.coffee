@@ -28,7 +28,7 @@ calibrateCables = ->
 
   currentCable = 1
   currentRow = "R"
-  maxCable = 5
+  maxCable = 10
 
   state.cables = {}
 
