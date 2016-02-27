@@ -6,11 +6,10 @@ SwitchState = require('../src/cablePair').SwitchState
 class Calibration
   constructor: (file) ->
     file ?= "#{__dirname}/latestCalibration.json"
-    console.log(file)
     @mapping = JSON.parse fs.readFileSync(file)
 
   cablePinFromNum: (num) -> parseInt(@mapping.cables[num])
-  cableNumFromPin: (pin) -> parseInt(_.invert(@mapping.cables)[pin])
+  cableNumFromPin: (pin) -> _.invert(@mapping.cables)[pin]
 
   portPinFromNum: (num) -> parseInt(@mapping.ports[num])
   portNumFromPin: (pin) -> parseInt(_.invert(@mapping.ports)[pin])

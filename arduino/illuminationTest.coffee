@@ -19,6 +19,8 @@ a.on "ready", =>
   for led in _.keys(map.mapping.portLights)
     a.turnOffLight(led)
 
+  console.log "Have fun!"
+
   a.on 'connect', ({cable, port}) ->
     a.turnOnLight(cable, true)
 
@@ -39,7 +41,6 @@ a.on "ready", =>
   a.on 'disconnect', ({cable, port}) ->
     a.turnOnLight(cable, true)
     for led in _.keys(map.mapping.portLights)
-      console.log "Turning off port light at #{led}"
       a.turnOffLight(led)
 
 

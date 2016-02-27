@@ -228,11 +228,11 @@ calibrateCableLights = ->
     if currentPin > lastPin
       console.log "Thank you for calibrating port lights!"
       console.log JSON.stringify(state, null, 2)
-      # calibrateCableLights()
+      calibrateCableLights()
     else
       light.turnOn(currentPin)
       console.log "Turning on pin #{currentPin}. Please move the illuminated switch to Ring"
 
 g.debug = false
-g.on 'ready', => (setTimeoutR 3000, calibrateCableLights)
+g.on 'ready', => (setTimeoutR 3000, calibratePortLights)
 

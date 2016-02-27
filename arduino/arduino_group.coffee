@@ -47,6 +47,11 @@ class ArduinoGroup
           @trigger('ready')
 
     @on 'ready', =>
+      for led in _.keys(@map.mapping.cableLights)
+        @turnOffLight(led, true)
+      for led in _.keys(@map.mapping.portLights)
+        @turnOffLight(led)
+
       @cables?.on 'connect', ({cable, port}) =>
         cableNum = @map.cableNumFromPin(cable)
         portNum = @map.portNumFromPin(port)

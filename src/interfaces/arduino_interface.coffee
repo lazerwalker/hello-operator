@@ -1,5 +1,5 @@
 _ = require 'underscore'
-exec = require('child_process').exec;
+spawn = require('child_process').spawn;
 
 ArduinoGroup = require('../../arduino/arduino_group')
 SwitchState = require('../cablePair').SwitchState
@@ -7,59 +7,70 @@ SwitchState = require('../cablePair').SwitchState
 setTimeoutR = (t, fn) -> setTimeout(fn, t)
 
 class ArduinoInterface
-  constructor: (@people, @client, ports=[]) ->
+  constructor: (ports=[]) ->
+    @people = []
+    @client = []
+
     @arduino = new ArduinoGroup(ports)
     @blinkTimers = {}
     @blinkState = {}
 
-    @arduino.on 'connect', ({cable, port}) ->
+    @arduino.on 'connect', ({cable, port}) =>
       cableName = "cable#{cable}"
-      portName = @people[port]
-      @client.connect(cableName, portName)
+      portName = @people[port - 1]
+      console.log "Connecting #{cableName}, #{portName}" if @debug
+      @client?.connect?(cableName, portName)
 
-    @arduino.on 'disconnect', ({cable, port}) ->
+    @arduino.on 'disconnect', ({cable, port}) =>
       cableName = "cable#{cable}"
-      portName = @people[port]
-      @client.disconnect(cableName, portName)
+      portName = @people[port - 1]
+      @client?.disconnect?(cableName, portName)
 
-    @arduino.on 'toggleSwitch', ({theSwitch, position}) ->
-      switchName = "switch#{theSwitch}"
-      @client.toggleSwitch(switchName, position)
+    @arduino.on 'toggleSwitch', ({switchNum, position}) =>
+      switchName = "cable#{switchNum}"
+      @client?.toggleSwitch?(switchName, position)
 
   turnOnLight: (caller, blink = false) ->
     if !blink and @blinkTimers[caller]?
       clearTimeout @blinkTimers[caller] 
 
-    callerNum = _.indexOf @people, caller
+    callerNum = (_.indexOf @people, caller) + 1
     @arduino.turnOnLight(callerNum)
 
   turnOffLight: (caller, blink = false) ->
     if !blink and @blinkTimers[caller]?
       clearTimeout @blinkTimers[caller] 
    
-    callerNum = _.indexOf @people, caller
+    callerNum = (_.indexOf @people, caller) + 1
     @arduino.turnOffLight(callerNum)
 
   blinkLight: ({caller, rate}) ->
+    if rate is 0
+      @turnOnLight(caller)
+      return
+
     clearTimeout @blinkTimers[caller] if @blinkTimers[caller]?
 
     if @blinkState[caller]
       @turnOnLight(caller, true)
-      @blinkState = false
+      @blinkState[caller] = false
     else
       @turnOffLight(caller, true)
-      @blinkState = true
+      @blinkState[caller] = true
 
-    callerNum = _.indexOf @people, caller
-    @blinkTimers[caller] = setTimeoutR rate, ( => @blink({caller, rate}) )
+    callerNum = (_.indexOf @people, caller) + 1
+    @blinkTimers[caller] = setTimeoutR rate, ( => @blinkLight({caller, rate}) )
 
   sayToConnect: ({sender, receiver}) ->
-    console.log "Picked up #{sender}"
-    speak "\"Hey, it's #{sender}. Can I talk to #{receiver}?\""
+    @speak "\"Hey, it's #{sender}. Can I talk to #{receiver}?\""
 
   speak: (sentence) ->
     # TODO: This will only work on OS X
     console.log sentence
-    exec("say \"#{sentence}\"")
+    spawn("say", [sentence])
+
+  onReady: (cb) ->
+    @arduino.on "ready", ->
+      setTimeout(cb, 2000)
 
 module.exports = ArduinoInterface
