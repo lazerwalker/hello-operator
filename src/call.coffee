@@ -2,10 +2,11 @@ SwitchState = require('./cablePair').SwitchState
 
 State = 
   Unstarted: 0
-  WaitingToConnect: 1
-  Ringing: 2
-  PickedUp: 3
-  Done: 4
+  WaitingToTalk: 1
+  WaitingToConnect: 2
+  Ringing: 3
+  PickedUp: 4
+  Done: 5
 
 
 class Call
@@ -34,6 +35,8 @@ class Call
     changeState = false
     switch @state
       when State.Unstarted
+        changeState = rearIsConnected and cable.rearSwitch isnt SwitchState.Talk
+      when State.WaitingToTalk
         changeState = rearIsConnected and cable.rearSwitch is SwitchState.Talk
       when State.WaitingToConnect
         changeState = rearIsConnected and frontIsConnected and cable.frontSwitch is SwitchState.Ring

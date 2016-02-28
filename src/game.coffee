@@ -155,6 +155,9 @@ class Game
   updateCall: (call) ->
     # Each block in here runs when we're transitioning to that state
     switch call.state
+      when root.Call.State.WaitingToTalk
+        for i in @interfaces
+          i.turnOnLight(call.cable.rearLight)
       when root.Call.State.WaitingToConnect
         call.shouldIgnoreHappiness = true
         for i in @interfaces
