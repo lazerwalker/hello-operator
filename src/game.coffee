@@ -90,10 +90,21 @@ class Game
     @interfaces.push i
 
   startGame: ->
+    @running = true
     @addNewCall()
 
     for i in [30, 120]
       setTimeout ( () => @addNewCall() ), i * 1000 
+
+  stopGame: ->
+    @running = false
+    @calls = []
+    for i in @interfaces
+      for p in @people
+        i.turnOffLight(p)
+      for id, c of @cables
+        i.turnOffLight(c.rearLight)
+        i.turnOffLight(c.frontLight)
 
   ###
   # Interface methods
@@ -128,6 +139,14 @@ class Game
     call = root._(@calls).findWhere {sender: cable.rear}
     if call?.checkState(cable)
       @updateCall(call)
+    else # Here be magical special cases
+      if root._.chain(@cables)
+        .pluck("frontSwitch")
+        .reduce( ((memo, val) -> memo and (val is root.CablePair.SwitchState.Talk)), true)
+        .value()
+          @stopGame()
+        
+
 
   ###
   # Private
@@ -181,6 +200,7 @@ class Game
     return rand * (1 - diff/300)
 
   addNewCall: =>
+    return unless @running
     [first, second] = root._(@people).chain()
       .reject (p) -> p.busy
       .sample(2)
@@ -197,6 +217,7 @@ class Game
 
   # TODO: Push this into the object
   updateHappiness: (call) =>
+    return unless @running
     return if call.shouldIgnoreHappiness
     return if call.happiness >= call.happiness.length
 
