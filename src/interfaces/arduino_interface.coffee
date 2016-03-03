@@ -78,7 +78,9 @@ class ArduinoInterface
     @blinkTimers[caller] = setTimeoutR rate, ( => @blinkLight({caller, rate}) )
 
   sayToConnect: ({sender, receiver}) ->
-    @speak "\"Hey, it's #{sender}. Can I talk to #{receiver}?\""
+    #TODO: This is OS X-specific
+    filepath = "#{__dirname}/../../audio/#{sender}/#{receiver}.aif"
+    spawn("afplay", [filepath])
 
   speak: (sentence) ->
     # TODO: This will only work on OS X
