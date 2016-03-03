@@ -106,6 +106,11 @@ class Game
         i.turnOffLight(c.rearLight)
         i.turnOffLight(c.frontLight)
 
+    # TODO: This is probably a memory leak. Abstract out to the runner.
+    newGame = new Game()
+    newGame.addInterface(i) for i in @interfaces
+    newGame.startGame()
+
   ###
   # Interface methods
   ###  
