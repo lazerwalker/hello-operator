@@ -7,11 +7,20 @@ SwitchState = require('../cablePair').SwitchState
 setTimeoutR = (t, fn) -> setTimeout(fn, t)
 
 class ArduinoInterface
-  constructor: (ports=[]) ->
+  constructor: (ports=[], fake = false) ->
     @people = []
     @client = []
 
-    @arduino = new ArduinoGroup(ports)
+    if fake
+      @arduino = {
+        on: (event, cb) ->
+          cb({})
+        turnOnLight: ->
+        turnOffLight: ->
+      }
+    else
+      @arduino = new ArduinoGroup(ports)
+
     @blinkTimers = {}
     @blinkState = {}
 
