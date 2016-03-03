@@ -32,46 +32,27 @@ function toggleSwitch(cable, state) // state is -1, 0, or 1. Default is 0
 ###
 
 class Game
-  # people: [
-  #   "Dolores"
-  #   "Mabel"
-  #   "Irene"
-  #   "Evelyn"
-  #   "Gladys"
-  #   "Ethel"
-  #   "Bernice"
-  #   "Lucille"
-  #   "Edith"
-  #   "Rita"
-  #   "Mae"
-  #   "Rosemary"
-  #   "Beverly"
-  #   "Pearl"
-  #   "Vera"
-  #   "Joyce"
-  # ]
-
   people: [
-    "101"
-    "102"
-    "103"
-    "104"
-    "105"
-    "106"
-    "107"
-    "108"
-    "109"
-    "110"
-    "111"
-    "112"
-    "113"
-    "114"
-    "115"
-    "116"
-    "117"
-    "118"
-    "119"
-    "120"    
+    "Dolores"
+    "Walter"
+    "Mabel"
+    "Clarence"
+    "Gladys"
+    "Lee"
+    "Melvin"
+    "Bernice"
+    "Everett"
+    "Mae"
+
+    "Ethel"
+    "Rosemary"
+    "Donald"
+    "Margie"
+    "Rita"
+    "Julius"
+    "Joyce"
+    "Edwin"
+    "Franklin"
   ]
 
   numberOfConnections: 1
@@ -167,7 +148,6 @@ class Game
       when root.Call.State.Ringing
         for i in @interfaces
           i.blinkLight({caller: call.cable.frontLight, rate: 400})
-
         rand = root._.random(1000, 3000) # TODO: Better rand
         setTimeoutR rand, =>
           call.receiverPickedUp = true
