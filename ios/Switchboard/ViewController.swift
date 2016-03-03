@@ -48,9 +48,7 @@ class ViewController: UIViewController {
 
     let synthesizer = AVSpeechSynthesizer()
 
-    var numberOfConnections = 0
     var currentCable:CallerView?
-    let numberOfCords = 6
 
     override func viewDidLoad() {
         super.viewDidLoad()
