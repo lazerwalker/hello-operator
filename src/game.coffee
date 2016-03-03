@@ -75,7 +75,8 @@ class Game
     @calls = []
 
     @cables = {}
-    for i in [0..10]
+    # TODO: Set back to 10 when on real hardware
+    for i in [0...5]
       @cables[i] = new root.CablePair(i)
 
 
@@ -117,7 +118,6 @@ class Game
   toggleSwitch: (cableString, state) =>
     [cableNumber, isFront] = @parseCableString(cableString)
     cable = @cables[cableNumber]
-    console.log(cableNumber, isFront, cable)
     return unless cable?
 
     if isFront
