@@ -7,5 +7,8 @@
     "serialport": "^1.4.10",
     "underscore": "~1.7.0",
     "ws": "^0.8.0"
+  },
+  "devDependencies": {
+    "coffeeify": "^2.0.1"
   }
 }
