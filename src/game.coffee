@@ -75,8 +75,7 @@ class Game
     @calls = []
 
     @cables = {}
-    # TODO: Set back to 10 when on real hardware
-    for i in [0...5]
+    for i in [0...10]
       @cables[i] = new root.CablePair(i)
 
 

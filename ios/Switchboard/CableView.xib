@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
@@ -52,17 +52,6 @@
                         <action selector="didEndFrontDrag:forEvent:" destination="-1" eventType="touchUpOutside" id="JZZ-FR-bpF"/>
                     </connections>
                 </button>
-                <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="7Bf-SN-t9Z">
-                    <rect key="frame" x="20" y="233" width="100" height="29"/>
-                    <segments>
-                        <segment title="Talk"/>
-                        <segment title=""/>
-                        <segment title="Ring"/>
-                    </segments>
-                    <connections>
-                        <action selector="didToggleFrontSwitch:" destination="-1" eventType="valueChanged" id="6mI-uN-qtE"/>
-                    </connections>
-                </segmentedControl>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9DP-ay-6fR">
                     <rect key="frame" x="60" y="130" width="20" height="20"/>
                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -86,14 +75,25 @@
                     </constraints>
                 </view>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="SIx-jc-x4D">
-                    <rect key="frame" x="20" y="192" width="100" height="34"/>
+                    <rect key="frame" x="35" y="192" width="70" height="34"/>
                     <segments>
-                        <segment title="Talk"/>
+                        <segment title="T"/>
                         <segment title=""/>
-                        <segment title="Ring"/>
+                        <segment title="R"/>
                     </segments>
                     <connections>
                         <action selector="didToggleRearSwitch:" destination="-1" eventType="valueChanged" id="n8p-pQ-TGk"/>
+                    </connections>
+                </segmentedControl>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="7Bf-SN-t9Z">
+                    <rect key="frame" x="35" y="233" width="71" height="29"/>
+                    <segments>
+                        <segment title="T"/>
+                        <segment title=""/>
+                        <segment title="R"/>
+                    </segments>
+                    <connections>
+                        <action selector="didToggleFrontSwitch:" destination="-1" eventType="valueChanged" id="6mI-uN-qtE"/>
                     </connections>
                 </segmentedControl>
             </subviews>
