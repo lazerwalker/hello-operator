@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C6144E001C8CE91000F234D1 /* GameInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6144DFF1C8CE91000F234D1 /* GameInterface.swift */; };
 		C633604B1C655A7D0018AA46 /* CableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C633604A1C655A7D0018AA46 /* CableView.swift */; };
 		C633604D1C655A8E0018AA46 /* CableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C633604C1C655A8E0018AA46 /* CableView.xib */; };
 		C6545D3F1B8B8D8B00E845D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6545D3E1B8B8D8B00E845D3 /* AppDelegate.swift */; };
@@ -25,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		8D075227E005B0FC4D23601A /* Pods_Switchboard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Switchboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6144DFF1C8CE91000F234D1 /* GameInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameInterface.swift; sourceTree = "<group>"; };
 		C633604A1C655A7D0018AA46 /* CableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CableView.swift; sourceTree = "<group>"; };
 		C633604C1C655A8E0018AA46 /* CableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CableView.xib; sourceTree = "<group>"; };
 		C6545D3B1B8B8D8B00E845D3 /* Switchboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Switchboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,6 +99,7 @@
 				C68DF5071C25FC6F00797744 /* LineDrawingView.swift */,
 				C633604A1C655A7D0018AA46 /* CableView.swift */,
 				C633604C1C655A8E0018AA46 /* CableView.xib */,
+				C6144DFF1C8CE91000F234D1 /* GameInterface.swift */,
 			);
 			path = Switchboard;
 			sourceTree = "<group>";
@@ -176,6 +179,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6B85B061B936AE100DCA936 /* CallerView.swift in Sources */,
+				C6144E001C8CE91000F234D1 /* GameInterface.swift in Sources */,
 				C633604B1C655A7D0018AA46 /* CableView.swift in Sources */,
 				C6B85B0E1B9380FE00DCA936 /* GameManager.swift in Sources */,
 				C6B85B121B93945500DCA936 /* JSInterface.swift in Sources */,

@@ -1,10 +1,6 @@
 import Foundation
 import JavaScriptCore
 
-enum SwitchIndex: Int {
-    case Talk = -1, Neutral, Ring
-}
-
 @objc protocol JSInterfaceExports : JSExport {
     var people: [String] { get set }
     var client: JSValue? { get set }
@@ -15,7 +11,7 @@ enum SwitchIndex: Int {
     func sayToConnect(call:[String: AnyObject])
 }
 
-@objc class JSInterface : NSObject, JSInterfaceExports {
+@objc class JSInterface : NSObject, JSInterfaceExports, GameInterface {
     var onTurnOn:((String) -> Void)?
     var onTurnOff:((String) -> Void)?
     var onBlink:((String, NSTimeInterval) -> Void)?
