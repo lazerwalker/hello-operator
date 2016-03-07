@@ -1,3 +1,4 @@
+_ = require 'underscore'
 SwitchState = require('./cablePair').SwitchState
 
 State = 
@@ -25,7 +26,7 @@ class Call
     @sender.busy = false
     @receiver.busy = false
 
-  checkState: (cable) ->
+  checkState: (cable, cables) ->
     rearIsConnected = cable?.rear? and cable.rear is @sender
     frontIsConnected = cable?.front? and cable.front is @receiver
 
@@ -37,7 +38,11 @@ class Call
       when State.Unstarted
         changeState = rearIsConnected and cable.rearSwitch isnt SwitchState.Talk
       when State.WaitingToTalk
-        changeState = rearIsConnected and cable.rearSwitch is SwitchState.Talk
+        othersAreTalking = _(cables).chain()
+          .without(cable)
+          .any( (c) -> c.rearSwitch is SwitchState.Talk)
+          .value()
+        changeState = rearIsConnected and cable.rearSwitch is SwitchState.Talk and !othersAreTalking
       when State.WaitingToConnect
         changeState = rearIsConnected and frontIsConnected and 
           cable.frontSwitch is SwitchState.Ring and cable.rearSwitch is SwitchState.Neutral

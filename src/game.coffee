@@ -137,7 +137,7 @@ class Game
       call = root._(@calls).findWhere {sender: cable.rear}
   
     # Check state
-    if call?.checkState(cable)
+    if call?.checkState(cable, @cables)
       @updateCall(call)
 
   disconnect: (first, second, callingInterface) =>
@@ -161,7 +161,7 @@ class Game
 
     call = root._(@calls).findWhere {sender: cable.rear}
 
-    if call?.checkState(cable)
+    if call?.checkState(cable, @cables)
       @updateCall(call)
     else # Here be magical special cases
       # Re-play Talk if appropriate
@@ -201,7 +201,7 @@ class Game
         setTimeoutR rand, =>
           call.receiverPickedUp = true
           # TODO: Whoo-ey, get a whiff of this code smell!          
-          @updateCall(call) if (call.checkState(call.cable))
+          @updateCall(call) if (call.checkState(call.cable, @cables))
       when root.State.PickedUp
         for i in @interfaces
           i.turnOnLight(call.cable.frontLight)
@@ -209,7 +209,7 @@ class Game
         rand = @timeWeightedRand(1000, 7000)
         setTimeoutR rand, =>
           call.hungUp = true
-          @updateCall(call) if (call.checkState(call.cable))
+          @updateCall(call) if (call.checkState(call.cable, @cables))
       when root.State.Done
         for i in @interfaces
           i.turnOffLight(call.cable.frontLight)
