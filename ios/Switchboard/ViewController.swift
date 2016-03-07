@@ -115,6 +115,24 @@ class ViewController: UIViewController {
     }
 
     func configureGame() {
+        // Reset
+        for var i = 0; i < self.callers.count; i++ {
+            let view = self.callers[i];
+            view.name = "Name"
+            view.turnOffLight(view.name)
+        }
+
+        for var i = 0; i < self.cables.count; i++ {
+            let cable = self.cables[i]
+            cable.frontSwitch.selectedSegmentIndex = 1
+            cable.rearSwitch.selectedSegmentIndex = 1
+            cable.turnOffLight(cable.frontName, isFlash: false)
+            cable.turnOffLight(cable.rearName, isFlash: false)
+        }
+
+
+        // Do new things
+
         interface.onPeopleChange = { people in
             for var i = 0; i < people.count; i++ {
                 let view = self.callers[i]
