@@ -158,6 +158,9 @@
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="cUh-7T-1pl" firstAttribute="leading" secondItem="gd9-D4-gxB" secondAttribute="trailing" id="Fge-it-Noq"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <constraints>
@@ -178,6 +181,20 @@
                                 <rect key="frame" x="264" y="448" width="240" height="128"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c5A-JL-PqP">
+                                <rect key="frame" x="33" y="6" width="177" height="30"/>
+                                <state key="normal" title="GameType"/>
+                                <connections>
+                                    <action selector="didTapGameTypeButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zci-BX-t5c"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bq7-Nh-wsl">
+                                <rect key="frame" x="245" y="6" width="102" height="30"/>
+                                <state key="normal" title="Change Server"/>
+                                <connections>
+                                    <action selector="didTapServerButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="U0q-uE-rVd"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -194,7 +211,9 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
+                        <outlet property="gameTypeButton" destination="c5A-JL-PqP" id="YVY-pL-GMO"/>
                         <outlet property="lineView" destination="bhh-Je-QAM" id="IlM-YE-Spq"/>
+                        <outlet property="serverButton" destination="bq7-Nh-wsl" id="7C5-6w-6eF"/>
                         <outletCollection property="callers" destination="qjx-2g-Omr" collectionClass="NSMutableArray" id="0ME-h4-twZ"/>
                         <outletCollection property="callers" destination="wr4-Ae-WDO" collectionClass="NSMutableArray" id="Hxz-v0-4ZU"/>
                         <outletCollection property="callers" destination="3Lr-L2-mDu" collectionClass="NSMutableArray" id="HKi-oQ-de1"/>
@@ -229,7 +248,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="187" y="205"/>
+            <point key="canvasLocation" x="179" y="216"/>
         </scene>
     </scenes>
 </document>

@@ -43,7 +43,12 @@ class ViewController: UIViewController {
     @IBOutlet var cables: [CableView]!
     @IBOutlet weak var lineView: LineDrawingView!
 
-    let interface = WebSocketInterface(url: NSURL(string: "ws://hellooperator.herokuapp.com")!)
+    // This default JSInterface shouldn't ever be used,
+    // but given all of our setup happens in viewDidLoad,
+    // this is easier than making it an Optional
+    var interface:GameInterface = JSInterface()
+
+    var serverUrl = NSURL(string: "ws://hellooperator.herokuapp.com")!
 
     let synthesizer = AVSpeechSynthesizer()
 
@@ -51,6 +56,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        loadLocalGame()
 
         for c in callers {
             c.onDragEnd = self.didDrag
@@ -62,7 +69,52 @@ class ViewController: UIViewController {
             c.onSwitch = self.didSwitch
             c.position = i
         }
+    }
 
+    //- Options
+
+    @IBOutlet weak var gameTypeButton: UIButton!
+    @IBOutlet weak var serverButton: UIButton!
+    @IBAction func didTapGameTypeButton(sender: AnyObject) {
+        if interface is JSInterface {
+            loadServerGame()
+        } else {
+            loadLocalGame()
+        }
+    }
+
+    @IBAction func didTapServerButton(sender: AnyObject) {
+        let popup = UIAlertController(title: "Enter URL", message: "Websocket URL", preferredStyle: .Alert)
+        popup.addTextFieldWithConfigurationHandler { field in field.text = "ws://" }
+        popup.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
+            if let string = popup.textFields?[0].text, url = NSURL(string: string) {
+                self.serverUrl = url
+                self.loadServerGame()
+            }
+        }))
+        popup.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { _ in }))
+
+        self.presentViewController(popup, animated: true, completion: {})
+    }
+
+    //-
+    func loadLocalGame() {
+        interface = JSInterface()
+        gameTypeButton.setTitle("Local Game", forState: .Normal)
+        gameTypeButton.sizeToFit()
+        serverButton.hidden = true
+        configureGame()
+    }
+
+    func loadServerGame() {
+        interface = WebSocketInterface(url: serverUrl)
+        gameTypeButton.setTitle("Remote Game", forState: .Normal)
+        gameTypeButton.sizeToFit()
+        serverButton.hidden = false
+        configureGame()
+    }
+
+    func configureGame() {
         interface.onPeopleChange = { people in
             for var i = 0; i < people.count; i++ {
                 let view = self.callers[i]
@@ -117,13 +169,13 @@ class ViewController: UIViewController {
             } else if position == .Ring {
                 toggle.selectedSegmentIndex = 2
             }
-
+            
         }
-
+        
         //-
         interface.startGame()
     }
-
+    
     //-
     func didDrag(from:String, event:UIEvent) {
         if let touches = event.allTouches(), touch = touches.first {
