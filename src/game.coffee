@@ -165,7 +165,7 @@ class Game
       @updateCall(call)
     else # Here be magical special cases
       # Re-play Talk if appropriate
-      if call?.state is root.State.WaitingToConnect and cable.rearSwitch = root.Switch.Talk
+      if call?.state is root.State.WaitingToConnect and cable.rearSwitch is root.Switch.Talk
         for i in @interfaces
           i.sayToConnect(call)
 
