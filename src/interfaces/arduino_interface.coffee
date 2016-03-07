@@ -79,7 +79,8 @@ class ArduinoInterface
 
   sayToConnect: ({sender, receiver}) ->
     #TODO: This is OS X-specific
-    filepath = "#{__dirname}/../../audio/#{sender}/#{receiver}.aif"
+    filepath = "#{__dirname}/../../audio/#{sender}/#{receiver}.aiff"
+    console.log filepath
     spawn("afplay", [filepath])
 
   speak: (sentence) ->

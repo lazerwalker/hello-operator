@@ -17,9 +17,10 @@ ws = new WebSocketInterface("ws://hellooperator.herokuapp.com")
 game = new Game()
 
 game.addInterface console
+game.addInterface arduino
 game.addInterface ws
 
-ws.onReady ->
+console.onReady ->
   game.startGame()
 # arduino.onReady ->
 #   game.addInterface arduino
