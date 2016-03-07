@@ -114,8 +114,7 @@ class ViewController: UIViewController {
         configureGame()
     }
 
-    func configureGame() {
-        // Reset
+    func reset() {
         for var i = 0; i < self.callers.count; i++ {
             let view = self.callers[i];
             view.name = "Name"
@@ -129,11 +128,14 @@ class ViewController: UIViewController {
             cable.turnOffLight(cable.frontName, isFlash: false)
             cable.turnOffLight(cable.rearName, isFlash: false)
         }
+    }
 
-
-        // Do new things
+    func configureGame() {
+        reset()
 
         interface.onPeopleChange = { people in
+            self.reset()
+
             for var i = 0; i < people.count; i++ {
                 let view = self.callers[i]
                 view.name = people[i]
