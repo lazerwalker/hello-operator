@@ -17,6 +17,9 @@ class WebSocketInterface
       [command, args...] = message.split(",")
       @[command]?(args...)
 
+  clientJoined: ->
+    @sendCommand "people", @people
+
   sendCommand: (command, args...) ->
     return unless @connected
     string = [command, args].join(",")    
