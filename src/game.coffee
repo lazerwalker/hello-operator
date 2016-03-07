@@ -4,6 +4,9 @@ root._ = require('underscore') unless root._?
 root.CablePair = require('./cablePair')
 root.Call = require('./call')
 
+root.Switch = root.CablePair.SwitchState
+root.State = root.Call.State
+
 setTimeoutR = (time, fn) -> setTimeout(fn, time)
 
 ###
@@ -157,9 +160,16 @@ class Game
       cable.rearSwitch = state
 
     call = root._(@calls).findWhere {sender: cable.rear}
+
     if call?.checkState(cable)
       @updateCall(call)
     else # Here be magical special cases
+      # Re-play Talk if appropriate
+      if call?.state is root.State.WaitingToConnect and cable.rearSwitch = root.Switch.Talk
+        for i in @interfaces
+          i.sayToConnect(call)
+
+      # RESET THE GAME by flipping all front switches to talk
       if root._.chain(@cables)
         .pluck("frontSwitch")
         .reduce( ((memo, val) -> memo and (val is root.CablePair.SwitchState.Talk)), true)
@@ -175,16 +185,16 @@ class Game
   updateCall: (call) ->
     # Each block in here runs when we're transitioning to that state
     switch call.state
-      when root.Call.State.WaitingToTalk
+      when root.State.WaitingToTalk
         for i in @interfaces
           i.turnOnLight(call.cable.rearLight)
-      when root.Call.State.WaitingToConnect
+      when root.State.WaitingToConnect
         call.shouldIgnoreHappiness = true
         for i in @interfaces
           i.turnOffLight(call.sender)
           i.turnOnLight(call.cable.rearLight)
           i.sayToConnect(call)
-      when root.Call.State.Ringing
+      when root.State.Ringing
         for i in @interfaces
           i.blinkLight({caller: call.cable.frontLight, rate: 400})
         rand = root._.random(1000, 3000) # TODO: Better rand
@@ -192,7 +202,7 @@ class Game
           call.receiverPickedUp = true
           # TODO: Whoo-ey, get a whiff of this code smell!          
           @updateCall(call) if (call.checkState(call.cable))
-      when root.Call.State.PickedUp
+      when root.State.PickedUp
         for i in @interfaces
           i.turnOnLight(call.cable.frontLight)
 
@@ -200,7 +210,7 @@ class Game
         setTimeoutR rand, =>
           call.hungUp = true
           @updateCall(call) if (call.checkState(call.cable))
-      when root.Call.State.Done
+      when root.State.Done
         for i in @interfaces
           i.turnOffLight(call.cable.frontLight)
           i.turnOffLight(call.cable.rearLight)         
