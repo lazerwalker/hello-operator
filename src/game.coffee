@@ -50,6 +50,7 @@ class Game
     "Margie"
     "Rita"
     "Julius"
+    "Herbert"
     "Joyce"
     "Edwin"
     "Franklin"
