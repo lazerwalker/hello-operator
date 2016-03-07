@@ -18,6 +18,10 @@ import JavaScriptCore
     var onPeopleChange:(([String]) -> Void)?
     var onSayToConnect:((sender: String, receiver:String) -> Void)?
 
+    var onConnect:((cable: String, port:String) -> Void)?
+    var onDisconnect:((cable: String, port:String) -> Void)?
+    var onToggleSwitch:((switchNum: String, position:SwitchIndex) -> Void)?
+
     let manager = GameManager()
 
     dynamic var people:[String] = [] {

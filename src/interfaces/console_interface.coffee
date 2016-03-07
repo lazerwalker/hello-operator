@@ -35,6 +35,23 @@ class ConsoleInterface
     console.log "Auto-Disconnected #{p[0]} and #{p[1]}" for p in existing    
     @connected = _.reject @connected, (pair) -> caller in pair
 
+  # -
+
+  didConnect: (first, second) ->
+    console.log "Connected #{first} and #{second}"
+
+  didDisconnect: (first, second) ->
+    console.log "Disconnected #{first} and #{second}"
+
+  didToggleSwitch: (cable, position) ->
+    mapping = 
+      -1: SwitchState.Ring,
+      0: SwitchState.Neutral,
+      1: SwitchState.Talk
+    console.log "Switched #{cable} to #{mapping[position]}"
+
+  # -
+
   waitForInput: () ->
     process.stdin.resume();
     process.stdin.setEncoding('utf8');
@@ -50,15 +67,15 @@ class ConsoleInterface
           talk: SwitchState.Talk
 
         console.log("Toggling switch", first, mapping[second])
-        @client.toggleSwitch(first, mapping[second])
+        @client.toggleSwitch(first, mapping[second], this)
       else if _.find(@connected, (pair) -> first in pair and second in pair)
         console.log "Disconnected #{first} and #{second}."
-        @client.disconnect(first, second)
+        @client.disconnect(first, second, this)
       else
         @disconnectExisting(c) for c in [first, second]
 
         console.log "Connected #{first} and #{second}."
         @connected.push [first, second]
-        @client.connect(first, second)
+        @client.connect(first, second, this)
 
 module.exports = ConsoleInterface

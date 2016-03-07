@@ -30,15 +30,26 @@ class WebSocketInterface
 
   # -
 
+  didConnect: (cable, port) ->
+    @sendCommand "didConnect", [cable, port]
+
+  didDisconnect: (cable, port) ->
+    @sendCommand "didDisconnect", [cable, port]
+
+  didToggleSwitch: (cable, position) ->
+    @sendCommand "didToggleSwitch", [cable, position]
+
+  # -
+
   connect: (cable, port) ->
-    @client?.connect?(cable, port)
+    @client?.connect?(cable, port, this)
 
   disconnect: (cable, port) ->
-    @client?.disconnect?(cable, port)
+    @client?.disconnect?(cable, port, this)
 
   toggleSwitch: (switchNum, position) ->
 
-    @client?.toggleSwitch?(switchNum, parseInt(position))
+    @client?.toggleSwitch?(switchNum, parseInt(position), this)
 
   # -
 

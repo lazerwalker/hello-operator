@@ -28,16 +28,16 @@ class ArduinoInterface
       cableName = "cable#{cable}"
       portName = @people[port - 1]
       console.log "Connecting #{cableName}, #{portName}" if @debug
-      @client?.connect?(cableName, portName)
+      @client?.connect?(cableName, portName, this)
 
     @arduino.on 'disconnect', ({cable, port}) =>
       cableName = "cable#{cable}"
       portName = @people[port - 1]
-      @client?.disconnect?(cableName, portName)
+      @client?.disconnect?(cableName, portName, this)
 
     @arduino.on 'toggleSwitch', ({switchNum, position}) =>
       switchName = "cable#{switchNum}"
-      @client?.toggleSwitch?(switchName, position)
+      @client?.toggleSwitch?(switchName, position, this)
 
   turnOnLight: (caller, blink = false) ->
     if !blink and @blinkTimers[caller]?

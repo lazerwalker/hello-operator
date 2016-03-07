@@ -118,7 +118,11 @@ class Game
   ###
   # Interface methods
   ###  
-  connect: (cableString, caller) =>
+  connect: (cableString, caller, callingInterface) =>
+    root._(@interfaces).chain()
+      .without(callingInterface)
+      .each ( (i) -> i.didConnect?(cableString, caller) )
+
     [cableNumber, isFront] = @parseCableString(cableString)
     cable = @cables[cableNumber]
 
@@ -133,9 +137,16 @@ class Game
     if call?.checkState(cable)
       @updateCall(call)
 
-  disconnect: (first, second) =>
+  disconnect: (first, second, callingInterface) =>
+    root._(@interfaces).chain()
+      .without(callingInterface)
+      .each ( (i) -> i.didDisconnect?(first, second) )
 
-  toggleSwitch: (cableString, state) =>
+  toggleSwitch: (cableString, state, callingInterface) =>
+    root._(@interfaces).chain()
+      .without(callingInterface)
+      .each ( (i) -> i.didToggleSwitch?(cableString, state) )
+
     [cableNumber, isFront] = @parseCableString(cableString)
     cable = @cables[cableNumber]
     return unless cable?

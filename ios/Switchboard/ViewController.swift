@@ -89,6 +89,38 @@ class ViewController: UIViewController {
             self.viewForCaller(caller)?.startFlashing(caller, rate:rate)
         }
 
+        //-
+
+        interface.onConnect = { sender, receiver in
+            print("Connecting #{sender} and #{receiver}")
+            self.connect(sender, receiver, tellInterface: false)
+        }
+
+        interface.onDisconnect = { sender, receiver in
+            self.disconnect(sender, receiver, tellInterface: false)
+        }
+
+        interface.onToggleSwitch = { cable, position in
+            let view = self.viewForCaller(cable) as! CableView
+
+            var toggle:UISegmentedControl;
+            if cable[cable.endIndex.predecessor()] == "F" {
+                toggle = view.frontSwitch
+            } else {
+                toggle = view.rearSwitch
+            }
+
+            if position == .Talk {
+                toggle.selectedSegmentIndex = 0
+            } else if position == .Neutral {
+                toggle.selectedSegmentIndex = 1
+            } else if position == .Ring {
+                toggle.selectedSegmentIndex = 2
+            }
+
+        }
+
+        //-
         interface.startGame()
     }
 
@@ -133,13 +165,15 @@ class ViewController: UIViewController {
 
     //-
 
-    private func connect(first:String, _ second:String) {
+    private func connect(first:String, _ second:String, tellInterface:Bool = true) {
         if let firstObj = self.viewForCaller(first),
             secondObj = self.viewForCaller(second) {
-                if firstObj is CableView {
-                    interface.connect(first, second)
-                } else if secondObj is CableView {
-                    interface.connect(second, first)
+                if tellInterface {
+                    if firstObj is CableView {
+                        interface.connect(first, second)
+                    } else if secondObj is CableView {
+                        interface.connect(second, first)
+                    }
                 }
 
                 firstObj.connect(first, toOther: second)
@@ -152,10 +186,12 @@ class ViewController: UIViewController {
         }
     }
 
-    private func disconnect(first:String, _ second:String) {
+    private func disconnect(first:String, _ second:String, tellInterface:Bool = true) {
         if let firstObj = self.viewForCaller(first),
             secondObj = self.viewForCaller(second) {
-                interface.disconnect(first, second)
+                if tellInterface {
+                    interface.disconnect(first, second)
+                }
 
                 firstObj.disconnect(first)
                 secondObj.disconnect(second)

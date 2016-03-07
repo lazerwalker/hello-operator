@@ -12,4 +12,9 @@ protocol GameInterface {
     var onBlink:((String, NSTimeInterval) -> Void)? {get set}
     var onPeopleChange:(([String]) -> Void)? {get set}
     var onSayToConnect:((sender: String, receiver:String) -> Void)? {get set}
+
+    var onConnect:((cable: String, port:String) -> Void)? {get set}
+    var onDisconnect:((cable: String, port:String) -> Void)? {get set}
+    var onToggleSwitch:((switchNum: String, position:SwitchIndex) -> Void)? {get set}
+
 }

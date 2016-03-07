@@ -8,6 +8,10 @@ class WebSocketInterface : GameInterface, WebSocketDelegate {
     var onPeopleChange:(([String]) -> Void)?
     var onSayToConnect:((sender: String, receiver:String) -> Void)?
 
+    var onConnect:((cable: String, port:String) -> Void)?
+    var onDisconnect:((cable: String, port:String) -> Void)?
+    var onToggleSwitch:((switchNum: String, position:SwitchIndex) -> Void)?
+
     let url:NSURL
     let socket:WebSocket
 
@@ -85,6 +89,14 @@ class WebSocketInterface : GameInterface, WebSocketDelegate {
                 case "people":
                     let people = splitText[1..<splitText.count]
                     self.people = Array(people)
+                case "didConnect":
+                    self.onConnect?(cable: splitText[1], port: splitText[2])
+                case "didDisconnect":
+                    self.onDisconnect?(cable: splitText[1], port: splitText[2])
+                case "didToggleSwitch":
+                    if let posInt = Int(splitText[2]), position = SwitchIndex(rawValue:posInt) {
+                        self.onToggleSwitch?(switchNum: splitText[1], position: position)
+                }
                 default:
                     print("Ignoring unknown message: '\(text)'")
             }
