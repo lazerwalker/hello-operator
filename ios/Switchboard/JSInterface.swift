@@ -18,9 +18,7 @@ import JavaScriptCore
     var onPeopleChange:(([String]) -> Void)?
     var onSayToConnect:((sender: String, receiver:String) -> Void)?
 
-    var currentGoal:(String, String?)?
-
-    let OPERATOR = "OPER"
+    let manager = GameManager()
 
     dynamic var people:[String] = [] {
         didSet {
@@ -29,6 +27,10 @@ import JavaScriptCore
     }
     
     dynamic var client: JSValue?
+
+    func startGame() {
+        manager.startGame(self)
+    }
 
     //-
     // Called from JS

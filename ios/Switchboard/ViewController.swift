@@ -42,9 +42,8 @@ class ViewController: UIViewController {
     @IBOutlet var callers: [CallerView]!
     @IBOutlet var cables: [CableView]!
     @IBOutlet weak var lineView: LineDrawingView!
-    
-    let interface = JSInterface()
-    let manager = GameManager()
+
+    let interface = WebSocketInterface(url: NSURL(string: "ws://hellooperator.herokuapp.com")!)
 
     let synthesizer = AVSpeechSynthesizer()
 
@@ -90,7 +89,7 @@ class ViewController: UIViewController {
             self.viewForCaller(caller)?.startFlashing(caller, rate:rate)
         }
 
-        manager.startGame(interface)
+        interface.startGame()
     }
 
     //-

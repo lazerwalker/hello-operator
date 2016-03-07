@@ -5,6 +5,8 @@ enum SwitchIndex: Int {
 }
 
 protocol GameInterface {
+    func startGame()
+
     var onTurnOn:((String) -> Void)? {get set}
     var onTurnOff:((String) -> Void)? {get set}
     var onBlink:((String, NSTimeInterval) -> Void)? {get set}

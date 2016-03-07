@@ -14,6 +14,9 @@ class ConsoleInterface
     @connected = []
     @waitForInput()
 
+  onReady: (cb) ->
+    cb()
+
   turnOnLight: (caller) ->
     console.log "#{caller} is ON"
 

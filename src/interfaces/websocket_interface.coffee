@@ -1,62 +1,62 @@
 _ = require 'underscore'
-WebSocketServer = require('ws').server
+WebSocket = require('ws')
 
-class WebsocketInterface
-  constructor: (@people, @client) ->
-    wss = new WebSocketServer port: 8080
-    wss.on 'connection', (ws) ->
-      @client = ws
-      ws.on 'message', (message) ->
-        # TODO: Major security hole. Whitelist commands.
-        {command, data} = JSON.parse message
-        @[command]?(data)
+class WebSocketInterface
+  constructor: (url) ->
+    @people = []
+    @client = []
 
-  connectOperator: (sender) -> @client.connectOperator(sender)
-  disconnectOperator: (sender) -> @client.disconnectOperator(sender)
-  connect: (a, b) -> @client.connect(a, b)
-  disconnect: (a,b) -> @client.disconnect(a, b)
+    @connected = false
+    @socket = new WebSocket(url)
+    @socket.on 'open', (ws) =>
+      @connected = true
+      cb() for cb in @onReadyCallbacks
 
-  sendMessage: (command, data) ->
-    @client?.send JSON.stringify({command, data})
+    @socket.on 'message', (message) =>
+      # TODO: Whitelist expected commands.
+      [command, args...] = message.split(",")
+      @[command]?(args...)
 
-  initiateCall: (sender) ->
-    @sendMessage "initiateCall", sender
+  sendCommand: (command, args...) ->
+    return unless @connected
+    string = [command, args].join(",")    
+    @socket.send string
 
-  askToConnect: (call) ->
-    @sendMessage "askToConnect", call
+  setPeople: (people) ->
+    @sendCommand "people", people
 
-  completeCall: (call) ->
-    @sendMessage "completeCall", call
+  # -
 
-  waitForInput: () ->
-    process.stdin.resume();
-    process.stdin.setEncoding('utf8');
+  connect: (cable, port) ->
+    @client?.connect?(cable, port)
 
-    process.stdin.on 'data', (text) =>
-      match = text.match /(\w+) (\w+)/
-      [first, second] = [match[1], match[2]]
+  disconnect: (cable, port) ->
+    @client?.disconnect?(cable, port)
 
-      if first is "me" or second is "me"
-        other = if first is "me" then second else first
-        if other in @connected
-          console.log "Disconnected #{other} and operator"
-          @client.disconnectOperator(other)
-        else
-          @disconnectExisting(other)
-          console.log "Connected #{other} to operator"
-          @connected.push [other, "me"]
-          @client.connectOperator(other)
-      else if first in @people and second in @people
-        if _.find(@connected, (pair) -> first in pair and second in pair)
-          console.log "Disconnected #{first} and #{second}."
-          @client.disconnect(first, second)
-        else
-          @disconnectExisting(c) for c in [first, second]
+  toggleSwitch: (switchNum, position) ->
 
-          console.log "Connected #{first} and #{second}."
-          @connected.push [first, second]
-          @client.connect(first, second)
+    @client?.toggleSwitch?(switchNum, parseInt(position))
+
+  # -
+
+  turnOnLight: (caller, blink = false) ->
+    @sendCommand "turnOnLight", caller
 
 
+  turnOffLight: (caller, blink = false) ->
+    @sendCommand "turnOffLight", caller
 
-module.exports = WebsocketInterface
+  blinkLight: ({caller, rate}) ->
+    @sendCommand "blinkLight", caller, rate
+
+  sayToConnect: ({sender, receiver}) ->
+    @sendCommand "sayToConnect", sender, receiver
+
+
+  onReady: (cb) ->
+    @onReadyCallbacks ?= []
+    @onReadyCallbacks.push cb
+    if @connected
+      cb()
+
+module.exports = WebSocketInterface

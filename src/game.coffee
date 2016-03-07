@@ -84,9 +84,13 @@ class Game
     @startDate = new Date()
 
   addInterface: (i) ->
-    i.people = @people
-    i.client = @
-    @interfaces.push i
+    i.onReady =>
+      i.people = @people
+      i.client = @
+
+      i.setPeople?(@people)
+
+      @interfaces.push i
 
   startGame: ->
     @running = true
