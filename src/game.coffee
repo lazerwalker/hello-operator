@@ -36,6 +36,17 @@ function toggleSwitch(cable, state) // state is -1, 0, or 1. Default is 0
 
 class Game
   people: [
+    "Ethel"
+    "Rosemary"
+    "Donald"
+    "Margie"
+    "Rita"
+    "Julius"
+    "Herbert"
+    "Joyce"
+    "Edwin"
+    "Franklin"
+
     "Dolores"
     "Walter"
     "Mabel"
@@ -47,16 +58,6 @@ class Game
     "Everett"
     "Mae"
 
-    "Ethel"
-    "Rosemary"
-    "Donald"
-    "Margie"
-    "Rita"
-    "Julius"
-    "Herbert"
-    "Joyce"
-    "Edwin"
-    "Franklin"
   ]
 
   numberOfConnections: 1

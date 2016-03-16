@@ -5,10 +5,10 @@ SwitchState = require('../src/cablePair').SwitchState
 ArduinoGroup = require('./arduino_group')
 
 g = new ArduinoGroup([
-  "/dev/cu.usbmodem14211"
-  "/dev/cu.usbmodem14221"
-  "/dev/cu.usbmodem14111"
-  "/dev/cu.usbmodem14121"  
+  "/dev/cu.usbmodemFD1211"
+  "/dev/cu.usbmodemFD1221"
+  "/dev/cu.usbmodemFD1231"
+  "/dev/cu.usbmodemFD1241"  
 ])
 
 setTimeoutR = (t, fn) -> setTimeout(fn, t)
@@ -122,7 +122,7 @@ calibrateSwitches = ->
         if current > max
           console.log "Thank you for calibrating switches!"
           console.log JSON.stringify(state, null, 2)
-          # calibratePortLights()
+          calibratePortLights()
           return
 
     console.log JSON.stringify(state.switches, null, 2)
@@ -234,5 +234,5 @@ calibrateCableLights = ->
       console.log "Turning on pin #{currentPin}. Please move the illuminated switch to Ring"
 
 g.debug = false
-g.on 'ready', => (setTimeoutR 3000, calibratePortLights)
+g.on 'ready', => (setTimeoutR 3000, calibrateSwitches )
 

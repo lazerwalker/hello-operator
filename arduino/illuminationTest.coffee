@@ -5,10 +5,10 @@ Calibration = require('./calibration')
 _ = require('underscore')
 
 a = new ArduinoGroup([
-  "/dev/cu.usbmodem14211"
-  "/dev/cu.usbmodem14221"
-  "/dev/cu.usbmodem14231"
-  "/dev/cu.usbmodem14241"  
+  "/dev/cu.usbmodemFD1211"
+  "/dev/cu.usbmodemFD1221"
+  "/dev/cu.usbmodemFD1231"
+  "/dev/cu.usbmodemFD1241"  
 ])
 
 a.on "ready", =>

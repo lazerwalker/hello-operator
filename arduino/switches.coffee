@@ -22,7 +22,8 @@ class Switches
 
     @timeouts[pin] = setTimeoutR 100, =>
       if @debug
-        str = if value then "on" else "off"
+        str = if value? then "on" else "off"
+        console.log value + " lolvalue"
         console.log "Switched #{pin} to #{str}"
         
       @trigger "change", {pin, value}
