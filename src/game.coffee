@@ -209,7 +209,7 @@ class Game
         for i in @interfaces
           i.turnOnLight(call.cable.frontLight)
 
-        rand = @timeWeightedRand(1000, 7000)
+        rand = @timeWeightedRand(2000, 9000)
         setTimeoutR rand, =>
           call.hungUp = true
           @updateCall(call) if (call.checkState(call.cable, @cables))
