@@ -45,9 +45,9 @@ class ConsoleInterface
 
   didToggleSwitch: (cable, position) ->
     mapping = 
-      -1: SwitchState.Ring,
-      0: SwitchState.Neutral,
-      1: SwitchState.Talk
+      "-1": "talk",
+      "0": "neutral",
+      "1": "ring"
     console.log "Switched #{cable} to #{mapping[position]}"
 
   # -
