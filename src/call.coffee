@@ -45,7 +45,7 @@ class Call
         changeState = rearIsConnected and cable.rearSwitch is SwitchState.Talk
       when State.WaitingToConnect
         changeState = rearIsConnected and frontIsConnected and 
-          cable.frontSwitch is SwitchState.Ring and cable.rearSwitch is SwitchState.Neutral
+          cable.frontSwitch isnt SwitchState.Neutral
       when State.Ringing
         changeState = !!@receiverPickedUp
       when State.PickedUp
