@@ -122,7 +122,8 @@ class Game
 
     [cableNumber, isFront] = @parseCableString(cableString)
     cable = @cables[cableNumber]
-
+    return unless cable?
+    
     if isFront
       cable.front = caller
       call = root._(@calls).findWhere {receiver: cable.front}
