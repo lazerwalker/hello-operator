@@ -42,7 +42,7 @@ class Call
           .without(cable)
           .any( (c) -> c.rearSwitch is SwitchState.Talk)
           .value()
-        changeState = rearIsConnected and cable.rearSwitch is SwitchState.Talk and !othersAreTalking
+        changeState = rearIsConnected and cable.rearSwitch is SwitchState.Talk
       when State.WaitingToConnect
         changeState = rearIsConnected and frontIsConnected and 
           cable.frontSwitch is SwitchState.Ring and cable.rearSwitch is SwitchState.Neutral
