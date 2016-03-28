@@ -57,7 +57,6 @@ class Game
     "Bernice"
     "Everett"
     "Mae"
-
   ]
 
   numberOfConnections: 1
@@ -86,8 +85,6 @@ class Game
 
     @interfaces = []
 
-    @startDate = new Date()
-
   addInterface: (i) ->
     i.onReady =>
       i.people = @people
@@ -98,6 +95,7 @@ class Game
       @interfaces.push i
 
   startGame: ->
+    @startDate = new Date()
     @running = true
     @addNewCall()
 
@@ -113,11 +111,6 @@ class Game
       for id, c of @cables
         i.turnOffLight(c.rearLight)
         i.turnOffLight(c.frontLight)
-
-    # TODO: This is probably a memory leak. Abstract out to the runner.
-    newGame = new Game()
-    newGame.addInterface(i) for i in @interfaces
-    newGame.startGame()
 
   ###
   # Interface methods
@@ -147,6 +140,14 @@ class Game
       .each ( (i) -> i.didDisconnect?(first, second) )
 
   toggleSwitch: (cableString, state, callingInterface) =>
+    if !@running
+      if root._.chain(@cables)
+        .pluck("frontSwitch")
+        .reduce( ((memo, val) -> memo and (val is root.CablePair.SwitchState.Neutral)), true)
+        .value()
+          console.log "RESETTING"
+          @startGame()
+
     root._(@interfaces).chain()
       .without(callingInterface)
       .each ( (i) -> i.didToggleSwitch?(cableString, state) )
