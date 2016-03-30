@@ -30,6 +30,9 @@ class ConsoleInterface
     console.log "Picked up #{sender}"
     console.log "\"Hey, it's #{sender}. Can I talk to #{receiver}?\""
 
+  sayText: (text, identifier) ->
+    console.log "#{identifier}: \"#{text}\""
+
   disconnectExisting: (caller) ->
     existing = _.filter @connected, (pair) -> caller in pair    
     console.log "Auto-Disconnected #{p[0]} and #{p[1]}" for p in existing    

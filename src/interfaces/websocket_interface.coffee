@@ -48,7 +48,6 @@ class WebSocketInterface
     @client?.disconnect?(cable, port, this)
 
   toggleSwitch: (switchNum, position) ->
-
     @client?.toggleSwitch?(switchNum, parseInt(position), this)
 
   # -
@@ -65,6 +64,9 @@ class WebSocketInterface
 
   sayToConnect: ({sender, receiver}) ->
     @sendCommand "sayToConnect", sender, receiver
+
+  sayText: (text, identifier) ->
+    @sendCommand "sayText", text, identifier
 
 
   onReady: (cb) ->

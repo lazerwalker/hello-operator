@@ -20,6 +20,7 @@ function turnOnLight(caller)
 function turnOffLight(caller)
 function blinkLight({caller, rate}) // This is how it is because I don't know how to make JSCore accept multi-argument fns
 function sayToConnect(call)
+function sayText(text, identifier)
 
 @end
 

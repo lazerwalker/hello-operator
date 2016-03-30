@@ -53,6 +53,10 @@ class WebSocketInterface : GameInterface, WebSocketDelegate {
         self.onSayToConnect?(sender: sender, receiver: receiver)
     }
 
+    func sayText(text:String, _ identifier:String) {
+        // TODO: Implement
+    }
+
     //-
     // Called from view controller
     func connect(first:String, _ second:String) {

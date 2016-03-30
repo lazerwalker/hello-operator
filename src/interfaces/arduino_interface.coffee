@@ -82,6 +82,9 @@ class ArduinoInterface
     filepath = "#{__dirname}/../../audio/#{sender}/#{receiver}.aiff"
     spawn("afplay", [filepath])
 
+  sayText: (text, identifier) ->
+    # TODO: Load audio files
+
   speak: (sentence) ->
     # TODO: This will only work on OS X
     console.log sentence
