@@ -41,6 +41,8 @@ class GameMode
     if call?.checkState(cable, @cables)
       @updateCall(call)
 
+  disconnect: (cable, isFront, caller, callingInterface) ->
+
   toggleSwitch: (cable, isFront, state, callingInterface) ->
     _(@interfaces).chain()
       .without(callingInterface)
