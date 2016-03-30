@@ -110,14 +110,14 @@ class Game
     cable = @cables[cableNumber]
     return unless cable?
 
-    @mode.connect(cable, isFront, caller, callingInterface)
+    @mode.connect(cable, isFront, caller)
 
   disconnect: (first, second, callingInterface) =>
     root._(@interfaces).chain()
       .without(callingInterface)
       .each ( (i) -> i.didDisconnect?(first, second) )
 
-    @mode.disconnect?(first, second, callingInterface)
+    @mode.disconnect?(first, second)
 
   toggleSwitch: (cableString, state, callingInterface) =>
     #TODO: This will get abstracted out later
@@ -137,7 +137,7 @@ class Game
     cable = @cables[cableNumber]
     return unless cable?
 
-    unless @mode.toggleSwitch(cable, isFront, state, callingInterface)
+    unless @mode.toggleSwitch(cable, isFront, state)
       # Here be magical special cases
       # Re-play Talk if appropriate
       if call?.state is root.State.WaitingToConnect and cable.rearSwitch is root.Switch.Talk and !isFront

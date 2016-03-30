@@ -28,7 +28,7 @@ class GameMode
     @running = false
     @calls = []
 
-  connect: (cable, isFront, caller, callingInterface) ->
+  connect: (cable, isFront, caller) ->
    
     if isFront
       cable.front = caller
@@ -41,13 +41,9 @@ class GameMode
     if call?.checkState(cable, @cables)
       @updateCall(call)
 
-  disconnect: (cable, isFront, caller, callingInterface) ->
+  disconnect: (cable, isFront, caller) ->
 
-  toggleSwitch: (cable, isFront, state, callingInterface) ->
-    _(@interfaces).chain()
-      .without(callingInterface)
-      .each ( (i) -> i.didToggleSwitch?(cableString, state) )
-
+  toggleSwitch: (cable, isFront, state) ->
     if isFront
       cable.frontSwitch = state
     else
