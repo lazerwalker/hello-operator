@@ -30,7 +30,7 @@ class ConsoleInterface
     console.log "Picked up #{sender}"
     console.log "\"Hey, it's #{sender}. Can I talk to #{receiver}?\""
 
-  sayText: (text, identifier) ->
+  sayText: (identifier, text) ->
     console.log "#{identifier}: \"#{text}\""
 
   disconnectExisting: (caller) ->

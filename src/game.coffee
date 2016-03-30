@@ -159,7 +159,7 @@ class Game
   turnOffLight: (light) -> i.turnOffLight(light) for i in @interfaces
   blinkLight: (opts = {}) -> i.blinkLight(opts) for i in @interfaces
   sayToConnect: (call) -> i.sayToConnect(call) for i in @interfaces
-  sayText: (text, identifier) -> i.sayText(text, identifier) for i in @interfaces
+  sayText: (identifier, text) -> i.sayText(identifier, text) for i in @interfaces
 
 
   ###

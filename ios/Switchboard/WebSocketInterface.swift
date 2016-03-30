@@ -53,7 +53,7 @@ class WebSocketInterface : GameInterface, WebSocketDelegate {
         self.onSayToConnect?(sender: sender, receiver: receiver)
     }
 
-    func sayText(text:String, _ identifier:String) {
+    func sayText(identifier:String, _ text:String) {
         // TODO: Implement
     }
 

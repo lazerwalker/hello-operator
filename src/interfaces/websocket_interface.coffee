@@ -65,8 +65,8 @@ class WebSocketInterface
   sayToConnect: ({sender, receiver}) ->
     @sendCommand "sayToConnect", sender, receiver
 
-  sayText: (text, identifier) ->
-    @sendCommand "sayText", text, identifier
+  sayText: (identifier, text) ->
+    @sendCommand "sayText", identifier, text
 
 
   onReady: (cb) ->
