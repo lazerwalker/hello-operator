@@ -72,7 +72,7 @@ class GameMode
     call = new Call(first, second)
 
     @calls.push(call)
-    i.turnOnLight(call.sender) for i in @game.interfaces
+    @game.turnOnLight(call.sender)
 
     @updateHappiness(call)
 
@@ -89,9 +89,8 @@ class GameMode
     if !call.pickedUp
       delete callObj.receiver
 
-    for i in @game.interfaces
-      i.blinkLight({caller: callObj.sender, rate: happiness.rate})
-      i.blinkLight({caller: callObj.sender, rate: happiness.rate}) if callObj.receiver?
+    @game.blinkLight({caller: callObj.sender, rate: happiness.rate})
+    @game.blinkLight({caller: callObj.sender, rate: happiness.rate}) if callObj.receiver?
 
     if happiness.timeout?
       call.timer = setTimeout ( () => @updateHappiness(call) ), happiness.timeout
@@ -100,34 +99,29 @@ class GameMode
     # Each block in here runs when we're transitioning to that state
     switch call.state
       when Call.State.WaitingToTalk
-        for i in @game.interfaces
-          i.turnOnLight(call.cable.rearLight)
+        @game.turnOnLight(call.cable.rearLight)
       when Call.State.WaitingToConnect
         call.shouldIgnoreHappiness = true
-        for i in @game.interfaces
-          i.turnOffLight(call.sender)
-          i.turnOnLight(call.cable.rearLight)
-          i.sayToConnect(call)
+        @game.turnOffLight(call.sender)
+        @game.turnOnLight(call.cable.rearLight)
+        @game.sayToConnect(call)
       when Call.State.Ringing
-        for i in @game.interfaces
-          i.blinkLight({caller: call.cable.frontLight, rate: 400})
+        @game.blinkLight({caller: call.cable.frontLight, rate: 400})
         rand = _.random(1000, 3000) # TODO: Better rand
         setTimeoutR rand, =>
           call.receiverPickedUp = true
           # TODO: Whoo-ey, get a whiff of this code smell!          
           @updateCall(call) if (call.checkState(call.cable, @cables))
       when Call.State.PickedUp
-        for i in @game.interfaces
-          i.turnOnLight(call.cable.frontLight)
+        @game.turnOnLight(call.cable.frontLight)
 
         rand = @timeWeightedRand(2000, 9000)
         setTimeoutR rand, =>
           call.hungUp = true
           @updateCall(call) if (call.checkState(call.cable, @cables))
       when Call.State.Done
-        for i in @game.interfaces
-          i.turnOffLight(call.cable.frontLight)
-          i.turnOffLight(call.cable.rearLight)         
+        @game.turnOffLight(call.cable.frontLight)
+        @game.turnOffLight(call.cable.rearLight)         
 
         @calls = _(@calls).without(call)
         call.tearDown()

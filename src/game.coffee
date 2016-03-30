@@ -150,11 +150,21 @@ class Game
         .reduce( ((memo, val) -> memo and (val is root.CablePair.SwitchState.Talk)), true)
         .value()
           @stopGame()
-        
+     
+  ###
+  # Mode methods
+  ###
+
+  turnOnLight: (light) -> i.turnOnLight(light) for i in @interfaces
+  turnOffLight: (light) -> i.turnOffLight(light) for i in @interfaces
+  blinkLight: (opts = {}) -> i.blinkLight(opts) for i in @interfaces
+  sayToConnect: (call) -> i.sayToConnect(call) for i in @interfaces
+  sayText: (text, identifier) -> i.sayText(text, identifier) for i in @interfaces
+
+
   ###
   # Private
   ###
-
   parseCableString: (cableString) -> [cableString[5], cableString[6] is "F"]
 
 
