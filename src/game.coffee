@@ -5,6 +5,8 @@ root.CablePair = require('./cablePair')
 root.Call = require('./call')
 
 root.GameMode = require('./modes/gameMode')
+root.TutorialMode = require('./modes/tutorialMode')
+root.Q = require('q')
 
 root.Switch = root.CablePair.SwitchState
 root.State = root.Call.State
@@ -155,11 +157,19 @@ class Game
   # Mode methods
   ###
 
-  turnOnLight: (light) -> i.turnOnLight(light) for i in @interfaces
-  turnOffLight: (light) -> i.turnOffLight(light) for i in @interfaces
-  blinkLight: (opts = {}) -> i.blinkLight(opts) for i in @interfaces
-  sayToConnect: (call) -> i.sayToConnect(call) for i in @interfaces
-  sayText: (identifier, text) -> i.sayText(identifier, text) for i in @interfaces
+  promiseMapAcrossInterfaces: (methodName, args, interfaces) ->
+    unless root._.isArray(args)
+      args = [args]
+
+    interfaces ?= @interfaces
+    promises = root._.map(interfaces, (i) -> i[methodName](args...))
+    root.Q.all promises
+
+  turnOnLight: (light) -> @promiseMapAcrossInterfaces("turnOnLight", light)
+  turnOffLight: (light) -> @promiseMapAcrossInterfaces("turnOffLight", light)
+  blinkLight: (opts = {}) -> @promiseMapAcrossInterfaces("blinkLight", opts)
+  sayToConnect: (call) -> @promiseMapAcrossInterfaces("sayToConnect", call)
+  sayText: (identifier, text) -> @promiseMapAcrossInterfaces("sayText", [identifier, text])
 
 
   ###

@@ -1,12 +1,21 @@
+Q = require('q')
+
 class TutorialMode
   constructor: (@game) ->
     @running = false
 
   start: ->
     @running = true
-    @game.sayText("tutorial1", "Hey there! So glad you could fill in. You can see things are going to get busy pretty quickly. Look, you can see that Mabel's calling")
-    @game.turnOnLight("Mabel")
-    @game.sayText("tutorial2", "You should plug in one of the cables below")
+
+    text1 = "Hey there, so glad you could fill in. You can see things are going to get busy pretty quickly. Look, you can see that Mabel's calling"
+    text2 = "You should plug in one of the cables below"
+
+    Q().then =>
+      @game.sayText("tutorial1", text1)
+    .then =>
+      @game.turnOnLight("Mabel")
+    .then =>
+      @game.sayText("tutorial2", text2)
 
   stop: ->
 

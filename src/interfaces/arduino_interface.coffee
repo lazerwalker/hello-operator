@@ -1,6 +1,7 @@
 _ = require 'underscore'
 spawn = require('child_process').spawn;
 sfx = require('sfx')
+Q = require('q')
 
 ArduinoGroup = require('../../arduino/arduino_group')
 SwitchState = require('../cablePair').SwitchState
@@ -50,6 +51,8 @@ class ArduinoInterface
     else if caller[caller.length - 1] in ["R", "F"]
       @arduino.turnOnLight(caller[5..])
 
+    Q()
+
   turnOffLight: (caller, blink = false) ->
     if !blink and @blinkTimers[caller]?
       clearTimeout @blinkTimers[caller] 
@@ -59,6 +62,8 @@ class ArduinoInterface
       @arduino.turnOffLight(callerNum)
     else if caller[caller.length - 1] in ["R", "F"]
       @arduino.turnOffLight(caller[5..])
+
+    Q()
 
 
   blinkLight: ({caller, rate}) ->
@@ -78,17 +83,19 @@ class ArduinoInterface
     callerNum = (_.indexOf @people, caller) + 1
     @blinkTimers[caller] = setTimeoutR rate, ( => @blinkLight({caller, rate}) )
 
+    Q()
+
   sayToConnect: ({sender, receiver}) ->
     filepath = "#{__dirname}/../../audio/#{sender}/#{receiver}.aiff"
-    sfx.play(filepath)
+    deferred = Q.defer()
+    sfx.play filepath, deferred.makeNodeResolver()
+    return deferred.promise
 
   sayText: (identifier, text) ->
     # TODO: Load actual audio files
-    @speak(text)
-
-  speak: (sentence) ->
-    # TODO: This will only work on OS X
-    sfx.say(sentence)
+    deferred = Q.defer()
+    sfx.say "\"#{text}\"", deferred.makeNodeResolver()
+    return deferred.promise
 
   onReady: (cb) ->
     @arduino.on "ready", ->

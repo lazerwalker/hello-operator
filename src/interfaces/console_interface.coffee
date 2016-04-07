@@ -1,4 +1,6 @@
 _ = require 'underscore'
+Q = require 'q'
+
 SwitchState = require('../cablePair').SwitchState
 
 class ConsoleInterface
@@ -19,19 +21,24 @@ class ConsoleInterface
 
   turnOnLight: (caller) ->
     console.log "#{caller} is ON"
+    Q()
 
   turnOffLight: (caller) ->
     console.log "#{caller} is OFF"
+    Q()
 
   blinkLight: ({caller, rate}) ->
     console.log "#{caller} is BLINKING at #{rate}"
+    Q()
 
   sayToConnect: ({sender, receiver}) ->
     console.log "Picked up #{sender}"
     console.log "\"Hey, it's #{sender}. Can I talk to #{receiver}?\""
+    Q()
 
   sayText: (identifier, text) ->
     console.log "#{identifier}: \"#{text}\""
+    Q()
 
   disconnectExisting: (caller) ->
     existing = _.filter @connected, (pair) -> caller in pair    
