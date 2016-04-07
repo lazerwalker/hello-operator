@@ -1,5 +1,6 @@
 _ = require 'underscore'
 spawn = require('child_process').spawn;
+sfx = require('sfx')
 
 ArduinoGroup = require('../../arduino/arduino_group')
 SwitchState = require('../cablePair').SwitchState
@@ -78,17 +79,16 @@ class ArduinoInterface
     @blinkTimers[caller] = setTimeoutR rate, ( => @blinkLight({caller, rate}) )
 
   sayToConnect: ({sender, receiver}) ->
-    #TODO: This is OS X-specific
     filepath = "#{__dirname}/../../audio/#{sender}/#{receiver}.aiff"
-    spawn("afplay", [filepath])
+    sfx.play(filepath)
 
   sayText: (identifier, text) ->
-    # TODO: Load audio files
+    # TODO: Load actual audio files
+    @speak(text)
 
   speak: (sentence) ->
     # TODO: This will only work on OS X
-    console.log sentence
-    spawn("say", [sentence])
+    sfx.say(sentence)
 
   onReady: (cb) ->
     @arduino.on "ready", ->
