@@ -1,6 +1,8 @@
 Q = require('q')
 _ = require('underscore')
 
+SwitchState = require('../cablePair').SwitchState
+
 class AttractMode
   constructor: (@game) ->
     @running = false
@@ -10,16 +12,12 @@ class AttractMode
     @blink()
 
   toggleSwitch: (cable, isFront, state) ->
-    @game.nextMode()
-    @game.startGame()
+    if state isnt SwitchState.Neutral
+      @game.nextMode()
     return true
 
   stop: ->
     @running = false
-    @game.turnOffLight(p) for p in @game.people
-    for i in [0...10]
-      @game.turnOffLight("cable#{i}R")
-      @game.turnOffLight("cable#{i}F")      
 
   blink: ->
     blinkLight = (port, interval) =>
@@ -110,7 +108,6 @@ class AttractMode
           Q.any(actions)
 
     toggleLights = (groups, interval, repeats=true) =>
-      console.log(groups)
       _(groups).chain()
         .map( (lights) -> blinkMultipleLights(lights, interval) )
         .reduce(Q.when, Q())

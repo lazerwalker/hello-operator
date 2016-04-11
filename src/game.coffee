@@ -93,13 +93,17 @@ class Game
       @interfaces.push i
 
   startGame: ->
-    @running = true
     Mode = @modes[@currentModeIndex]
+    @running = true
     @mode = new Mode(@)
     @mode.start()
 
+  reset: ->
+    @stopGame()
+    @currentModeIndex = 0
+
   nextMode: ->
-    @mode.stop()
+    @stopGame()
     delete @mode
     @currentModeIndex++
     if @currentModeIndex >= @modes.length
@@ -139,8 +143,15 @@ class Game
 
   toggleSwitch: (cableString, state, callingInterface) =>
     #TODO: This will get abstracted out later
+
+    # Don't reset the game until all the switches are back to normal
     if !@running
-      @startGame()
+      if root._.chain(@cables)
+        .pluck("frontSwitch")
+        .reduce( ((memo, val) -> memo and (val is root.CablePair.SwitchState.Neutral)), true)
+        .value()
+          @startGame()
+          return
 
     root._(@interfaces).chain()
       .without(callingInterface)
@@ -162,7 +173,7 @@ class Game
         .pluck("frontSwitch")
         .reduce( ((memo, val) -> memo and (val is root.CablePair.SwitchState.Talk)), true)
         .value()
-          @stopGame()
+          @reset()
      
   ###
   # Mode methods
