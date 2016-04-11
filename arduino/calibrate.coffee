@@ -5,10 +5,10 @@ SwitchState = require('../src/cablePair').SwitchState
 ArduinoGroup = require('./arduino_group')
 
 g = new ArduinoGroup([
-  "/dev/cu.usbmodemFD1211"
-  "/dev/cu.usbmodemFD1221"
-  "/dev/cu.usbmodemFD1231"
-  "/dev/cu.usbmodemFD1241"  
+  "/dev/cu.usbmodemFD1311"
+  "/dev/cu.usbmodemFD1321"
+  "/dev/cu.usbmodemFD1331"
+  "/dev/cu.usbmodemFD1341"  
 ])
 
 setTimeoutR = (t, fn) -> setTimeout(fn, t)
