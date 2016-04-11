@@ -24,6 +24,8 @@ class ArduinoGroup
 
     @callbacks = {}
 
+    @lastConnect = {}
+
     devices = _.map ports, (port) ->
       new SerialPort port,
         parser: serialport.parsers.readline "\r\n"
@@ -56,6 +58,7 @@ class ArduinoGroup
         cableNum = @map.cableNumFromPin(cable)
         portNum = @map.portNumFromPin(port)
         console.log "Connecting #{cableNum} to #{portNum}" if @debug
+        @lastConnect = {cableNum, time: new Date()}
         @trigger 'connect', {cable: cableNum, port: portNum}
 
       @cables?.on 'disconnect', ({cable, port}) =>
@@ -77,6 +80,10 @@ class ArduinoGroup
             position = SwitchState.Talk
         else if value is false
           position = s.position
+
+        if @lastConnect.cableNum is s.switchNum
+          now = new Date()
+          return if now - @lastConnect.time < 500
 
         console.log "Toggling switch #{s.switchNum} to #{position}" if @debug
         @trigger 'toggleSwitch', {switchNum: s.switchNum, position}
