@@ -19,14 +19,17 @@ class AttractMode
 
     blinkLights = (lights, interval, repeats=true) =>
       _(lights).chain()
-        .map( (port) -> blinkLight(port, 500) )
+        .map( (port) -> blinkLight(port, interval) )
         .reduce(Q.when)
         .value()
         .then( () => blinkLights(lights, interval) if repeats )
 
-    blinkLights(@game.people, 500, true)
+    # This garbage = reverse the second half of the list of names so it's a circle
+    topRow = @game.people[0..10]
+    bottomRow = @game.people[10..20].reverse()
+    people = topRow.concat(bottomRow)
 
-
+    blinkLights(people, 500, true)
 
   stop: ->
 
