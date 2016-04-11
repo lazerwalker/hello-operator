@@ -1,7 +1,7 @@
 
 
 const int LOW_PIN = 3;
-int HIGH_PIN = 52;
+int HIGH_PIN = 54;
 
 
 void setup() {

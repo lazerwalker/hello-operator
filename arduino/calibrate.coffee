@@ -182,8 +182,8 @@ calibrateCableLights = ->
   console.log "---------------------------\n"
 
   # TODO
-  currentPin = 10
-  lastPin = 51
+  currentPin = 2
+  lastPin = 52
 
   light.turnOff(pin) for pin in [currentPin..lastPin]
 
