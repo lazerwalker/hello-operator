@@ -5,18 +5,17 @@ class AttractMode
   constructor: (@game) ->
     @running = false
 
-
-
   start: ->
     @running = true
-
     @blink()
 
   toggleSwitch: (cable, isFront, state) ->
     @game.nextMode()
     @game.startGame()
+    return true
 
   stop: ->
+    @running = false
     @game.turnOffLight(p) for p in @game.people
     for i in [0...10]
       @game.turnOffLight("cable#{i}R")
@@ -26,10 +25,13 @@ class AttractMode
     blinkLight = (port, interval) =>
       return () =>
         Q().then =>
+          throw new Error("Not running") unless @running
           @game.turnOnLight(port)
         .then =>
+          throw new Error("Not running") unless @running
           Q.delay(interval)
         .then =>
+          throw new Error("Not running") unless @running
           @game.turnOffLight(port)
 
     blinkLights = (lights, interval, repeats=true) =>
@@ -37,7 +39,10 @@ class AttractMode
         .map( (port) -> blinkLight(port, interval) )
         .reduce(Q.when, Q())
         .value()
-        .then( () => blinkLights(lights, interval) if repeats )
+        .then () => 
+          throw new Error("Not running") unless @running
+          blinkLights(lights, interval) if repeats 
+        .fail()
 
     topRow = @game.people[0...10]
     bottomRow = @game.people[10..20].reverse()
@@ -113,14 +118,8 @@ class AttractMode
         .then( () => toggleLights(groups, interval) if repeats )
     #toggleLights([red, white], 300, true)
 
-
-  stop: ->
-
   connect: (cable, isFront, caller) ->
 
   disconnect: (cable, isFront, caller) ->
-
-  toggleSwitch: (cable, isFront, state) ->
-
 
 module.exports = AttractMode
