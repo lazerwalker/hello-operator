@@ -64,6 +64,11 @@ class Game
     "Everett"
     "Mae"
   ]
+
+  modes: [
+    root.AttractMode,
+    root.GameMode
+  ]
   
   ###
   # Public API
@@ -76,6 +81,8 @@ class Game
 
     @interfaces = []
 
+    @currentModeIndex = 0
+
   addInterface: (i) ->
     i.onReady =>
       i.people = @people
@@ -87,8 +94,16 @@ class Game
 
   startGame: ->
     @running = true
-    @mode = new root.AttractMode(@)
+    Mode = @modes[@currentModeIndex]
+    @mode = new Mode(@)
     @mode.start()
+
+  nextMode: ->
+    @mode.stop()
+    delete @mode
+    @currentModeIndex++
+    if @currentModeIndex >= @modes.length
+      @currentModeIndex = 0
 
   stopGame: ->
     @running = false
@@ -125,12 +140,7 @@ class Game
   toggleSwitch: (cableString, state, callingInterface) =>
     #TODO: This will get abstracted out later
     if !@running
-      if root._.chain(@cables)
-        .pluck("frontSwitch")
-        .reduce( ((memo, val) -> memo and (val is root.CablePair.SwitchState.Neutral)), true)
-        .value()
-          console.log "RESETTING"
-          @startGame()
+      @startGame()
 
     root._(@interfaces).chain()
       .without(callingInterface)

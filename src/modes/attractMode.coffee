@@ -5,9 +5,24 @@ class AttractMode
   constructor: (@game) ->
     @running = false
 
+
+
   start: ->
     @running = true
 
+    @blink()
+
+  toggleSwitch: (cable, isFront, state) ->
+    @game.nextMode()
+    @game.startGame()
+
+  stop: ->
+    @game.turnOffLight(p) for p in @game.people
+    for i in [0...10]
+      @game.turnOffLight("cable#{i}R")
+      @game.turnOffLight("cable#{i}F")      
+
+  blink: ->
     blinkLight = (port, interval) =>
       return () =>
         Q().then =>
