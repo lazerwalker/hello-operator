@@ -4,12 +4,14 @@ ConsoleInterface = require('./src/interfaces/console_interface')
 ArduinoInterface = require('./src/interfaces/arduino_interface')
 WebSocketInterface = require('./src/interfaces/websocket_interface')
 
-arduino = new ArduinoInterface([
-   "/dev/cu.usbmodemFD1311"
-   "/dev/cu.usbmodemFD1321"
-   "/dev/cu.usbmodemFD1331"
-   "/dev/cu.usbmodemFD1341"  
-  ])
+# arduino = new ArduinoInterface([
+#   "/dev/cu.usbmodemFD1211"
+#   "/dev/cu.usbmodemFD1221"
+#   "/dev/cu.usbmodemFD1231"
+#   "/dev/cu.usbmodemFD1241"  
+#  ])
+
+arduino = new ArduinoInterface([], true)
 
 console = new ConsoleInterface()
 # ws = new WebSocketInterface("ws://Playful.local:3000")
@@ -20,5 +22,8 @@ game.addInterface console
 game.addInterface arduino
 # game.addInterface ws
 
-arduino.onReady ->
+console.onReady ->
   game.startGame()
+# arduino.onReady ->
+#   game.addInterface arduino
+#   game.startGame()

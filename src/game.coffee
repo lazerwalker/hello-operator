@@ -4,6 +4,7 @@ root._ = require('underscore') unless root._?
 root.CablePair = require('./cablePair')
 root.Call = require('./call')
 
+root.AttractMode = require('./modes/attractMode')
 root.GameMode = require('./modes/gameMode')
 root.TutorialMode = require('./modes/tutorialMode')
 root.Q = require('q')
@@ -86,7 +87,7 @@ class Game
 
   startGame: ->
     @running = true
-    @mode = new root.GameMode(@)
+    @mode = new root.AttractMode(@)
     @mode.start()
 
   stopGame: ->
