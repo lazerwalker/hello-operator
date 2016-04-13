@@ -82,11 +82,12 @@ class Game
       @cables[i] = new root.CablePair(i)
 
     @interfaces = []
+    @connected = []
 
     @resetter = new root.Resetter 20, => 
       @reset()
       @startGame()
-      
+
     @currentModeIndex = 0
 
   addInterface: (i) ->
@@ -144,6 +145,9 @@ class Game
     cable = @cables[cableNumber]
     return unless cable?
 
+    @connected[caller] = true
+    @connected[cableString] = true
+
     @mode.connect(cable, isFront, caller)
 
   disconnect: (first, second, callingInterface) =>
@@ -154,6 +158,9 @@ class Game
       .each ( (i) -> i.didDisconnect?(first, second) )
 
     @mode.disconnect?(first, second)
+
+    @connected[first] = false
+    @connected[second] = false
 
   toggleSwitch: (cableString, state, callingInterface) =>
     @resetter.keepAlive()

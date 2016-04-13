@@ -6,7 +6,7 @@ setTimeoutR = (time, fn) -> setTimeout(fn, time)
 
 class GameMode
   allowAutoReset: true
-  
+
   happinessStates: [
     { timeout: 2000, score: 10, rate: 0 },
     { timeout: 4000, score: 8, rate: 1000 },
@@ -68,6 +68,12 @@ class GameMode
       .reject (p) -> p.busy
       .sample(2)
       .value()
+
+    # Don't start a call where the first caller is currently connected
+    # (and thus won't light up)
+    # FIXME: There's a better way to handle this properly than just re-rolling the dice.
+    if @game.connected[first]
+      return @addNewCall()
 
     return unless first and second
 
