@@ -14,6 +14,7 @@
     "test": "mocha --compilers coffee:coffee-script/register"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "coffeeify": "^2.0.1",
     "mocha": "^2.4.5",
     "sinon": "^1.17.3",
