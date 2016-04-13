@@ -1,3 +1,6 @@
 [submodule "server"]
 	path = server
 	url = git@bitbucket.org:lazerwalker/switchboard-websocket-server.git
+[submodule "audio"]
+	path = audio
+	url = git@github.com:lazerwalker/switchboard-audio.git

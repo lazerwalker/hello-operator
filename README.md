@@ -18,6 +18,23 @@ This is the source code that powers [Hello, Operator!](http://lazerwalker.com/he
 6. Run `coffee runner.coffee`
 
 
+## Audio
+
+This repository does not currently contain the audio files used in the game. In order to play it, the "audio" folder will need data in the following structure: 
+
+```
+/ audio 
+  / Ethel
+    / Rosemary.aiff
+    / Donald.aiff
+  / Rosemary
+    / Ethel.aiff
+```
+
+There must be a folder for every character in the game (defined in `game.coffee`), and each character's folder must contain an audio file called `{name}.aiff` for every other name.
+
+It is likely that the actual audio used in the game itself will be released under a Creative Commons license at some point, but that is not the case at this time. Currently, this is accomplished via a private submodule; you will likely want to create your own submodule and update your internal git structure to point to it.
+
 ## iOS Project
 
 To run the included iPad version of the game, you need to compile the codebase into a single JS file. Run `./compile` in the root directory, then run and compile the Xcode workspace that lives in the `ios` subdirectory. This will only work on OS X with the latest version of Xcode.
