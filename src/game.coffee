@@ -1,5 +1,6 @@
 root = exports ? this
 root._ = require('underscore') unless root._?
+root.Q = require('q')
 
 root.CablePair = require('./cablePair')
 root.Call = require('./call')
@@ -7,7 +8,7 @@ root.Call = require('./call')
 root.AttractMode = require('./modes/attractMode')
 root.GameMode = require('./modes/gameMode')
 root.TutorialMode = require('./modes/tutorialMode')
-root.Q = require('q')
+root.Resetter = require('./resetter')
 
 root.Switch = root.CablePair.SwitchState
 root.State = root.Call.State
@@ -69,7 +70,8 @@ class Game
     root.AttractMode,
     root.GameMode
   ]
-  
+
+ 
   ###
   # Public API
   ###
@@ -81,6 +83,10 @@ class Game
 
     @interfaces = []
 
+    @resetter = new root.Resetter 20, => 
+      @reset()
+      @startGame()
+      
     @currentModeIndex = 0
 
   addInterface: (i) ->
@@ -97,6 +103,10 @@ class Game
     @running = true
     @mode = new Mode(@)
     @mode.start()
+    if @mode.allowAutoReset
+      @resetter.enable()
+    else
+      @resetter.disable()
 
   reset: ->
     @stopGame()
@@ -124,6 +134,8 @@ class Game
   # Interface methods
   ###  
   connect: (cableString, caller, callingInterface) =>
+    @resetter.keepAlive()
+
     root._(@interfaces).chain()
       .without(callingInterface)
       .each ( (i) -> i.didConnect?(cableString, caller) )
@@ -135,6 +147,8 @@ class Game
     @mode.connect(cable, isFront, caller)
 
   disconnect: (first, second, callingInterface) =>
+    @resetter.keepAlive()
+
     root._(@interfaces).chain()
       .without(callingInterface)
       .each ( (i) -> i.didDisconnect?(first, second) )
@@ -142,6 +156,7 @@ class Game
     @mode.disconnect?(first, second)
 
   toggleSwitch: (cableString, state, callingInterface) =>
+    @resetter.keepAlive()
     #TODO: This will get abstracted out later
 
     # Don't reset the game until all the switches are back to normal

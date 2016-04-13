@@ -17,8 +17,8 @@ describe "TutorialMode", ->
     
   shouldBeAMode()
 
-  describe "tutorial flow", ->
-    it.only "should say hello", ->
+  describe.skip "tutorial flow", ->
+    it "should say hello", ->
       @game.sayText = sinon.spy()
       @mode.start()
       expect(@game.sayText).to.have.been.calledWith("tutorial1")

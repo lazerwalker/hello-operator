@@ -4,6 +4,8 @@ _ = require('underscore')
 SwitchState = require('../cablePair').SwitchState
 
 class AttractMode
+  allowAutoReset: false
+
   constructor: (@game) ->
     @running = false
 
