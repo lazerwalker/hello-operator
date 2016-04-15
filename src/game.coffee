@@ -89,7 +89,8 @@ class Game
     @connected = []
 
     @resetter = new root.Resetter 20, => 
-      @reset()
+      @currentModeIndex = -1
+      @nextMode()
 
     @currentModeIndex = 0
 
