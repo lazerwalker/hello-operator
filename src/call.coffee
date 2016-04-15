@@ -36,7 +36,7 @@ class Call
     changeState = false
     switch @state
       when State.Unstarted
-        changeState = rearIsConnected and cable.rearSwitch isnt SwitchState.Talk
+        changeState = rearIsConnected
       when State.WaitingToTalk
         othersAreTalking = _(cables).chain()
           .without(cable)
