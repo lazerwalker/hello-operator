@@ -67,6 +67,15 @@ class ConsoleInterface
     process.stdin.setEncoding('utf8');
 
     process.stdin.on 'data', (text) =>
+      if text is "reset1\n"
+        for i in [0...10]
+          @client.toggleSwitch("cable#{i}F", SwitchState.Talk, this)
+        return
+      if text is "reset2\n"
+        for i in [0...10]
+          @client.toggleSwitch("cable#{i}F", SwitchState.Neutral, this)
+        return
+
       match = text.match /(\w+) (\w+)/
       [first, second] = [match[1], match[2]]
 

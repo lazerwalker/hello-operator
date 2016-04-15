@@ -7,6 +7,8 @@ root.Call = require('./call')
 
 root.AttractMode = require('./modes/attractMode')
 root.GameMode = require('./modes/gameMode')
+root.ResetMode = require('./modes/resetMode')
+root.SilentMode = require('./modes/silentMode')
 root.TutorialMode = require('./modes/tutorialMode')
 root.Resetter = require('./resetter')
 
@@ -68,7 +70,9 @@ class Game
 
   modes: [
     root.AttractMode,
-    root.GameMode
+    root.SilentMode,
+    root.GameMode,
+    root.ResetMode
   ]
 
  
@@ -86,7 +90,6 @@ class Game
 
     @resetter = new root.Resetter 20, => 
       @reset()
-      @startGame()
 
     @currentModeIndex = 0
 
@@ -101,7 +104,7 @@ class Game
 
   startGame: ->
     Mode = @modes[@currentModeIndex]
-    @running = true
+
     @mode = new Mode(@)
     @mode.start()
     if @mode.allowAutoReset
@@ -110,7 +113,7 @@ class Game
       @resetter.disable()
 
   reset: ->
-    @stopGame()
+    @nextMode()
     @currentModeIndex = 0
 
   nextMode: ->
@@ -119,9 +122,9 @@ class Game
     @currentModeIndex++
     if @currentModeIndex >= @modes.length
       @currentModeIndex = 0
+    @startGame()
 
   stopGame: ->
-    @running = false
     @mode.stop()
 
     for i in @interfaces
@@ -164,16 +167,6 @@ class Game
 
   toggleSwitch: (cableString, state, callingInterface) =>
     @resetter.keepAlive()
-    #TODO: This will get abstracted out later
-
-    # Don't reset the game until all the switches are back to normal
-    if !@running
-      if root._.chain(@cables)
-        .pluck("frontSwitch")
-        .reduce( ((memo, val) -> memo and (val is root.CablePair.SwitchState.Neutral)), true)
-        .value()
-          @startGame()
-          return
 
     root._(@interfaces).chain()
       .without(callingInterface)
@@ -183,19 +176,7 @@ class Game
     cable = @cables[cableNumber]
     return unless cable?
 
-    unless @mode.toggleSwitch(cable, isFront, state)
-      # Here be magical special cases
-      # Re-play Talk if appropriate
-      if call?.state is root.State.WaitingToConnect and cable.rearSwitch is root.Switch.Talk and !isFront
-        for i in @interfaces
-          i.sayToConnect(call)
-
-      # RESET THE GAME by flipping all front switches to talk
-      if root._.chain(@cables)
-        .pluck("frontSwitch")
-        .reduce( ((memo, val) -> memo and (val is root.CablePair.SwitchState.Talk)), true)
-        .value()
-          @reset()
+    @mode.toggleSwitch(cable, isFront, state)
      
   ###
   # Mode methods

@@ -1,6 +1,7 @@
 _ = require('underscore')
 
 Call = require('../call')
+SwitchState = require('../cablePair').SwitchState
 
 setTimeoutR = (time, fn) -> setTimeout(fn, time)
 
@@ -57,7 +58,16 @@ class GameMode
       @updateCall(call)
       return true
     else 
-      return false
+      # Re-play Talk if appropriate
+      if call?.state is Call.State.WaitingToConnect and cable.rearSwitch is SwitchState.Talk and !isFront
+        @game.sayToConnect(call)
+
+      # RESET THE GAME by flipping all front switches to talk
+      if _.chain(@game.cables)
+        .pluck("frontSwitch")
+        .reduce( ((memo, val) -> memo and (val is SwitchState.Talk)), true)
+        .value()
+          @game.nextMode()
 
   ###
   # Private
