@@ -38,10 +38,6 @@ class Call
       when State.Unstarted
         changeState = rearIsConnected
       when State.WaitingToTalk
-        othersAreTalking = _(cables).chain()
-          .without(cable)
-          .any( (c) -> c.rearSwitch is SwitchState.Talk)
-          .value()
         changeState = rearIsConnected and cable.rearSwitch is SwitchState.Talk
       when State.WaitingToConnect
         changeState = rearIsConnected and frontIsConnected and 
