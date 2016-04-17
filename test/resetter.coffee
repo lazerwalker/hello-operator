@@ -52,7 +52,7 @@ describe "Resetter", ->
 
   # TODO: I don't know why these tests can't use sinon
   describe "disabling after being enabled", ->
-    it.only "should not reset", (done) ->
+    it "should not reset", (done) ->
       called = false
       resetter = new Resetter 0.01, (-> called = true)
       resetter.enable()
@@ -63,7 +63,7 @@ describe "Resetter", ->
         done()
 
   describe "being kept awake", ->
-    it.only "should not reset", (done) ->
+    it "should not reset", (done) ->
       called = false
       resetter = new Resetter(0.1, (-> called = true))
       resetter.enable()
