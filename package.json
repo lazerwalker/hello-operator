@@ -2,9 +2,6 @@
   "name": "switchboard",
   "engines": {"node": "0.12.x"},
   "dependencies": {
-    "arduino-firmata": "^0.3.4",
-    "johnny-five": "^0.9.25",
-    "onoff": "^1.0.3",
     "q": "^1.4.1",
     "serialport": "^1.4.10",
     "sfx": "^0.1.1",
