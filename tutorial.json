@@ -1,0 +1,157 @@
+{
+  "graph": {
+    "startNode": "0",
+    "nodes": {
+      "0": {
+        "nodeId": "0", 
+        "passages": [
+          {
+            "passageId": "0",
+            "type": "text",
+            "content": "So glad you can fill in!"
+          },
+          {
+            "passageId": "1",
+            "type": "turnOnLight",
+            "content": "Mabel"
+          },        
+          {
+            "passageId": "2",
+            "type": "text",
+            "content": "Look, Mabel wants to make a call. Plug in?"
+          }
+        ],
+        "choices": [{
+          "nodeId": "1",
+          "predicate": { "mabelIsConnected": { "eq": true }}  
+        }]
+      },
+      "1": {
+        "nodeId": "1",
+        "passages": [
+          {
+            "passageId": "3",
+            "type": "text",
+            "content": "Great. Now pick up the phone, and flip the switch to talk"
+          }
+        ],
+        "choices": [{
+            "nodeId": "2",
+            "predicate": {
+              "mabelIsConnected": {"eq": true},
+              "flipTalkSwitch": {"eq": true}
+            }
+        }]
+      },
+      "2": {
+        "nodeId": "2",
+        "passages": [
+          {
+            "passageId": "4",
+            "type": "sayToConnect",
+            "content": "Mabel,Dolores"
+          },
+          {
+            "passageId": "5",
+            "type": "text",
+            "content": "Now put the switch back in its place, and connect the matching front cable to Dolores"
+          }
+        ],
+        "choices": [
+          {
+            "nodeId": "3",
+            "predicate": {
+              "mabelIsConnected": {"eq": true},
+              "flipTalkSwitch": {"eq": false},
+              "doloresIsConnected": {"eq": true}
+            }
+          }      
+        ]
+      },
+      "3": {
+        "nodeId": "3",
+        "passages": [{
+          "passageId": "6",
+          "type": "text",
+          "content": "Now flip the front switch to 'ring'"
+        }],
+        "choices": [
+          {
+            "nodeId": "4",
+            "predicate": {
+              "mabelIsConnected": {"eq": true},
+              "doloresIsConnected": {"eq": true},
+              "flipRingSwitch": {"eq": true}
+            }
+          }      
+        ]
+      },
+      "4": {
+        "nodeId": "4",
+        "passages": [
+          {
+            "passageId": "7",
+            "type": "blinkLight",
+            "content": "TODOblinkCable,700"
+          },
+          {
+            "passageId": "8",
+            "type": "text",
+            "content": "Cool. While it's blinking, the phone is ringing. Then it'll pick up. [WAIT HERE]"
+          },
+          {
+            "passageId": "9",
+            "type": "turnOnLight",
+            "content": "TODOblinkCable [WAIT]"
+          },
+          {
+            "passageId": "10",
+            "type": "text",
+            "content": "Now that the light is solid, she's picked up. Wait for them to finish!"
+          }        
+        ],
+        "choices": [
+          {
+            "nodeId": "5",
+            "predicate": {
+              "mabelIsConnected": {"eq": true},
+              "doloresIsConnected": {"eq": true},
+              "flipRingSwitch": {"eq": false},
+              "TODObriefwait": {"exists": false}
+            }
+          }   
+        ]
+      },
+      "5": {
+        "nodeId": "5",
+        "passages": [{
+          "passageId": "11",
+          "type": "text",
+          "content": "They're done talking, so you can disconnect their cables now."
+        }],
+        "choices": [{
+          "nodeId": "6",
+          "predicate": {
+            "mabelIsConnected": {"eq": false},
+            "doloresIsConnected": {"eq": false}
+          }
+        }]
+      },
+      "6": {
+        "nodeId": "6",
+        "passages": [
+          {
+            "passageId": "12",
+            "type": "text",
+            "content": "You've got it! Do try to keep up"
+          },
+          {
+            "passageId": "13",
+            "type": "complete",
+            "content": "deleteme"
+          }
+        ]
+      }
+    }
+  }
+}

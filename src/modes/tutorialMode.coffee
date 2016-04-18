@@ -1,61 +1,101 @@
 Q = require('q')
+Storyboard = require('storyboard-engine')
+storyboardFile = require('fs').readFileSync('./tutorial.json', 'utf8')
+
+SwitchState = require('../cablePair').SwitchState
 
 class TutorialMode
   constructor: (@game) ->
+    @storyboard = new Storyboard(JSON.parse(storyboardFile))
+
+    @storyboard.addOutput 'text', (text, passageId) =>
+      @game.sayText(passageId, text).then =>
+        @storyboard.completePassage(passageId)
+
+    @storyboard.addOutput 'turnOnLight', (light, passageId) =>
+      @game.turnOnLight(light).then =>
+        @storyboard.completePassage(passageId)
+
+    @storyboard.addOutput 'sayToConnect', (data, passageId) =>
+      people = data.split ","
+      call = {sender: people[0], receiver: people[1]}
+      @game.sayToConnect(call).then =>
+        @storyboard.completePassage(passageId)
+
+    @storyboard.addOutput 'blinkLight', (data, passageId) =>
+      [caller, rate] = data.split ','
+      rate = parseInt(rate)
+      @game.blinkLight({caller, rate}).then =>
+        @storyboard.completePassage(passageId)
+
+    @storyboard.addOutput 'complete', (data, passageId) =>
+      console.log "Complete"
+      @game.nextMode()
+
     @running = false
 
   start: ->
     @running = true
+    @storyboard.start()
+    ###
+    Node 0
+      * Fail state: switch
+      * Fail state: front cable
+      * Fail state: cable to wrong person
 
-    text1 = "Hey there, so glad you could fill in. You can see things are going to get busy pretty quickly. Look, you can see that Mabel's calling"
-    text2 = "You should plug in one of the cables below"
+    Node 1
+      * Fail state: front switch
+      * Fail state: wrong switch
+      * Fail state: ring rather than switch
+    
+    Node 2
+      * Fail state: flip down to ring?
+      * Fail state: wrong person
+      * Fail state: wrong cable
+      * Fail state: other switch failure
 
-    Q().then =>
-      @game.sayText("tutorial1", "Hey there, so glad you could fill in")
-    .then =>      
-      @game.turnOnLight("Mabel")
-    .then =>
-      @game.sayText("tutorial2", "Look, Mabel wants to make a call. Plug a rear cable into her")
-      # Condition: connect rear cable to Mabel
-      # Fail state: switch
-      # Fail state: front cable
-      # Fail state: cable to wrong person
-    .then =>
-      @game.sayText("tutorial3", "Take the phone, then flip the rear switch away from you")
-      # Condition: flip matching rear switch to talk
-      # Fail state: front switch
-      # Fail state: wrong switch
-      # Fail state: ring rather than switch
-    .then =>
-      @game.sayText("tutorial4", "Awesome, now un-flip the switch"
-      # Condition: flip switch back to neutral 
-    .then =>
-      @game.sayText("tutorial4", "Now connect the front cable to Dolores. if you missed it, re-flip")
-      # Condition: connect matching front cable to Dolores
-      # Fail state: wrong person
-      # Fail state: wrong cable
-      # Fail state: switch
-    .then =>
-      @game.sayText("tutorial5", "Now flip front to ring"
-      # Condition: flip front to ring (talk?)
-      # Fail: wrong position?
-      # Fail: rear switch
-      # Fail: other switch
-    .then =>
-      @game.sayText("tutorial6", "Cool. While it's blinking, the phone is ringing. When it turns solid, they're talking to each other. Undo the switches.")
-    .then =>
-      # "Cool, the lights just turned out. That means they're done talking to each other. Disconnect the cables"
-      # Condition: disconnect
-    .then =>
-      # "You've got it! Do try to keep up."
+    Node 3
+      * Fail: wrong position?
+      * Fail: rear switch
+      * Fail: other switch
+
+    Node 4
+      * TODO: Blink light
+      * TODO: Delay blinking for a few seconds (can hack this in this file until storyboard supports it?)
+      * TODO: Delay for a few seconds before light turns off
+      * Fail: disconnect early
+    ###
 
   stop: ->
 
   connect: (cable, isFront, caller) ->
+    # TODO: @storyboard.receiveInput(caller, cable)
+    if caller is "Mabel" and !isFront
+      @mabelCable = cable
+      @storyboard.receiveInput("mabelIsConnected", true)
+
+    if caller is "Dolores" and isFront
+      @storyboard.receiveInput("doloresIsConnected", true)
+      @doloresCable = cable
 
   disconnect: (cable, isFront, caller) ->
+    if cable is @mabelCable and !isFront and caller is "Mabel"
+      @storyboard.receiveInput("mabelIsConnected", false)
+    if cable is @doloresCable and isFront and caller is "Dolores"
+      @storyboard.receiveInput("doloresIsConnected", false)      
 
   toggleSwitch: (cable, isFront, state) ->
-
+    if cable is @mabelCable or cable is @doloresCable
+      if isFront 
+        if state is SwitchState.Ring
+          @storyboard.receiveInput('flipRingSwitch', true)
+        else if state is SwitchState.Neutral
+          @storyboard.receiveInput('flipRingSwitch', false)
+      else
+        if state is SwitchState.Talk
+          @storyboard.receiveInput('flipTalkSwitch', true)
+        else if state is SwitchState.Neutral
+          @storyboard.receiveInput('flipTalkSwitch', false)
+      
 
 module.exports = TutorialMode
