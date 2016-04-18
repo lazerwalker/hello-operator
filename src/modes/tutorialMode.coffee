@@ -32,6 +32,9 @@ class TutorialMode
       console.log "Complete"
       @game.nextMode()
 
+    for p in @game.people
+      @storyboard.receiveInput(p, {})
+
     @running = false
 
   start: ->
@@ -69,33 +72,20 @@ class TutorialMode
   stop: ->
 
   connect: (cable, isFront, caller) ->
-    # TODO: @storyboard.receiveInput(caller, cable)
-    if caller is "Mabel" and !isFront
-      @mabelCable = cable
-      @storyboard.receiveInput("mabelIsConnected", true)
+    @storyboard.receiveInput("#{caller}.cable", cable.number)
+    @storyboard.receiveInput("#{caller}.isFront", isFront)
 
-    if caller is "Dolores" and isFront
-      @storyboard.receiveInput("doloresIsConnected", true)
-      @doloresCable = cable
+    @cableCallers ?= {}
+    @cableCallers[cable.toCableString(isFront)] = caller
 
   disconnect: (cable, isFront, caller) ->
-    if cable is @mabelCable and !isFront and caller is "Mabel"
-      @storyboard.receiveInput("mabelIsConnected", false)
-    if cable is @doloresCable and isFront and caller is "Dolores"
-      @storyboard.receiveInput("doloresIsConnected", false)      
+    @storyboard.receiveInput("#{caller}.cable", undefined)      
+    @storyboard.receiveInput("#{caller}.isFront", undefined)
+    delete @cableCallers[cable.toCableString(isFront)]
 
   toggleSwitch: (cable, isFront, state) ->
-    if cable is @mabelCable or cable is @doloresCable
-      if isFront 
-        if state is SwitchState.Ring
-          @storyboard.receiveInput('flipRingSwitch', true)
-        else if state is SwitchState.Neutral
-          @storyboard.receiveInput('flipRingSwitch', false)
-      else
-        if state is SwitchState.Talk
-          @storyboard.receiveInput('flipTalkSwitch', true)
-        else if state is SwitchState.Neutral
-          @storyboard.receiveInput('flipTalkSwitch', false)
-      
+    cableString = cable.toCableString(isFront)
+    caller = @cableCallers[cableString]
+    @storyboard.receiveInput("#{caller}.switch", state)      
 
 module.exports = TutorialMode

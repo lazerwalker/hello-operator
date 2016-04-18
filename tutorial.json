@@ -23,7 +23,10 @@
         ],
         "choices": [{
           "nodeId": "1",
-          "predicate": { "mabelIsConnected": { "eq": true }}  
+          "predicate": { 
+            "Mabel.cable": { "exists": true },
+            "Mabel.isFront": { "eq": false }
+          }  
         }]
       },
       "1": {
@@ -38,8 +41,9 @@
         "choices": [{
             "nodeId": "2",
             "predicate": {
-              "mabelIsConnected": {"eq": true},
-              "flipTalkSwitch": {"eq": true}
+              "Mabel.cable": { "exists": true },
+              "Mabel.isFront": { "eq": false },
+              "Mabel.switch": { "eq": -1 }
             }
         }]
       },
@@ -61,9 +65,11 @@
           {
             "nodeId": "3",
             "predicate": {
-              "mabelIsConnected": {"eq": true},
-              "flipTalkSwitch": {"eq": false},
-              "doloresIsConnected": {"eq": true}
+              "Mabel.cable": {"exists": true},
+              "Mabel.isFront": { "eq": false },             
+              "Dolores.cable": { "eq": "Mabel.cable" },
+              "Dolores.isFront": { "eq": true },
+              "Mabel.cable": { "eq": 0 }
             }
           }      
         ]
@@ -79,9 +85,11 @@
           {
             "nodeId": "4",
             "predicate": {
-              "mabelIsConnected": {"eq": true},
-              "doloresIsConnected": {"eq": true},
-              "flipRingSwitch": {"eq": true}
+              "Mabel.cable": { "exists": true },
+              "Mabel.isFront": { "eq": false },
+              "Dolores.cable": { "eq": "Mabel.cable" },
+              "Dolores.isFront": { "eq": true },
+              "Dolores.switch": {"eq": 1 }
             }
           }      
         ]
@@ -114,9 +122,11 @@
           {
             "nodeId": "5",
             "predicate": {
-              "mabelIsConnected": {"eq": true},
-              "doloresIsConnected": {"eq": true},
-              "flipRingSwitch": {"eq": false},
+              "Mabel.cable": { "exists": true },
+              "Mabel.isFront": { "eq": false },
+              "Dolores.cable": { "eq": "Mabel.cable" },
+              "Dolores.isFront": { "eq": true },
+              "Dolores.switch": {"eq": 0},
               "TODObriefwait": {"exists": false}
             }
           }   
@@ -132,8 +142,8 @@
         "choices": [{
           "nodeId": "6",
           "predicate": {
-            "mabelIsConnected": {"eq": false},
-            "doloresIsConnected": {"eq": false}
+            "Mabel.cable": { "exists": false },
+            "Dolores.cable": { "exists": false }
           }
         }]
       },
