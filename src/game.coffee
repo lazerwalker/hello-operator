@@ -88,6 +88,8 @@ class Game
     @interfaces = []
     @connected = []
 
+    @readyInterfaceCount = 0
+
     @resetter = new root.Resetter 20, => 
       @currentModeIndex = -1
       @nextMode()
@@ -102,6 +104,18 @@ class Game
       i.setPeople?(@people)
 
       @interfaces.push i
+
+      i.onReady =>
+        # TODO: Will race conditions destroy this poor underimplented semaphore? 
+        # Only time will tell!
+        @readyInterfaceCount++
+        if @doneAdding and @readyInterfaceCount >= @interfaces.length
+          @startGame()
+
+  startWhenReady: ->
+    @doneAdding = true
+    if @readyInterfaceCount >= @interfaces.length
+      @startGame()
 
   startGame: ->
     Mode = @modes[@currentModeIndex]
