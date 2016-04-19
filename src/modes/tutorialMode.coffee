@@ -2,6 +2,8 @@ Q = require('q')
 Storyboard = require('storyboard-engine')
 storyboardFile = require('fs').readFileSync('./tutorial.json', 'utf8')
 
+setTimeoutR = (t, fn) -> setTimeout(fn, t)
+
 SwitchState = require('../cablePair').SwitchState
 
 class TutorialMode
@@ -14,6 +16,15 @@ class TutorialMode
 
     @storyboard.addOutput 'turnOnLight', (light, passageId) =>
       @game.turnOnLight(light).then =>
+        @storyboard.completePassage(passageId)
+
+    @storyboard.addOutput 'turnOffLight', (light, passageId) =>
+      @game.turnOffLight(light).then =>
+        @storyboard.completePassage(passageId)        
+
+    @storyboard.addOutput 'blinkLight', (data, passageId) =>
+      [caller, rate] = data.split ","
+      @game.blinkLight({caller, rate}).then =>
         @storyboard.completePassage(passageId)
 
     @storyboard.addOutput 'sayToConnect', (data, passageId) =>
@@ -31,6 +42,9 @@ class TutorialMode
     @storyboard.addOutput 'complete', (data, passageId) =>
       console.log "Complete"
       @game.nextMode()
+
+    @storyboard.addOutput 'pause', (delay, passageId) =>
+      setTimeoutR delay, => @storyboard.completePassage(passageId)
 
     for p in @game.people
       @storyboard.receiveInput(p, {})

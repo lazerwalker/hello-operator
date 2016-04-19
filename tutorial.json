@@ -100,23 +100,38 @@
           {
             "passageId": "7",
             "type": "blinkLight",
-            "content": "TODOblinkCable,700"
+            "content": "Dolores,400"
           },
           {
             "passageId": "8",
             "type": "text",
-            "content": "Cool. While it's blinking, the phone is ringing. Then it'll pick up. [WAIT HERE]"
+            "content": "Great. The fact that it's blinking means the phone is ringing. She'll pick up in a few seconds."
           },
           {
-            "passageId": "9",
+            "passageId": "15",
+            "type": "pause",
+            "content": "2000"
+          },
+          {
+            "passageId": "16",
             "type": "turnOnLight",
-            "content": "TODOblinkCable [WAIT]"
+            "content": "Dolores"
           },
           {
             "passageId": "10",
             "type": "text",
             "content": "Now that the light is solid, she's picked up. Wait for them to finish!"
-          }        
+          },
+          {
+            "passageId": "14",
+            "type": "pause",
+            "content": "3000"
+          },
+          {
+            "passageId": "16",
+            "type": "turnOffLight",
+            "content": "Dolores"
+          }
         ],
         "choices": [
           {
@@ -126,8 +141,7 @@
               "Mabel.isFront": { "eq": false },
               "Dolores.cable": { "eq": "Mabel.cable" },
               "Dolores.isFront": { "eq": true },
-              "Dolores.switch": {"eq": 0},
-              "TODObriefwait": {"exists": false}
+              "Dolores.switch": {"eq": 0}
             }
           }   
         ]
