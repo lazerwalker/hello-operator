@@ -50,56 +50,81 @@ class TutorialMode
       @storyboard.receiveInput(p, {})
 
     @running = false
+    @cablesByCaller = {}
+    @callersByCable = {}
 
   start: ->
     @running = true
     @storyboard.start()
-    ###
-    Node 0
-      * Fail state: switch
-      * Fail state: front cable
-      * Fail state: cable to wrong person
-
-    Node 1
-      * Fail state: front switch
-      * Fail state: wrong switch
-      * Fail state: ring rather than switch
-    
-    Node 2
-      * Fail state: flip down to ring?
-      * Fail state: wrong person
-      * Fail state: wrong cable
-      * Fail state: other switch failure
-
-    Node 3
-      * Fail: wrong position?
-      * Fail: rear switch
-      * Fail: other switch
-
-    Node 4
-      * TODO: Blink light
-      * TODO: Delay blinking for a few seconds (can hack this in this file until storyboard supports it?)
-      * TODO: Delay for a few seconds before light turns off
-      * Fail: disconnect early
-    ###
 
   stop: ->
 
   connect: (cable, isFront, caller) ->
+    @cablesByCaller[caller] = cable
+    @callersByCable[cable.toCableString(isFront)] = caller
+
+    # Handle failures
+
+    if (caller isnt "Mabel" and caller isnt "Dolores") or 
+      (caller is "Dolores" and !@cablesByCaller["Mabel"])
+        @storyboard.receiveMomentaryInput("connectWrongPerson", caller)
+
+    if caller is "Mabel" and isFront
+        @storyboard.receiveMomentaryInput("connectWrongCable")
+
+    else if caller is "Dolores"
+      mabelCable = @cablesByCaller["Mabel"]
+      if cable isnt mabelCable
+        @storyboard.receiveMomentaryInput("connectWrongCable")
+
     @storyboard.receiveInput("#{caller}.cable", cable.number)
     @storyboard.receiveInput("#{caller}.isFront", isFront)
-
-    @cableCallers ?= {}
-    @cableCallers[cable.toCableString(isFront)] = caller
 
   disconnect: (cable, isFront, caller) ->
     @storyboard.receiveInput("#{caller}.cable", undefined)      
     @storyboard.receiveInput("#{caller}.isFront", undefined)
-    delete @cableCallers[cable.toCableString(isFront)]
+    delete @callersByCable[cable.toCableString(isFront)]
+    delete @cablesByCaller[caller]
 
   toggleSwitch: (cable, isFront, state) ->
     cableString = cable.toCableString(isFront)
-    caller = @cableCallers[cableString]
+    caller = @callersByCable[cableString]
+
+    if state isnt SwitchState.Neutral
+      # Special cases for each individual tutorial state
+
+      # Plug into Mabel
+      if @storyboard.state.graph.currentNodeId is "0"
+        @storyboard.receiveMomentaryInput("toggleWrongSwitch")
+
+      # "Talk" to Mabel
+      else if @storyboard.state.graph.currentNodeId is "1"
+        if caller isnt "Mabel"
+          mabelCable = @cablesByCaller["Mabel"]
+          if cable is mabelCable and isFront
+            @storyboard.receiveMomentaryInput("toggleWrongSwitchInPair")
+          else
+            @storyboard.receiveMomentaryInput("toggleWrongSwitch")
+        else if state is SwitchState.Ring
+          @storyboard.receiveMomentaryInput("toggleWrongSwitchDirection")
+
+      # Unflip talk switch, plug into Dolores
+      else if @storyboard.state.graph.currentNodeId is "2"
+        @storyboard.receiveMomentaryInput("toggleWrongSwitch")
+
+      # Flip front switch to ring
+      else if @storyboard.state.graph.currentNodeId is "3"
+        if caller is "Dolores" and state is SwitchState.Talk
+          @storyboard.receiveMomentaryInput("toggleWrongSwitchDirection")
+        else if caller is "Mabel"
+          @storyboard.receiveMomentaryInput("toggleWrongSwitchInPair")
+        else if caller isnt "Mabel" and caller isnt "Dolores"
+          @storyboard.receiveMomentaryInput("toggleWrongSwitch")
+
+      else if (caller isnt "Mabel" and caller isnt "Dolores")
+        @storyboard.receiveMomentaryInput("toggleWrongSwitch")
+
     @storyboard.receiveInput("#{caller}.switch", state)      
+
 
 module.exports = TutorialMode
