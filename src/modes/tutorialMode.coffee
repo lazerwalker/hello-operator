@@ -65,7 +65,7 @@ class TutorialMode
 
     # Handle failures
 
-    if (caller isnt "Mabel" and caller isnt "Dolores") or 
+    if (caller isnt "Mabel" and caller isnt "Dolores" and caller isnt "Franklin") or 
       (caller is "Dolores" and !@cablesByCaller["Mabel"])
         @storyboard.receiveMomentaryInput("connectWrongPerson", caller)
 
