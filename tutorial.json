@@ -8,7 +8,7 @@
           {
             "passageId": "0",
             "type": "text",
-            "content": "So glad you can fill in!"
+            "content": "Hello there! Thanks so much for agreeing to fill in today, I know it's short notice. Let's teach you how to connect calls and use this switchboard before it starts getting busy."
           },
           {
             "passageId": "1",
@@ -18,7 +18,7 @@
           {
             "passageId": "2",
             "type": "text",
-            "content": "Look, Mabel wants to make a call. Take any cable in the back row of cables and plug into Mabel."
+            "content": "Mabel wants to make a call. First, you have to connect to her. Take any cable in the back row of cables and plug it into the hole below her light. It doesn't matter which cable you use, as long as it's in the back row."
           }
         ],
         "choices": [{
@@ -40,7 +40,7 @@
           {
             "passageId": "3",
             "type": "text",
-            "content": "Great. Now pick up the phone, and flip the rear switch away from you to talk to her."
+            "content": "Great. Now Mabel needs to be able to tell you who she wants to talk to. See those two switches in front of the cable you plugged in? Take the one closest to the cable, and flip it away from you so you can hear her."
           }
         ],
         "choices": [{
@@ -63,7 +63,7 @@
           {
             "passageId": "5",
             "type": "text",
-            "content": "Now put the switch back in its place, and connect the matching front cable to Dolores"
+            "content": "Perfect. Put the switch back in its place, and connect the matching front cable to Dolores"
           }
         ],
         "choices": [
@@ -83,7 +83,7 @@
         "passages": [{
           "passageId": "6",
           "type": "text",
-          "content": "Now pull the front switch towards you to ring Dolores"
+          "content": "Now, you need to ring Dolores so she knows someone's calling. Take the front switch and pull it towards you."
         }],
         "choices": [
           {
@@ -114,7 +114,7 @@
           {
             "passageId": "15",
             "type": "pause",
-            "content": "2000"
+            "content": "1500"
           },
           {
             "passageId": "16",
@@ -124,7 +124,7 @@
           {
             "passageId": "10",
             "type": "text",
-            "content": "Now that the light is solid, she's picked up. The lights will turn off when they're finished."
+            "content": "Now that the light is solid, she's picked up the call and they're talking. The lights will turn off when they're done."
           },
           {
             "passageId": "14",
@@ -148,7 +148,7 @@
         "passages": [{
           "passageId": "11",
           "type": "text",
-          "content": "They're done talking, so you can disconnect their cables now."
+          "content": "They've finished their call, so you can disconnect their cables now."
         }],
         "choices": [{
           "nodeId": "6",
@@ -164,7 +164,7 @@
           {
             "passageId": "12",
             "type": "text",
-            "content": "You've got it! Do try to keep up"
+            "content": "It seems like you've've got it! Things will pick up rather quickly, so do try to keep up"
           },
           {
             "passageId": "13",
@@ -307,7 +307,7 @@
         {
           "passageId": "20",
           "type": "text",
-          "content": "You want to use the cable that matches the one you used with Mabel. It's right in front of it."
+          "content": "You want to use the cable that's directly in front of the one you used with Mabel."
         }
       ]
     },
@@ -322,7 +322,7 @@
         {
           "passageId": "21",
           "type": "text",
-          "content": "Flip the switch towards you, not away from you."
+          "content": "Pull the switch towards you, not away from you."
         }
       ]
     },
@@ -337,7 +337,7 @@
         {
           "passageId": "22",
           "type": "text",
-          "content": "Use the switch that goes with the cable you're using to talk to Dolores. It's the one closer to you."
+          "content": "Use the switch that's closer to you."
         }
       ]
     },
@@ -352,7 +352,7 @@
         {
           "passageId": "23",
           "type": "text",
-          "content": "Use the switch that goes with the cable you're using to talk to Dolores."
+          "content": "Use the switch that's in the same row as the cables you're using."
         }
       ]
     },
