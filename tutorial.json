@@ -73,8 +73,7 @@
               "Mabel.cable": {"exists": true},
               "Mabel.isFront": { "eq": false },             
               "Dolores.cable": { "eq": "Mabel.cable" },
-              "Dolores.isFront": { "eq": true },
-              "Mabel.cable": { "eq": 0 }
+              "Dolores.isFront": { "eq": true }
             }
           }      
         ]
