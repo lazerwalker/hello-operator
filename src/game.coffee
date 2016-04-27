@@ -69,9 +69,9 @@ class Game
   ]
 
   modes: [
-    root.TutorialMode,
     root.AttractMode,
     root.SilentMode,
+    root.TutorialMode,
     root.GameMode,
     root.ResetMode
   ]
