@@ -66,6 +66,11 @@
             "content": "Mabel,Dolores"
           },
           {
+            "passageId": "15",
+            "type": "pause",
+            "content": "800"
+          },
+          {
             "passageId": "5",
             "type": "text",
             "content": "Perfect. Put the switch back in its place, and connect the matching front cable to Dolores"
