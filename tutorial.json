@@ -185,7 +185,7 @@
       "allowRepeats": true,
       "passages": [
         {
-          "passageId": "12",
+          "passageId": "26",
           "type": "text",
           "content": "Whoops! You want to connect to Mabel instead of {connectWrongPerson}."
         }

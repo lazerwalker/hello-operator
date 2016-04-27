@@ -92,9 +92,9 @@ class ArduinoInterface
     return deferred.promise
 
   sayText: (identifier, text) ->
-    # TODO: Load actual audio files
+    filepath = "#{__dirname}/../../audio/Tutorial/#{identifier}.aiff"
     deferred = Q.defer()
-    sfx.say "\"#{text}\"", deferred.makeNodeResolver()
+    sfx.play filepath, deferred.makeNodeResolver()
     return deferred.promise
 
   onReady: (cb) ->
