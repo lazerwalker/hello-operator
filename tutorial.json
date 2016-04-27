@@ -38,6 +38,11 @@
             "content": "{Mabel.cableString}"
           },
           {
+            "passageId": "1",
+            "type": "turnOffLight",
+            "content": "Mabel"
+          },          
+          {
             "passageId": "3",
             "type": "text",
             "content": "Great. Now Mabel needs to be able to tell you who she wants to talk to. See those two switches in front of the cable you plugged in? Take the one closest to the cable, and flip it away from you so you can hear her."
@@ -135,7 +140,12 @@
             "passageId": "16",
             "type": "turnOffLight",
             "content": "{Dolores.cableString}"
-          }
+          },
+          {
+            "passageId": "27",
+            "type": "turnOffLight",
+            "content": "{Mabel.cableString}"
+          }          
         ],
         "choices": [
           {
