@@ -71,6 +71,7 @@ class Game
   modes: [
     root.AttractMode,
     root.SilentMode,
+    root.TutorialMode,
     root.GameMode,
     root.ResetMode
   ]
@@ -168,17 +169,21 @@ class Game
 
     @mode.connect(cable, isFront, caller)
 
-  disconnect: (first, second, callingInterface) =>
+  disconnect: (cableString, caller, callingInterface) =>
     @resetter.keepAlive()
 
     root._(@interfaces).chain()
       .without(callingInterface)
-      .each ( (i) -> i.didDisconnect?(first, second) )
+      .each ( (i) -> i.didDisconnect?(cableString, caller) )
 
-    @mode.disconnect?(first, second)
+    [cableNumber, isFront] = @parseCableString(cableString)
+    cable = @cables[cableNumber]
+    return unless cable?
 
-    @connected[first] = false
-    @connected[second] = false
+    @mode.disconnect?(cable, isFront, caller)
+
+    @connected[cableString] = false
+    @connected[caller] = false
 
   toggleSwitch: (cableString, state, callingInterface) =>
     @resetter.keepAlive()

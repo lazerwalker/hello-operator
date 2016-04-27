@@ -14,6 +14,12 @@ class CablePair
     @frontLight = "cable#{@number}F"
     @rearLight = "cable#{@number}R"
 
+  toCableString: (isFront) ->
+    if isFront
+      "cable#{@number}F"
+    else
+      "cable#{@number}R"
+
 CablePair.SwitchState = SwitchState
 
 module.exports = CablePair

@@ -2,6 +2,7 @@ _ = require 'underscore'
 spawn = require('child_process').spawn;
 sfx = require('sfx')
 Q = require('q')
+fs = require('fs')
 
 ArduinoGroup = require('../../arduino/arduino_group')
 SwitchState = require('../cablePair').SwitchState
@@ -92,9 +93,15 @@ class ArduinoInterface
     return deferred.promise
 
   sayText: (identifier, text) ->
-    # TODO: Load actual audio files
+    filepath = "#{__dirname}/../../audio/Tutorial/#{identifier}.aiff"
     deferred = Q.defer()
-    sfx.say "\"#{text}\"", deferred.makeNodeResolver()
+
+    fs.stat filepath, (err, res) ->
+      if err?
+        sfx.say "\"#{text}\"", deferred.makeNodeResolver()
+      else
+        sfx.play filepath, deferred.makeNodeResolver()
+
     return deferred.promise
 
   onReady: (cb) ->

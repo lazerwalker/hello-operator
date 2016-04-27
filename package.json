@@ -16,6 +16,7 @@
     "coffeeify": "^2.0.1",
     "mocha": "^2.4.5",
     "sinon": "^1.17.3",
-    "sinon-chai": "^2.8.0"
+    "sinon-chai": "^2.8.0",
+    "storyboard-engine": "~0.0.1"
   }
 }
