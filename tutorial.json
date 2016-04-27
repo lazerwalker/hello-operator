@@ -18,7 +18,7 @@
           {
             "passageId": "2",
             "type": "text",
-            "content": "Look, Mabel wants to make a call. Plug in?"
+            "content": "Look, Mabel wants to make a call. Take any cable in the back row of cables and plug into Mabel."
           }
         ],
         "choices": [{
@@ -40,7 +40,7 @@
           {
             "passageId": "3",
             "type": "text",
-            "content": "Great. Now pick up the phone, and flip the switch to talk"
+            "content": "Great. Now pick up the phone, and flip the rear switch away from you to talk to her."
           }
         ],
         "choices": [{
@@ -83,7 +83,7 @@
         "passages": [{
           "passageId": "6",
           "type": "text",
-          "content": "Now flip the front switch to 'ring'"
+          "content": "Now pull the front switch towards you to ring Dolores"
         }],
         "choices": [
           {
@@ -124,7 +124,7 @@
           {
             "passageId": "10",
             "type": "text",
-            "content": "Now that the light is solid, she's picked up. Wait for them to finish!"
+            "content": "Now that the light is solid, she's picked up. The lights will turn off when they're finished."
           },
           {
             "passageId": "14",
