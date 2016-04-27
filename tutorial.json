@@ -33,6 +33,11 @@
         "nodeId": "1",
         "passages": [
           {
+            "passageId": "cableLight1",
+            "type": "turnOnLight",
+            "content": "{Mabel.cableString}"
+          },
+          {
             "passageId": "3",
             "type": "text",
             "content": "Great. Now pick up the phone, and flip the switch to talk"
@@ -100,7 +105,7 @@
           {
             "passageId": "7",
             "type": "blinkLight",
-            "content": "Dolores,400"
+            "content": "{Dolores.cableString},400"
           },
           {
             "passageId": "8",
@@ -115,7 +120,7 @@
           {
             "passageId": "16",
             "type": "turnOnLight",
-            "content": "Dolores"
+            "content": "{Dolores.cableString}"
           },
           {
             "passageId": "10",
@@ -130,7 +135,7 @@
           {
             "passageId": "16",
             "type": "turnOffLight",
-            "content": "Dolores"
+            "content": "{Dolores.cableString}"
           }
         ],
         "choices": [

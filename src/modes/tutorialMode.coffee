@@ -78,10 +78,12 @@ class TutorialMode
         @storyboard.receiveMomentaryInput("connectWrongCable")
 
     @storyboard.receiveInput("#{caller}.cable", cable.number)
+    @storyboard.receiveInput("#{caller}.cableString", cable.toCableString(isFront))
     @storyboard.receiveInput("#{caller}.isFront", isFront)
 
   disconnect: (cable, isFront, caller) ->
     @storyboard.receiveInput("#{caller}.cable", undefined)      
+    @storyboard.receiveInput("#{caller}.cableString", undefined)          
     @storyboard.receiveInput("#{caller}.isFront", undefined)
     delete @callersByCable[cable.toCableString(isFront)]
     delete @cablesByCaller[caller]
