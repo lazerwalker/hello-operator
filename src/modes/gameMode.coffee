@@ -64,7 +64,7 @@ class GameMode
 
       # RESET THE GAME by flipping all front switches to talk
       if _.chain(@game.cables)
-        .pluck("frontSwitch")
+        .pluck("rearSwitch")
         .reduce( ((memo, val) -> memo and (val is SwitchState.Talk)), true)
         .value()
           @game.nextMode()
