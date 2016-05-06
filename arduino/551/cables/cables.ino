@@ -4,7 +4,7 @@
 #define LOW_CABLE 10
 #define HIGH_CABLE 31
 
-unsigned long DELAY = 100;
+unsigned long DELAY = 40;
 
 enum State {
   NOT_CONNECTED,
@@ -12,8 +12,9 @@ enum State {
   CONNECTED
 };
 
-State state[20][50];
-unsigned long timestamps[20][50];
+State state[20];
+unsigned long timestamps[20];
+int pair[20];
 
 String onJSON(int a, int b) {
   return "{\"connected\": true, \"cable\": " + String(a) + ", \"port\": " + String(b) + "}";
@@ -38,56 +39,33 @@ void setup() {
 
 void loop() {      
   for (int i=LOW_CABLE; i<=HIGH_CABLE; i++) {
-    unsigned long now = millis();
     int cableNum = i - LOW_CABLE;
+    unsigned long now = millis();
     digitalWrite(i, LOW); 
       
     for (int j=LOW_PIN; j<=HIGH_PIN; j++) {
       int val = digitalRead(j);
-      State *s = &state[cableNum][j];
-      
+
       if (val == LOW) {
-        if (state[cableNum][j] == NOT_CONNECTED) {
-          *s = MAYBE_CONNECTED;
-          timestamps[cableNum][j] = now;
-          Serial.print(i);
-          Serial.print(",");
-          Serial.print(j);
-          Serial.println(" are maybe connected");
-        } else if (*s == MAYBE_CONNECTED) {
-          Serial.print("Diff for ");
-          Serial.print(i);
-          Serial.print(",");
-          Serial.print(j);
-          Serial.print(" is ");
-          Serial.print(now, 10);
-          Serial.print(" - ");
-          Serial.print(timestamps[cableNum][j], 10);
-          Serial.print(" = ");
-          
-          Serial.println(now - timestamps[cableNum][j], 10);
-          Serial.println(now == timestamps[cableNum][j]);
-          if (now - timestamps[cableNum][j] >= DELAY) {
+        if (state[cableNum] == NOT_CONNECTED || pair[cableNum] != j) {
+          state[cableNum] = MAYBE_CONNECTED;
+          pair[cableNum] = j;
+          timestamps[cableNum] = now;
+        } else if (state[cableNum] == MAYBE_CONNECTED) {
+          if (now - timestamps[cableNum] >= DELAY) {
             Serial.println(onJSON(i, j));
-            *s = CONNECTED;
-            
-          Serial.print(i);
-          Serial.print(",");
-          Serial.print(j);
-          Serial.println(" are YES connected");
+            state[cableNum] = CONNECTED;
           }
         }
       } else if (val == HIGH) {
-        if (*s == CONNECTED) {
-          Serial.println(offJSON(i, j));
-        } else if (*s == MAYBE_CONNECTED) {
-          
-          Serial.print(i);
-          Serial.print(",");
-          Serial.print(j);
-          Serial.println(" are NO LONGER connected");
+        if (pair[cableNum] == j) {
+          if (state[cableNum] == CONNECTED) {
+            Serial.println(offJSON(i, j));
+           } else if (state[cableNum] == MAYBE_CONNECTED) {
+            pair[cableNum] = -1;
+          }
+          state[cableNum] = NOT_CONNECTED;
         }
-        *s = NOT_CONNECTED;
       }
     }
     digitalWrite(i, HIGH);
