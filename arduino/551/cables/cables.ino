@@ -1,12 +1,20 @@
-int LOW_PIN = 32;
-int HIGH_PIN = 51;
+#define LOW_PIN 32
+#define HIGH_PIN 51
 
-int LOW_CABLE = 3;
-int HIGH_CABLE = 31;
+#define LOW_CABLE 10
+#define HIGH_CABLE 31
 
-int STATE_UNUSED = -1;
+unsigned long DELAY = 40;
 
-int state[52];
+enum State {
+  NOT_CONNECTED,
+  MAYBE_CONNECTED,
+  CONNECTED
+};
+
+State state[20];
+unsigned long timestamps[20];
+int pair[20];
 
 String onJSON(int a, int b) {
   return "{\"connected\": true, \"cable\": " + String(a) + ", \"port\": " + String(b) + "}";
@@ -26,29 +34,37 @@ void setup() {
   for (int i=LOW_CABLE; i<= HIGH_CABLE; i++) {
     pinMode(i, OUTPUT);
     digitalWrite(i, HIGH);
-    state[i] = STATE_UNUSED;
   }
 }
 
-void loop() {
+void loop() {      
   for (int i=LOW_CABLE; i<=HIGH_CABLE; i++) {
-    digitalWrite(i, LOW);  
+    int cableNum = i - LOW_CABLE;
+    unsigned long now = millis();
+    digitalWrite(i, LOW); 
       
     for (int j=LOW_PIN; j<=HIGH_PIN; j++) {
       int val = digitalRead(j);
-      
+
       if (val == LOW) {
-        if (state[i] == STATE_UNUSED) {
-          Serial.println(onJSON(i, j));
-          state[i] = j;
-          onJSON(i, j);
+        if (state[cableNum] == NOT_CONNECTED || pair[cableNum] != j) {
+          state[cableNum] = MAYBE_CONNECTED;
+          pair[cableNum] = j;
+          timestamps[cableNum] = now;
+        } else if (state[cableNum] == MAYBE_CONNECTED) {
+          if (now - timestamps[cableNum] >= DELAY) {
+            Serial.println(onJSON(i, j));
+            state[cableNum] = CONNECTED;
+          }
         }
-        state[i] = j;
-        
       } else if (val == HIGH) {
-        if (state[i] == j) {
-          Serial.println(offJSON(i, j));
-          state[i] = STATE_UNUSED;
+        if (pair[cableNum] == j) {
+          if (state[cableNum] == CONNECTED) {
+            Serial.println(offJSON(i, j));
+           } else if (state[cableNum] == MAYBE_CONNECTED) {
+            pair[cableNum] = -1;
+          }
+          state[cableNum] = NOT_CONNECTED;
         }
       }
     }
