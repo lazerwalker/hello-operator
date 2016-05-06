@@ -4,7 +4,7 @@
 #define LOW_CABLE 10
 #define HIGH_CABLE 31
 
-#define DELAY 200
+unsigned long DELAY = 100;
 
 enum State {
   NOT_CONNECTED,
@@ -36,32 +36,56 @@ void setup() {
   }
 }
 
-void loop() {
+void loop() {      
   for (int i=LOW_CABLE; i<=HIGH_CABLE; i++) {
+    unsigned long now = millis();
     int cableNum = i - LOW_CABLE;
-    digitalWrite(i, LOW);  
+    digitalWrite(i, LOW); 
       
     for (int j=LOW_PIN; j<=HIGH_PIN; j++) {
       int val = digitalRead(j);
-      unsigned long *timestamp = &timestamps[cableNum][j];
       State *s = &state[cableNum][j];
       
-      unsigned long now = millis();
-      
       if (val == LOW) {
-        if (*s == NOT_CONNECTED) {
+        if (state[cableNum][j] == NOT_CONNECTED) {
           *s = MAYBE_CONNECTED;
-          *timestamp = now;
-        }
-        else if (*s == MAYBE_CONNECTED) {
-          if (now - *timestamp > DELAY) {
+          timestamps[cableNum][j] = now;
+          Serial.print(i);
+          Serial.print(",");
+          Serial.print(j);
+          Serial.println(" are maybe connected");
+        } else if (*s == MAYBE_CONNECTED) {
+          Serial.print("Diff for ");
+          Serial.print(i);
+          Serial.print(",");
+          Serial.print(j);
+          Serial.print(" is ");
+          Serial.print(now, 10);
+          Serial.print(" - ");
+          Serial.print(timestamps[cableNum][j], 10);
+          Serial.print(" = ");
+          
+          Serial.println(now - timestamps[cableNum][j], 10);
+          Serial.println(now == timestamps[cableNum][j]);
+          if (now - timestamps[cableNum][j] >= DELAY) {
             Serial.println(onJSON(i, j));
             *s = CONNECTED;
+            
+          Serial.print(i);
+          Serial.print(",");
+          Serial.print(j);
+          Serial.println(" are YES connected");
           }
         }
       } else if (val == HIGH) {
         if (*s == CONNECTED) {
           Serial.println(offJSON(i, j));
+        } else if (*s == MAYBE_CONNECTED) {
+          
+          Serial.print(i);
+          Serial.print(",");
+          Serial.print(j);
+          Serial.println(" are NO LONGER connected");
         }
         *s = NOT_CONNECTED;
       }
