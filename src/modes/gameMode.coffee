@@ -6,6 +6,7 @@ SwitchState = require('../cablePair').SwitchState
 setTimeoutR = (time, fn) -> setTimeout(fn, time)
 
 class GameMode
+  namesToIgnore: ["Mae", "Clarence"]
   allowAutoReset: true
 
   happinessStates: [
@@ -64,7 +65,7 @@ class GameMode
 
       # RESET THE GAME by flipping all front switches to talk
       if _.chain(@game.cables)
-        .pluck("frontSwitch")
+        .pluck("rearSwitch")
         .reduce( ((memo, val) -> memo and (val is SwitchState.Talk)), true)
         .value()
           @game.nextMode()
@@ -76,6 +77,7 @@ class GameMode
     return unless @running
     [first, second] = _(@game.people).chain()
       .reject (p) -> p.busy
+      .reject (p) => p in @namesToIgnore
       .sample(2)
       .value()
 

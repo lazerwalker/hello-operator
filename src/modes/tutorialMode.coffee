@@ -128,5 +128,12 @@ class TutorialMode
 
     @storyboard.receiveInput("#{caller}.switch", state)      
 
+    # RESET THE GAME by flipping all front switches to talk
+    if _.chain(@game.cables)
+      .pluck("rearSwitch")
+      .reduce( ((memo, val) -> memo and (val is SwitchState.Talk)), true)
+      .value()
+        @game.nextMode()    
+
 
 module.exports = TutorialMode

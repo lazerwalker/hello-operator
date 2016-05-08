@@ -91,7 +91,7 @@ class Game
 
     @readyInterfaceCount = 0
 
-    @resetter = new root.Resetter 20, => 
+    @resetter = new root.Resetter 30, => 
       @currentModeIndex = -1
       @nextMode()
 
