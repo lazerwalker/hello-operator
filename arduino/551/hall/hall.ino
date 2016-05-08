@@ -1,15 +1,18 @@
 #define PIN A0
+#include "HandsetSensor.h"
+
+HandsetSensor sensor(PIN);
 
 void setup() {
   Serial.begin(9600);
   Serial.println("hello world");
-
-  pinMode(PIN, INPUT_PULLUP);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  Serial.println(analogRead(PIN));
+  if (sensor.update()) {
+    Serial.println(sensor.state);
+  }
   delay(500);
 
   // 517 = no magnet
