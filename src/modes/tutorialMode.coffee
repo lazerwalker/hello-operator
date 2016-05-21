@@ -44,6 +44,9 @@ class TutorialMode
       console.log "Complete"
       @game.nextMode()
 
+    @storyboard.addOutput 'pause', (delay, passageId) =>
+      setTimeoutR delay, => @storyboard.completePassage(passageId)
+
     for p in @game.people
       @storyboard.receiveInput(p, {})
 
