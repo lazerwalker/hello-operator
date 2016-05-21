@@ -67,7 +67,7 @@
           },
           {
             "passageId": "15",
-            "type": "pause",
+            "type": "wait",
             "content": "800"
           },
           {
@@ -123,7 +123,7 @@
           },
           {
             "passageId": "15",
-            "type": "pause",
+            "type": "wait",
             "content": "1500"
           },
           {
@@ -138,7 +138,7 @@
           },
           {
             "passageId": "14",
-            "type": "pause",
+            "type": "wait",
             "content": "3000"
           },
           {
@@ -375,7 +375,10 @@
       "nodeId": "19",
       "predicate": {
         "graph.currentNodeId": { "eq": "4" },
-        "Mabel.cable": { "exists": false }
+        "or": [
+          {"Mabel.cable": {"exists": false}},
+          {"Dolores.cable": {"exists": false}}
+        ]
       },
       "passages": [
         {
@@ -384,20 +387,6 @@
           "content": "You shouldn't disconnect them until they're done talking. Their lights will turn off when they're done."
         }
       ]
-    },
-    "20": {
-      "nodeId": "20",
-      "predicate": {
-        "graph.currentNodeId": { "eq": "4" },
-        "Dolores.cable": { "exists": false }
-      },
-      "passages": [
-        {
-          "passageId": "25",
-          "type": "text",
-          "content": "You shouldn't disconnect them until they're done talking. Their lights will turn off when they're done."
-        }
-      ]
-    }    
+    }
   }
 }
