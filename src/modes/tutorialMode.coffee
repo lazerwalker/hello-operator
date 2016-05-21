@@ -1,6 +1,7 @@
 Q = require('q')
 Storyboard = require('storyboard-engine')
 storyboardFile = require('fs').readFileSync('./tutorial.json', 'utf8')
+_ = require('underscore')
 
 setTimeoutR = (t, fn) -> setTimeout(fn, t)
 
