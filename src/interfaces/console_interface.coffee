@@ -79,16 +79,27 @@ class ConsoleInterface
       match = text.match /(\w+) (\w+)/
       [first, second] = [match[1], match[2]]
 
-      if second in ["ring", "neutral", "talk"]
+      # TODO: regex match
+      first = "cable#{first.toUpperCase()}"
+
+      if second in ["r", "n", "t"]
         mapping = 
-          ring: SwitchState.Ring,
-          neutral: SwitchState.Neutral,
-          talk: SwitchState.Talk
+          r: SwitchState.Ring,
+          n: SwitchState.Neutral,
+          t: SwitchState.Talk
 
         console.log("Toggling switch", first, mapping[second])
         @client.toggleSwitch(first, mapping[second], this)
-      else if _.find(@connected, (pair) -> first in pair and second in pair)
+        return
+
+      if second is "m"
+        second = "Mabel"
+      if second is "d"
+        second = "Dolores"
+
+      if (found = _.find(@connected, (pair) -> first in pair and second in pair))
         console.log "Disconnected #{first} and #{second}."
+        @connected = _.without(@connected, found)
         @client.disconnect(first, second, this)
       else
         @disconnectExisting(c) for c in [first, second]
