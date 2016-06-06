@@ -19,7 +19,7 @@ console = new ConsoleInterface()
 game = new Game()
 
 game.addInterface console
-# game.addInterface arduino
+game.addInterface arduino
 # game.addInterface ws
 
 game.startWhenReady()
