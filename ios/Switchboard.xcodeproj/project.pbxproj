@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		000E164A1E15388A66300017 /* Pods_Switchboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D075227E005B0FC4D23601A /* Pods_Switchboard.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		4DA2312CD36786D6C7D343B7 /* Pods_Switchboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91D59255BA7652E5779DD5E5 /* Pods_Switchboard.framework */; };
 		C6144E001C8CE91000F234D1 /* GameInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6144DFF1C8CE91000F234D1 /* GameInterface.swift */; };
 		C6144E031C8CF67200F234D1 /* WebSocketInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6144E021C8CF67200F234D1 /* WebSocketInterface.swift */; };
 		C633604B1C655A7D0018AA46 /* CableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C633604A1C655A7D0018AA46 /* CableView.swift */; };
@@ -27,8 +27,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5328DC1D8979170BAD64514B /* Pods-Switchboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Switchboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Switchboard/Pods-Switchboard.release.xcconfig"; sourceTree = "<group>"; };
-		8D075227E005B0FC4D23601A /* Pods_Switchboard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Switchboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D71C3C94A3AECC80C8F2744 /* Pods-Switchboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Switchboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Switchboard/Pods-Switchboard.release.xcconfig"; sourceTree = "<group>"; };
+		91D59255BA7652E5779DD5E5 /* Pods_Switchboard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Switchboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABD1704C6C7C33BD782DEDC6 /* Pods-Switchboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Switchboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Switchboard/Pods-Switchboard.debug.xcconfig"; sourceTree = "<group>"; };
 		C6144DFF1C8CE91000F234D1 /* GameInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameInterface.swift; sourceTree = "<group>"; };
 		C6144E021C8CF67200F234D1 /* WebSocketInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketInterface.swift; sourceTree = "<group>"; };
 		C633604A1C655A7D0018AA46 /* CableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CableView.swift; sourceTree = "<group>"; };
@@ -47,7 +48,6 @@
 		C6B85B0D1B9380FE00DCA936 /* GameManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		C6B85B0F1B93879700DCA936 /* underscore.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = underscore.js; path = ../../node_modules/underscore/underscore.js; sourceTree = "<group>"; };
 		C6B85B111B93945500DCA936 /* JSInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSInterface.swift; sourceTree = "<group>"; };
-		FA22FEEE1F98499328EB7693 /* Pods-Switchboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Switchboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Switchboard/Pods-Switchboard.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,28 +55,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				000E164A1E15388A66300017 /* Pods_Switchboard.framework in Frameworks */,
+				4DA2312CD36786D6C7D343B7 /* Pods_Switchboard.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1F94D4142B9D85B2AF3EE5AF /* Pods */ = {
+		3A1B4F7076B11FB62D864BB9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				FA22FEEE1F98499328EB7693 /* Pods-Switchboard.debug.xcconfig */,
-				5328DC1D8979170BAD64514B /* Pods-Switchboard.release.xcconfig */,
+				ABD1704C6C7C33BD782DEDC6 /* Pods-Switchboard.debug.xcconfig */,
+				2D71C3C94A3AECC80C8F2744 /* Pods-Switchboard.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		32DA4A32A62095C777BD39D3 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				8D075227E005B0FC4D23601A /* Pods_Switchboard.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C6144E011C8CF5DE00F234D1 /* Interfaces */ = {
@@ -94,8 +86,8 @@
 			children = (
 				C6545D3D1B8B8D8B00E845D3 /* Switchboard */,
 				C6545D3C1B8B8D8B00E845D3 /* Products */,
-				32DA4A32A62095C777BD39D3 /* Frameworks */,
-				1F94D4142B9D85B2AF3EE5AF /* Pods */,
+				3A1B4F7076B11FB62D864BB9 /* Pods */,
+				F71D8148DF76941498122782 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -129,6 +121,14 @@
 			path = Switchboard;
 			sourceTree = "<group>";
 		};
+		F71D8148DF76941498122782 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				91D59255BA7652E5779DD5E5 /* Pods_Switchboard.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -136,12 +136,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C6545D4D1B8B8D8B00E845D3 /* Build configuration list for PBXNativeTarget "Switchboard" */;
 			buildPhases = (
-				9D257A6D35FE9E3C136576FB /* Check Pods Manifest.lock */,
+				D9C057149FB0B479102F8C5D /* [CP] Check Pods Manifest.lock */,
 				C6545D371B8B8D8B00E845D3 /* Sources */,
 				C6545D381B8B8D8B00E845D3 /* Frameworks */,
 				C6545D391B8B8D8B00E845D3 /* Resources */,
-				149256FEBEFD31F4A1AD2D18 /* Embed Pods Frameworks */,
-				65F81F145D52AC3A49417ED8 /* Copy Pods Resources */,
+				30E6FC240A3A9BD3C3128C8A /* [CP] Embed Pods Frameworks */,
+				563B8B7CC3CB63ADC494C93F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -202,14 +202,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		149256FEBEFD31F4A1AD2D18 /* Embed Pods Frameworks */ = {
+		30E6FC240A3A9BD3C3128C8A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,14 +217,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Switchboard/Pods-Switchboard-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		65F81F145D52AC3A49417ED8 /* Copy Pods Resources */ = {
+		563B8B7CC3CB63ADC494C93F /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -232,19 +232,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Switchboard/Pods-Switchboard-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9D257A6D35FE9E3C136576FB /* Check Pods Manifest.lock */ = {
+		D9C057149FB0B479102F8C5D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -329,6 +329,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = "";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -366,6 +367,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = "";
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -373,7 +375,7 @@
 		};
 		C6545D4E1B8B8D8B00E845D3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FA22FEEE1F98499328EB7693 /* Pods-Switchboard.debug.xcconfig */;
+			baseConfigurationReference = ABD1704C6C7C33BD782DEDC6 /* Pods-Switchboard.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Switchboard/Info.plist;
@@ -381,14 +383,14 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lazerwalker.Switchboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = "";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
 		C6545D4F1B8B8D8B00E845D3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5328DC1D8979170BAD64514B /* Pods-Switchboard.release.xcconfig */;
+			baseConfigurationReference = 2D71C3C94A3AECC80C8F2744 /* Pods-Switchboard.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Switchboard/Info.plist;
@@ -396,7 +398,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lazerwalker.Switchboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = "";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
